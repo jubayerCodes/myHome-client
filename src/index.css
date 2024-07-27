@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --btn-bg: #0073e1;
+  --secondary-bg: #fafcff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+html {
+  font-family: "Inter", sans-serif;
+}
+
+/* body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */
+
+.my-container {
+  @apply w-full xl:w-[1200px] mx-auto px-5;
+}
+
+.header-btn-grp {
+  @apply border-x border-[#ffffff34] mb-0;
+}
+
+.header-btn-grp button {
+  @apply border-[#ffffff34] p-2 !important;
+}
+
+.header-btn-grp a {
+  @apply p-1;
+}
+
+.header-li {
+  @apply px-4 py-2 hover:bg-[var(--btn-bg)] hover:text-white rounded-sm duration-200;
+}
+
+.active-link {
+  @apply bg-[var(--btn-bg)] text-white;
+}
+
+.primary-btn {
+  @apply bg-[#0073e1] hover:bg-black duration-300 text-base py-2 px-5 text-white capitalize font-semibold rounded-sm;
+}
+
+.header-scrolled {
+  @apply bg-white;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+
+.header-scrolled .header-ul {
+  @apply text-black;
+}
+
+.menu-drawer ul li {
+  @apply text-center;
+}
+
+.menu-drawer ul li a {
+  @apply block w-full;
+}
+
+.section {
+  @apply py-20 xl:py-28;
+}
+
+.secondary-bg {
+  @apply bg-[var(--secondary-bg)];
+}
+
+.service-card:hover {
+  box-shadow: 0 10px 31px 0 rgba(7, 152, 255, 0.09);
+}
+
+.css-i4bv87-MuiSvgIcon-root {
+  @apply hidden !important;
+}
+
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-vubbuv {
+  @apply hidden !important;
+}
