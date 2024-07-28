@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const PropertyCarousel = ({ children, fullWidth = 1160, gap = 30, slidesPerPage = 3 }) => {
 
+
     const [slideWidth, setSlideWidth] = useState(0)
 
     const width = parseInt((((fullWidth - gap) - ((slidesPerPage - 1) * gap)) / slidesPerPage))
@@ -23,6 +24,13 @@ const PropertyCarousel = ({ children, fullWidth = 1160, gap = 30, slidesPerPage 
         }
     }
 
+    const handleLeftSlide = () => {
+        if (slideWidth > 0) {
+            const newSlideWidth = slideWidth - (width + gap)
+            setSlideWidth(newSlideWidth)
+        }
+    }
+
     return (
         <div className="carousel-container">
             <div className='carousel-items-container'>
@@ -33,7 +41,7 @@ const PropertyCarousel = ({ children, fullWidth = 1160, gap = 30, slidesPerPage 
                 </div>
             </div>
             <div className="carousel-btn-container">
-                <button className='carousel-btn left-btn'><FaAngleLeft /></button>
+                <button onClick={() => handleLeftSlide()} className='carousel-btn left-btn'><FaAngleLeft /></button>
                 <button onClick={() => handleRightSlide()} className='carousel-btn right-btn'><FaAngleRight /></button>
             </div>
         </div>
