@@ -1,31 +1,36 @@
 import { useEffect, useState } from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import PropertyCard from '../PropertyCard/PropertyCard';
+import PropertyCarousel from '../PropertyCarousel/PropertyCarousel';
 
-const LatestProperties = () => {
+const LatestPropertiesForRent = () => {
 
-    const [latestProperties, setLatestProperties] = useState([])
+    const [latestPropertiesForRent, setLatestPropertiesForRent] = useState([])
 
     useEffect(() => {
         fetch('/properties.json')
             .then(res => res.json())
-            .then(data => setLatestProperties(data))
+            .then(data => setLatestPropertiesForRent(data))
     }, [])
 
     return (
         <section className='section'>
-            <div className="my-container">
+
+            <div className='my-container'>
                 <SectionTitle description={'These are the latest properties in the Sales category. You can create the list using the “latest listing shortcode” and show items by specific categories.'} heading={'Latest Properties'} />
 
 
-                <div className='grid grid-cols-1 xl:grid-cols-3 gap-8 mt-12'>
-                    {
-                        latestProperties?.map(property => <PropertyCard key={property._id} property={property} />)
-                    }
+                <div className="mt-12">
+                    <PropertyCarousel>
+                        {
+                            latestPropertiesForRent?.map(property => <PropertyCard key={property._id} property={property} />)
+                        }
+                    </PropertyCarousel>
                 </div>
             </div>
+
         </section>
     );
 };
 
-export default LatestProperties;
+export default LatestPropertiesForRent;

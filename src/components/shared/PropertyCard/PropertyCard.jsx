@@ -22,12 +22,12 @@ const PropertyCard = ({ property }) => {
     return (
         <Card className='single-property relative' sx={cardStyle}>
             {
-                featured && <Typography zIndex={100} fontSize={14} component={'span'} className='absolute top-2 left-2 bg-[#69c17dd9] text-white px-[6px] rounded-sm'>
+                featured && <Typography zIndex={10} fontSize={14} component={'span'} className='absolute top-2 left-2 bg-[#69c17dd9] text-white px-[6px] rounded-sm'>
                     Featured
                 </Typography>
             }
 
-            <Box zIndex={100} className={'flex justify-end items-center gap-2 absolute top-2 right-2'}>
+            <Box zIndex={10} className={'flex justify-end items-center gap-2 absolute top-2 right-2'}>
                 {
                     listed_in && <Typography fontSize={14} component={'span'} className='bg-[#0073e1d9] text-white px-[6px] rounded-sm'>
                         {listed_in}
@@ -47,7 +47,7 @@ const PropertyCard = ({ property }) => {
                     image={'https://main.wpresidence.net/wp-content/uploads/2017/11/3-525x328.webp'}
                 />
             </Link>
-            <CardContent className='px-4 pb-0'>
+            <CardContent sx={{padding: '16px 16px 0'}}>
                 {/* TODO: Make link dynamic */}
                 <Link href={'#'} display={'flex'} gap={'2px'} alignItems={'center'} gutterBottom underline='none'>
                     <FaMapMarkerAlt />

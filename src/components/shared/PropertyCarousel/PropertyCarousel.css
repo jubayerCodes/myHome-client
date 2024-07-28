@@ -1,0 +1,46 @@
+.carousel-container {
+  position: relative;
+}
+
+.carousel-items-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-items {
+  display: flex;
+  transition: all 0.3s ease;
+}
+
+.item {
+  padding: 20px 0;
+}
+
+.carousel-btn-container {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+}
+
+.carousel-btn-container .carousel-btn {
+  position: absolute;
+  padding: 8px;
+  background-color: #f7f8f8;
+  border-radius: 5px;
+  color: #0073e1;
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.carousel-btn-container .carousel-btn:hover{
+    background-color: #0073e1;
+    color: white;
+}
+
+.carousel-btn-container .left-btn {
+  left: -100px;
+}
+
+.carousel-btn-container .right-btn {
+  right: -100px;
+}
