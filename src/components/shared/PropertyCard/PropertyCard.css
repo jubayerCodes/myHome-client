@@ -1,12 +1,12 @@
-.single-property:hover {
+.property-card:hover {
   box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
 }
 
-.single-property .card-img {
+.property-card .card-img {
   @apply overflow-hidden block relative;
 }
 
-.single-property .card-img::after {
+.property-card .card-img::after {
   background: rgb(0, 0, 0);
   background: linear-gradient(
     180deg,
@@ -20,11 +20,11 @@
   @apply absolute top-0 bottom-0 w-full h-full;
 }
 
-.single-property .card-img img {
+.property-card .card-img img {
   transition: 0.3s ease all;
   @apply z-0;
 }
 
-.single-property:hover .card-img img {
-  @apply scale-110 brightness-105
+.property-card:hover .card-img img {
+  @apply scale-110 brightness-105;
 }

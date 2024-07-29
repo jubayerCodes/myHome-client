@@ -6,17 +6,15 @@ import { useState } from 'react';
 
 const PropertyCarousel = ({ children, fullWidth = 1160, gap = 30, slidesPerPage = 3 }) => {
 
-
     const [slideWidth, setSlideWidth] = useState(0)
 
     const width = parseInt((((fullWidth - gap) - ((slidesPerPage - 1) * gap)) / slidesPerPage))
 
+    const maxSlide = (width + gap) * (children.length - slidesPerPage)
+
     const carouselItemsContainerStyles = { position: 'relative', left: `-${slideWidth}px`, gap: `${gap}px`, margin: `0 ${gap / 2}px` }
 
     const handleRightSlide = () => {
-
-
-        const maxSlide = (width + gap) * (children.length - slidesPerPage)
 
         if (maxSlide > slideWidth) {
             const newSlideWidth = slideWidth + (width + gap)
@@ -41,8 +39,8 @@ const PropertyCarousel = ({ children, fullWidth = 1160, gap = 30, slidesPerPage 
                 </div>
             </div>
             <div className="carousel-btn-container">
-                <button onClick={() => handleLeftSlide()} className='carousel-btn left-btn'><FaAngleLeft /></button>
-                <button onClick={() => handleRightSlide()} className='carousel-btn right-btn'><FaAngleRight /></button>
+                <button disabled={(slideWidth <= 0)} onClick={() => handleLeftSlide()} className='carousel-btn left-btn'><FaAngleLeft /></button>
+                <button disabled={(maxSlide <= slideWidth)} onClick={() => handleRightSlide()} className='carousel-btn right-btn'><FaAngleRight /></button>
             </div>
         </div>
     );

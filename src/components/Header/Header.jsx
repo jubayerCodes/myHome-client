@@ -84,7 +84,7 @@ const Header = () => {
 
             {
                 userType === 'admin' && <li>
-                    <ActiveLink className='header-li' to={'/adminDashboard'}>
+                    <ActiveLink to={'/adminDashboard'}>
                         Dashboard
                     </ActiveLink>
                 </li>

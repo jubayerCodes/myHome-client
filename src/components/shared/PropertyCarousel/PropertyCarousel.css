@@ -32,9 +32,14 @@
   transition: all 0.3s ease;
 }
 
-.carousel-btn-container .carousel-btn:hover{
-    background-color: #0073e1;
-    color: white;
+.carousel-btn-container .carousel-btn:disabled:hover {
+  color: #0073e1;
+  background-color: #f7f8f8;
+}
+
+.carousel-btn-container .carousel-btn:hover {
+  background-color: #0073e1;
+  color: white;
 }
 
 .carousel-btn-container .left-btn {

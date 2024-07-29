@@ -1,0 +1,21 @@
+.agent-card:hover {
+  box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
+}
+
+.agent-card .agent-name {
+  transition: all 0.3s ease;
+}
+
+.agent-card:hover .agent-name {
+  color: #0073e1;
+}
+
+.agent-card .agent-link {
+  color: #5c727db3;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.agent-card .agent-link:hover {
+  color: #0073e1;
+}

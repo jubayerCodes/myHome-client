@@ -20,7 +20,7 @@ const PropertyCard = ({ property }) => {
     }
 
     return (
-        <Card className='single-property relative' sx={cardStyle}>
+        <Card className='property-card relative' sx={cardStyle}>
             {
                 featured && <Typography zIndex={10} fontSize={14} component={'span'} className='absolute top-2 left-2 bg-[#69c17dd9] text-white px-[6px] rounded-sm'>
                     Featured
