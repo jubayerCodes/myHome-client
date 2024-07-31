@@ -8,7 +8,7 @@ const LatestPropertiesForRent = () => {
     const [latestPropertiesForRent, setLatestPropertiesForRent] = useState([])
 
     useEffect(() => {
-        fetch('/properties.json')
+        fetch('http://localhost:3000/projects')
             .then(res => res.json())
             .then(data => setLatestPropertiesForRent(data))
     }, [])

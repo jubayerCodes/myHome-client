@@ -7,14 +7,16 @@ import logoWhite from '../../assets/images/logo-40-white.png'
 import logo from '../../assets/images/logo-agent-40.png'
 import ActiveLink from '../ActiveLink/ActiveLink';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../Utilities/Redux/features/modalSlice/modalSlice';
 
 const Header = () => {
 
+    const dispatch = useDispatch()
+
 
     // TODO: make it dynamic
-    const user = {
-        photoURL: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80'
-    }
+    const user = {}
 
     const [leftDrawer, setLeftDrawer] = useState(false)
     const [rightDrawer, setRightDrawer] = useState(false)
@@ -177,9 +179,9 @@ const Header = () => {
                                             </>
                                             :
                                             <>
-                                                <FaUserCircle className={`text-[30px] hidden xl:block xl:text-[40px] cursor-pointer ${scrolled > 100 ? 'text-[#0073e1]' : 'text-white'}`} />
+                                                <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] hidden xl:block xl:text-[40px] cursor-pointer ${scrolled > 100 ? 'text-[#0073e1]' : 'text-white'}`} />
 
-                                                <FaUserCircle className={`text-[30px] xl:hidden xl:text-[40px] cursor-pointer ${scrolled > 100 ? 'text-[#0073e1]' : 'text-white'}`} />
+                                                <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] xl:hidden xl:text-[40px] cursor-pointer ${scrolled > 100 ? 'text-[#0073e1]' : 'text-white'}`} />
                                             </>
                                     }
                                     <button className='primary-btn hidden xl:block'>Add Property</button>

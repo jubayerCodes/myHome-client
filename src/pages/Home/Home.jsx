@@ -3,6 +3,7 @@ import Banner from '../../components/Home/Banner/Banner';
 import Agents from '../../components/shared/Agents/Agents';
 import LatestProperties from '../../components/shared/LatestProperties/Latestproperties';
 import LatestPropertiesForRent from '../../components/shared/LatestPropertiesForRent/LatestPropertiesForRent';
+import Login from '../../components/shared/Login/Login';
 
 const Home = () => {
 
@@ -15,6 +16,7 @@ const Home = () => {
             <LatestProperties />
             <LatestPropertiesForRent />
             <Agents />
+            <Login />
         </>
     );
 };
