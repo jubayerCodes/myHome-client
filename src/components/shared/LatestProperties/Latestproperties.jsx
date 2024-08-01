@@ -1,21 +1,16 @@
 import { useEffect, useState } from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import PropertyCard from '../PropertyCard/PropertyCard';
-import { useDispatch, useSelector } from 'react-redux';
 
 const LatestProperties = () => {
-
-    const value = useSelector((state) => state.auth.value)
-    const dispatch = useDispatch()
 
     const [latestProperties, setLatestProperties] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3000/projects')
+        fetch('http://localhost:3000/properties')
             .then(res => res.json())
             .then(data => setLatestProperties(data))
-    }, [dispatch])
-
+    }, [])
 
     return (
         <section className='section'>
