@@ -1,17 +1,11 @@
 
-import { useEffect } from 'react';
+
 import AgentsCard from '../AgentsCard/AgentsCard';
 import SectionTitle from '../SectionTitle/SectionTitle';
 
 const Agents = () => {
 
     const agents = [1, 2, 3]
-
-    useEffect(() => {
-        fetch('http://localhost:3000/')
-            .then(res => res.json())
-            .then(data => console.log(data))
-    }, [])
 
     return (
         <section className='section'>

@@ -56,7 +56,7 @@ const Login = () => {
                                         <input placeholder='Password' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="password" name="password" id="password-field" />
                                         <input type="submit" value="Login" className='cursor-pointer w-full mb-5 primary-btn' style={{ width: '100%' }} />
                                     </form>
-                                    <Divider>OR</Divider>
+                                    <Divider className='text-sm'>OR</Divider>
                                     <SocialLogin className={'mt-4'} />
                                 </div>
                                 <div className={`${register ? '' : 'hidden'}`}>
@@ -74,7 +74,7 @@ const Login = () => {
                                         </select>
                                         <input type="submit" value="Register" className='cursor-pointer w-full mb-5 primary-btn' style={{ width: '100%' }} />
                                     </form>
-                                    <Divider>OR</Divider>
+                                    <Divider className='text-sm'>OR</Divider>
                                 </div>
                                 <div className='flex justify-between items-center mt-5'>
                                     <button onClick={() => setRegister(true)} className={`cursor-pointer transition hover:text-[var(--btn-bg)] ${register ? 'hidden' : ''}`}>Register here!</button>

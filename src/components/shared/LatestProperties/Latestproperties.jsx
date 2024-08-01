@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import PropertyCard from '../PropertyCard/PropertyCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUp } from '../../../Utilities/Redux/features/authSlice/authSlice';
 
 const LatestProperties = () => {
 

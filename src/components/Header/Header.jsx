@@ -1,22 +1,18 @@
 
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
 import { Button, ButtonGroup, Drawer, Stack } from '@mui/material';
 import { FaBars, FaFacebookF, FaFoursquare, FaHeart, FaInstagram, FaLinkedinIn, FaPinterestP, FaRegEnvelope, FaTimes, FaTwitter, FaUserCircle, FaVimeoV, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import logoWhite from '../../assets/images/logo-40-white.png'
 import logo from '../../assets/images/logo-agent-40.png'
 import ActiveLink from '../ActiveLink/ActiveLink';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../Utilities/Redux/features/modalSlice/modalSlice';
+import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
 
 const Header = () => {
-
+    const { user } = useSelector(state => state.auth)
     const dispatch = useDispatch()
-
-
-    // TODO: make it dynamic
-    const user = {}
 
     const [leftDrawer, setLeftDrawer] = useState(false)
     const [rightDrawer, setRightDrawer] = useState(false)
@@ -173,9 +169,9 @@ const Header = () => {
                                     {
                                         user?.photoURL ?
                                             <>
-                                                <img src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                                <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
 
-                                                <img src={user.photoURL} alt='profile pic' className={`w-[30px] h-[30px] xl:hidden  cursor-pointer rounded-full `} />
+                                                <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`w-[30px] h-[30px] xl:hidden  cursor-pointer rounded-full `} />
                                             </>
                                             :
                                             <>
