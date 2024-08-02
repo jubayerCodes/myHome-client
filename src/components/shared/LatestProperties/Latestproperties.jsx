@@ -1,16 +1,11 @@
-import { useEffect, useState } from 'react';
+
 import SectionTitle from '../SectionTitle/SectionTitle';
 import PropertyCard from '../PropertyCard/PropertyCard';
+import { useGetLatestPropertiesQuery } from '../../../Utilities/Redux/features/api/latestPropertiesApi';
 
 const LatestProperties = () => {
 
-    const [latestProperties, setLatestProperties] = useState([])
-
-    useEffect(() => {
-        fetch('http://localhost:3000/properties')
-            .then(res => res.json())
-            .then(data => setLatestProperties(data))
-    }, [])
+    const { data: latestProperties } = useGetLatestPropertiesQuery()
 
     return (
         <section className='section'>

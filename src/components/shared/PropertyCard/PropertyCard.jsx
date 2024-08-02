@@ -2,6 +2,7 @@
 import { Box, Card, CardActions, CardContent, CardMedia, Divider, Link, Typography } from '@mui/material';
 import { FaHeart, FaMapMarkerAlt } from 'react-icons/fa';
 import './PropertyCard.css'
+import { useGetPropertyQuery } from '../../../Utilities/Redux/features/api/propertiesApi';
 
 const PropertyCard = ({ property }) => {
 
@@ -47,7 +48,7 @@ const PropertyCard = ({ property }) => {
                     image={'https://main.wpresidence.net/wp-content/uploads/2017/11/3-525x328.webp'}
                 />
             </Link>
-            <CardContent sx={{padding: '16px 16px 0'}}>
+            <CardContent sx={{ padding: '16px 16px 0' }}>
                 {/* TODO: Make link dynamic */}
                 <Link href={'#'} display={'flex'} gap={'2px'} alignItems={'center'} gutterBottom underline='none'>
                     <FaMapMarkerAlt />

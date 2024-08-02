@@ -8,7 +8,7 @@ const LatestPropertiesForRent = () => {
     const [latestPropertiesForRent, setLatestPropertiesForRent] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3000/projects')
+        fetch('http://localhost:3000/latestProperties')
             .then(res => res.json())
             .then(data => setLatestPropertiesForRent(data))
     }, [])
@@ -17,7 +17,7 @@ const LatestPropertiesForRent = () => {
         <section className='section'>
 
             <div className='my-container'>
-                <SectionTitle description={'These are the latest properties in the Sales category. You can create the list using the “latest listing shortcode” and show items by specific categories.'} heading={'Latest Properties'} />
+                <SectionTitle description={'These are the latest properties in the Sales category. You can create the list using the “latest listing shortcode” and show items by specific categories.'} heading={'Latest Properties for Rent'} />
 
 
                 <div className="mt-12">

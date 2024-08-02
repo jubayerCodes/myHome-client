@@ -8,7 +8,7 @@ export const auth = getAuth(app);
 
 // Google signIn
 export const signInWithGoogle = createAsyncThunk(
-  "auth/signInWithGoogleStatus",
+  "auth/signInWithGoogle",
   async (args, { rejectWithValue, dispatch }) => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -71,6 +71,8 @@ export const authSlice = createSlice({
       .addCase(signInWithGoogle.fulfilled, (state, action) => {
         state.user = { ...action.payload };
         state.status = "idle";
+
+        console.log(action);
       })
       .addCase(signInWithGoogle.pending, (state) => {
         state.status = "pending";
@@ -78,7 +80,7 @@ export const authSlice = createSlice({
       .addCase(signInWithGoogle.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-      })
+      });
   },
 });
 
