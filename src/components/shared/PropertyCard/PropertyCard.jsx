@@ -2,7 +2,6 @@
 import { Box, Card, CardActions, CardContent, CardMedia, Divider, Link, Typography } from '@mui/material';
 import { FaHeart, FaMapMarkerAlt } from 'react-icons/fa';
 import './PropertyCard.css'
-import { useGetPropertyQuery } from '../../../Utilities/Redux/features/api/propertiesApi';
 
 const PropertyCard = ({ property }) => {
 
@@ -40,7 +39,7 @@ const PropertyCard = ({ property }) => {
                     </Typography>
                 }
             </Box>
-            <Link href={'#'} className='card-img'>
+            <Link href={`/properties/${_id}`} className='card-img'>
                 <CardMedia
                     component="img"
                     alt="green iguana"
@@ -56,7 +55,7 @@ const PropertyCard = ({ property }) => {
                         {address.address}, {address.city}
                     </Typography>
                 </Link>
-                <Link href={'#'} underline='none' color={'black'}>
+                <Link href={`/properties/${_id}`} underline='none' color={'black'}>
                     <Typography gutterBottom variant="h5" component="div" fontSize={22} fontWeight={500}>
                         {title}
                     </Typography>

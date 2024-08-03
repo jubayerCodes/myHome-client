@@ -1,5 +1,6 @@
 
 import Banner from '../../components/Home/Banner/Banner';
+import PropertiesByArea from '../../components/Home/PropertiesByArea/PropertiesByArea';
 import Agents from '../../components/shared/Agents/Agents';
 import LatestProperties from '../../components/shared/LatestProperties/Latestproperties';
 import LatestPropertiesForRent from '../../components/shared/LatestPropertiesForRent/LatestPropertiesForRent';
@@ -13,6 +14,7 @@ const Home = () => {
                 title={"Find Your Dream Home"}
                 desc={"We are recognized for exceeding client expectations and delivering great results through dedication, ease of process, and extraordinary services to our worldwide clients."}
             />
+            <PropertiesByArea />
             <LatestProperties />
             <LatestPropertiesForRent />
             <Agents />
