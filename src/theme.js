@@ -9,7 +9,7 @@ const theme = createTheme({
       btnBgHover: "#000000",
     },
     secondary: {
-      main: "#19857b",
+      main: "#fafcff",
     },
     error: {
       main: red.A400,

@@ -1,0 +1,9 @@
+.card {
+  border-radius: 10px;
+  @apply transition-all;
+}
+
+.card:hover {
+  background-color: white;
+  box-shadow: 0 10px 31px 0 rgba(7, 152, 255, 0.09);
+}

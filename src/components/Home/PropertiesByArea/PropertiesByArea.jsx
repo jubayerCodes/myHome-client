@@ -4,6 +4,7 @@ import { Link } from '@mui/material';
 
 const PropertiesByArea = () => {
 
+    // TODO: Make it dynamic
     const areas = [1, 2, 3, 4, 5, 6, 7, 8]
     return (
         <section className='section'>
@@ -14,7 +15,7 @@ const PropertiesByArea = () => {
                     {areas.map(area => (
                         <div key={area} className='flex items-center justify-start gap-4'>
                             <div>
-                                <img src='https://main.wpresidence.net/wp-content/uploads/2023/12/jersey_city.webp' className='h-[75px] rounded-md' />
+                                <img src='https://main.wpresidence.net/wp-content/uploads/2023/12/jersey_city.webp' className='h-[75px] w-[100px] rounded-md' />
                             </div>
                             <div>
                                 <Link color={'black.main'} fontWeight={'bold'} underline='none' href='#' className='text-base transition-colors hover:text-[var(--btn-bg)]'>
