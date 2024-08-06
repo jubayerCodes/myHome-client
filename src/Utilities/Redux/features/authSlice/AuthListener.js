@@ -17,6 +17,8 @@ const AuthListener = () => {
               photoURL: currentUser?.photoURL,
             })
           );
+
+          console.log(currentUser);
         } else {
           dispatch(clearUser());
         }

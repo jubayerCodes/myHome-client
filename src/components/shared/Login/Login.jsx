@@ -7,9 +7,11 @@ import SocialLogin from '../SocialLogin/SocialLogin';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../Utilities/Redux/features/modalSlice/modalSlice';
 import { useForm } from 'react-hook-form';
+import { loginWithEmailAndPassword, registerWithEmailAndPassword } from '../../../Utilities/Redux/features/authSlice/authSlice';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
+    const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin }, reset: resetLogin } = useForm()
     const open = useSelector((state) => state.modal.open)
 
     const dispatch = useDispatch()
@@ -32,9 +34,29 @@ const Login = () => {
     }
 
     const handleRegister = (data) => {
-        const { displayName, password, confirmPassword, role } = data
+        const { displayName, email, password, confirmPassword, role } = data
+
+        const photoURL = 'https://lh3.googleusercontent.com/a/ACg8ocLPSsZuxUqO3--d5pVaacfSoJPJbOGNEP-QSeiCEI1iLMigR64=s96-c'
+
+        const user = {
+            displayName,
+            email,
+            password,
+            role,
+            photoURL
+        }
+
+        dispatch(registerWithEmailAndPassword(user))
 
         reset()
+    }
+
+    const handleLogin = (data) => {
+        const userCredentials = { ...data }
+
+        dispatch(loginWithEmailAndPassword(userCredentials))
+
+        resetLogin()
     }
 
     return (
@@ -59,9 +81,9 @@ const Login = () => {
                             <h4 className={`text-2xl text-center ${isRegister ? '' : 'hidden'}`}>Create an account</h4>
                             <div className='px-5 xl:px-10 mt-10'>
                                 <div className={` w-full ${isRegister ? 'hidden' : ''}`}>
-                                    <form className={`flex-col items-stretch justify-between`}>
-                                        <input placeholder='Email' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="email" name="email" id="login-email-field" />
-                                        <input placeholder='Password' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="password" name="password" id="login-password-field" />
+                                    <form onSubmit={handleSubmitLogin(handleLogin)} className={`flex-col items-stretch justify-between`}>
+                                        <input {...registerLogin('email', { required: true })} placeholder='Email' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="email" name="email" id="login-email-field" required />
+                                        <input {...registerLogin('password', { required: true })} placeholder='Password' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="password" name="password" id="login-password-field" required />
                                         <input type="submit" value="Login" className='cursor-pointer w-full mb-5 primary-btn' style={{ width: '100%' }} />
                                     </form>
                                     <Divider className='text-sm'>OR</Divider>
