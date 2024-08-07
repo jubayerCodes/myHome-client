@@ -10,6 +10,9 @@ import {
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { closeModal } from "../modalSlice/modalSlice";
+import usersApi from "../api/usersApi";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
 const googleProvider = new GoogleAuthProvider();
 export const auth = getAuth(app);
 
@@ -21,18 +24,28 @@ export const signInWithGoogle = createAsyncThunk(
       const result = await signInWithPopup(auth, googleProvider);
       const user = { ...result?.user };
 
-      if (user) {
-        dispatch(closeModal());
-      }
-
-      return {
+      const payload = {
         uid: user?.uid,
-        name: user?.displayName,
+        displayName: user?.displayName,
         email: user?.email,
         photoURL: user?.photoURL,
         role: "user",
       };
+
+      const { data } = await dispatch(
+        usersApi.endpoints.postUser.initiate(payload)
+      );
+
+      if (data) {
+        dispatch(closeModal());
+        return { ...payload };
+      } else {
+        signOut(auth);
+
+        throw new Error("database error");
+      }
     } catch (error) {
+      dispatch(closeModal());
       return rejectWithValue(error.message);
     }
   }
@@ -58,18 +71,30 @@ export const registerWithEmailAndPassword = createAsyncThunk(
       updateProfile(user, {
         displayName,
         photoURL,
-      }).then(() => {
-        dispatch(closeModal());
       });
 
-      return {
+      const payload = {
         uid: user?.uid,
-        name: displayName,
+        displayName: displayName,
         email: user?.email,
         photoURL: photoURL,
         role: role,
       };
+
+      const { data } = await dispatch(
+        usersApi.endpoints.postUser.initiate(payload)
+      );
+
+      if (data) {
+        dispatch(closeModal());
+
+        return payload;
+      } else {
+        throw new Error("database error");
+      }
     } catch (error) {
+      dispatch(closeModal());
+
       return rejectWithValue(error.message);
     }
   }
@@ -88,7 +113,7 @@ export const loginWithEmailAndPassword = createAsyncThunk(
 
       return {
         uid: user?.uid,
-        name: user?.displayName,
+        displayName: user?.displayName,
         email: user?.email,
         photoURL: user?.photoURL,
         role: "user", // TODO: fetch role from server
@@ -142,6 +167,13 @@ export const authSlice = createSlice({
       .addCase(signInWithGoogle.fulfilled, (state, action) => {
         state.user = { ...action.payload };
         state.status = "idle";
+
+        Swal.fire({
+          title: "Yay!",
+          text: "Signed In successfully",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
       })
       .addCase(signInWithGoogle.pending, (state) => {
         state.status = "pending";
@@ -149,6 +181,15 @@ export const authSlice = createSlice({
       .addCase(signInWithGoogle.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+
+        if (action.payload === "database error") {
+          Swal.fire({
+            title: "Ops!",
+            text: "Database error. Try again later!",
+            icon: "error",
+            confirmButtonText: "Okay",
+          });
+        }
       })
       .addCase(registerWithEmailAndPassword.fulfilled, (state, action) => {
         state.user = { ...action.payload };
@@ -160,6 +201,24 @@ export const authSlice = createSlice({
       .addCase(registerWithEmailAndPassword.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+
+        if (action.payload === "Firebase: Error (auth/email-already-in-use).") {
+
+          Swal.fire({
+            title: "Ops!",
+            text: "Email already exist!",
+            icon: "error",
+            confirmButtonText: "Okay",
+          });
+        } else if (action.payload === "database error") {
+
+          Swal.fire({
+            title: "Ops!",
+            text: "Database error. Try again later!",
+            icon: "error",
+            confirmButtonText: "Okay",
+          });
+        }
       })
       .addCase(loginWithEmailAndPassword.fulfilled, (state, action) => {
         state.user = { ...action.payload };

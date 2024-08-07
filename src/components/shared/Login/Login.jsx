@@ -12,6 +12,7 @@ import { loginWithEmailAndPassword, registerWithEmailAndPassword } from '../../.
 const Login = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin }, reset: resetLogin } = useForm()
+
     const open = useSelector((state) => state.modal.open)
 
     const dispatch = useDispatch()
