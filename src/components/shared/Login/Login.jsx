@@ -10,8 +10,14 @@ import { useForm } from 'react-hook-form';
 import { loginWithEmailAndPassword, registerWithEmailAndPassword } from '../../../Utilities/Redux/features/authSlice/authSlice';
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm()
-    const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin }, reset: resetLogin } = useForm()
+
+    const { register, handleSubmit, formState: { errors }, reset, watch } = useForm()
+
+    const password = watch("password", "");
+
+
+
+    const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin }, reset: resetLogin, watch: watchLogin } = useForm()
 
     const open = useSelector((state) => state.modal.open)
 
@@ -94,8 +100,24 @@ const Login = () => {
                                     <form onSubmit={handleSubmit(handleRegister)} className={`flex-col items-stretch justify-between `}>
                                         <input required {...register('displayName', { required: true })} placeholder='Username' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="text" name="displayName" id="username-field" />
                                         <input required {...register('email', { required: true })} placeholder='Email' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="email" name="email" id="register-email-field" />
-                                        <input required {...register('password', { required: true })} placeholder='Password' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="password" name="password" id="register-password-field" />
-                                        <input required {...register('confirmPassword', { required: true })} placeholder='Retype Password' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="password" name="confirmPassword" id="confirm-password-field" />
+                                        <input required {...register('password', {
+                                            required: true,
+                                            minLength: {
+                                                value: 8,
+                                                message: "Password must be at least 8 characters"
+                                            }
+                                        })} placeholder='Password' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="password" name="password" id="register-password-field" />
+
+                                        {errors.password && <span className='form-warning'>{errors.password.message}</span>}
+
+                                        <input required {...register('confirmPassword', {
+                                            required: "Confirm Password is required",
+                                            validate: value =>
+                                                value === password || "Passwords do not match"
+                                        })} placeholder='Retype Password' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="password" name="confirmPassword" id="confirm-password-field" />
+
+                                        {errors.confirmPassword && <span className='form-warning'>{errors.confirmPassword.message}</span>}
+
                                         <select required {...register('role', { required: true })} placeholder="Select Role" className='w-full mb-5 border focus:outline-none p-2 text-sm capitalize' name="role" id="role-field">
                                             <option value="">Select Role</option>
                                             <option value="user">user</option>

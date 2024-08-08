@@ -5,7 +5,7 @@ import { FaBars, FaFacebookF, FaFoursquare, FaHeart, FaInstagram, FaLinkedinIn, 
 import logoWhite from '../../assets/images/logo-40-white.png'
 import logo from '../../assets/images/logo-agent-40.png'
 import ActiveLink from '../ActiveLink/ActiveLink';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../Utilities/Redux/features/modalSlice/modalSlice';
 import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
@@ -18,6 +18,8 @@ const Header = () => {
     const [rightDrawer, setRightDrawer] = useState(false)
 
     const [scrolled, setScrolled] = useState(0)
+
+    const { pathname } = useLocation()
 
 
     // TODO: Make dynamic user
@@ -99,7 +101,7 @@ const Header = () => {
 
     return (
         <>
-            <header className={`${scrolled ? 'xl:top-[-42px]' : ''} w-full duration-200 header sticky xl:-mb-[126px] top-0 left-0 bg-[#001a33] xl:bg-transparent z-50 `}>
+            <header className={`${scrolled ? 'xl:top-[-42px]' : ''} w-full duration-200 header sticky xl:-mb-[126px] top-0 left-0 bg-[#001a33] z-50 ${(pathname === '/') ? 'xl:bg-transparent' : 'xl:bg-[var(--header-bg)]'}`}>
                 <div className="header-container">
                     <div className={`border-b border-[#ffffff34]`}>
                         <div className={`my-container header-top hidden xl:flex justify-between items-center `}>
@@ -146,20 +148,20 @@ const Header = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={`${(scrolled > 100) ? 'bg-white' : ''}`}>
+                    <div className={`${((scrolled > 100) || (pathname !== '/')) ? 'bg-white' : ''}`}>
                         <div className={`my-container header-bottom py-5 grid grid-cols-12 justify-between items-center`}>
                             <div className='col-span-3'>
                                 <Link to={'/'} className='hidden xl:block'>
-                                    <img src={(scrolled > 100) ? logo : logoWhite} alt='' width={120} height={0} />
+                                    <img src={((scrolled > 100) || (pathname !== '/')) ? logo : logoWhite} alt='' width={120} height={0} />
                                 </Link>
-                                <FaBars onClick={toggleLeftDrawer(true)} className={`${scrolled > 100 ? 'text-black' : 'text-white'} text-[30px] cursor-pointer xl:hidden`} />
+                                <FaBars onClick={toggleLeftDrawer(true)} className={`${((scrolled > 100) || (pathname !== '/')) ? 'text-black' : 'text-white'} text-[30px] cursor-pointer xl:hidden`} />
                             </div>
                             <div className='col-span-6'>
                                 <Link to={'/'} className='xl:hidden flex justify-center items-center'>
-                                    <img className='hidden xl:block' src={scrolled > 100 ? logo : logoWhite} alt='' width={120} height={0} />
-                                    <img className='xl:hidden' src={(scrolled > 100) ? logo : logoWhite} alt='' width={120} height={0} />
+                                    <img className='hidden xl:block' src={((scrolled > 100) || (pathname !== '/')) ? logo : logoWhite} alt='' width={120} height={0} />
+                                    <img className='xl:hidden' src={((scrolled > 100) || (pathname !== '/')) ? logo : logoWhite} alt='' width={120} height={0} />
                                 </Link>
-                                <ul className={`${(scrolled > 100) ? 'text-black' : 'text-white'} header-ul hidden xl:flex justify-center items-center gap-2`}>
+                                <ul className={`${((scrolled > 100) || (pathname !== '/')) ? 'text-black' : 'text-white'} header-ul hidden xl:flex justify-center items-center gap-2`}>
                                     {menu}
                                 </ul>
                             </div>
@@ -175,9 +177,9 @@ const Header = () => {
                                             </>
                                             :
                                             <>
-                                                <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] hidden xl:block xl:text-[40px] cursor-pointer ${scrolled > 100 ? 'text-[#0073e1]' : 'text-white'}`} />
+                                                <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] hidden xl:block xl:text-[40px] cursor-pointer ${((scrolled > 100) || (pathname !== '/')) ? 'text-[#0073e1]' : 'text-white'}`} />
 
-                                                <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] xl:hidden xl:text-[40px] cursor-pointer ${scrolled > 100 ? 'text-[#0073e1]' : 'text-white'}`} />
+                                                <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] xl:hidden xl:text-[40px] cursor-pointer ${((scrolled > 100) || (pathname !== '/')) ? 'text-[#0073e1]' : 'text-white'}`} />
                                             </>
                                     }
                                     <button className='primary-btn hidden xl:block'>Add Property</button>

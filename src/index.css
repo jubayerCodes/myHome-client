@@ -9,6 +9,7 @@
   --btn-bg: #0073e1;
   --secondary-bg: #fafcff;
   --text-color: #5c727d;
+  --header-bg: #001a33;
 }
 
 @media (prefers-color-scheme: dark) {

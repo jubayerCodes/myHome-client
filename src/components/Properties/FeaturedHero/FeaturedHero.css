@@ -1,0 +1,16 @@
+.featured-img {
+  @apply relative w-full;
+}
+
+.overlay {
+  background: #0000001f;
+  @apply absolute top-0 left-0 w-full h-full opacity-0 transition-opacity;
+}
+
+.featured-img:hover .overlay {
+  @apply opacity-[.5];
+}
+
+.featured-info {
+  @apply absolute bg-white w-[350px] bottom-0 right-[25%] p-8 pb-20;
+}

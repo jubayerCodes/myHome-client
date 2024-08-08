@@ -170,7 +170,7 @@ export const authSlice = createSlice({
 
         Swal.fire({
           title: "Yay!",
-          text: "Signed In successfully",
+          text: "Signed In successfully!",
           icon: "success",
           confirmButtonText: "Cool",
         });
@@ -194,6 +194,13 @@ export const authSlice = createSlice({
       .addCase(registerWithEmailAndPassword.fulfilled, (state, action) => {
         state.user = { ...action.payload };
         state.status = "idle";
+
+        Swal.fire({
+          title: "Yay!",
+          text: "Registered successfully!",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
       })
       .addCase(registerWithEmailAndPassword.pending, (state) => {
         state.status = "pending";
@@ -203,7 +210,6 @@ export const authSlice = createSlice({
         state.error = action.payload;
 
         if (action.payload === "Firebase: Error (auth/email-already-in-use).") {
-
           Swal.fire({
             title: "Ops!",
             text: "Email already exist!",
@@ -211,7 +217,6 @@ export const authSlice = createSlice({
             confirmButtonText: "Okay",
           });
         } else if (action.payload === "database error") {
-
           Swal.fire({
             title: "Ops!",
             text: "Database error. Try again later!",
@@ -223,6 +228,13 @@ export const authSlice = createSlice({
       .addCase(loginWithEmailAndPassword.fulfilled, (state, action) => {
         state.user = { ...action.payload };
         state.status = "idle";
+
+        Swal.fire({
+          title: "Yay!",
+          text: "Signed In successfully!",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
       })
       .addCase(loginWithEmailAndPassword.pending, (state) => {
         state.status = "pending";

@@ -1,10 +1,11 @@
 import React from 'react';
+import FeaturedHero from '../../components/Properties/FeaturedHero/FeaturedHero';
 
 const Properties = () => {
     return (
-        <div>
-            <h1>Properties</h1>
-        </div>
+        <>
+            <FeaturedHero />
+        </>
     );
 };
 
