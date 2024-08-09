@@ -1,5 +1,5 @@
 .agent-card:hover {
-  box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
+  box-shadow: 0 10px 31px 0 rgba(7, 152, 255, 0.09);
 }
 
 .agent-card .agent-name {

@@ -8,11 +8,11 @@ export const propertiesApi = createApi({
       query: (id) => `/properties/${id}`,
     }),
     getProperties: builder.query({
-      query: ({ page = 1, limit = 6 }) =>
+      query: ({ page = 1, limit = 9 }) =>
         `/properties?page=${page}&limit=${limit}`,
     }),
     getTotalPages: builder.query({
-      query: (limit = 6) => `/totalPages?limit=${limit}`,
+      query: (limit = 9) => `/totalPages?limit=${limit}`,
     }),
   }),
 });
