@@ -16,7 +16,7 @@ const PropertyCard = ({ property }) => {
     const agent = 'Jubayer'
 
     const cardStyle = {
-        boxShadow: '0 10px 31px 0 rgba(7, 152, 255, 0.09)',
+        boxShadow: 'rgba(7, 152, 255, 0.09) 0px 3px 5px',
     }
 
     return (

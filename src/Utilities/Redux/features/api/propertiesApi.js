@@ -7,9 +7,20 @@ export const propertiesApi = createApi({
     getProperty: builder.query({
       query: (id) => `/properties/${id}`,
     }),
+    getProperties: builder.query({
+      query: ({ page = 1, limit = 6 }) =>
+        `/properties?page=${page}&limit=${limit}`,
+    }),
+    getTotalPages: builder.query({
+      query: (limit = 6) => `/totalPages?limit=${limit}`,
+    }),
   }),
 });
 
-export const { useGetPropertyQuery } = propertiesApi;
+export const {
+  useGetPropertyQuery,
+  useGetPropertiesQuery,
+  useGetTotalPagesQuery,
+} = propertiesApi;
 
 export default propertiesApi;

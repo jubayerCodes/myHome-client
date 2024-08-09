@@ -8,7 +8,7 @@ const LatestPropertiesForRent = () => {
     const [latestPropertiesForRent, setLatestPropertiesForRent] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3000/latestProperties')
+        fetch('https://my-home-server.vercel.app/latestProperties')
             .then(res => res.json())
             .then(data => setLatestPropertiesForRent(data))
     }, [])
