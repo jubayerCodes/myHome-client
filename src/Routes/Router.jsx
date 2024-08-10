@@ -5,6 +5,7 @@ import Properties from "../pages/Properties/Properties";
 import SingleProperty from "../pages/SingleProperty/SingleProperty";
 import propertiesApi from "../Utilities/Redux/features/api/propertiesApi";
 import { store } from "../Utilities/Redux/store";
+import Loader from "../components/shared/Loader/Loader";
 
 const Router = createBrowserRouter([
   {

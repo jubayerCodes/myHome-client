@@ -3,6 +3,7 @@
 }
 
 .pagination-btn {
+  min-width: 40px !important;
   @apply bg-white text-black hover:text-[var(--btn-bg)] hover:bg-white shadow text-base;
 }
 

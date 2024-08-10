@@ -8,11 +8,21 @@ export const propertiesApi = createApi({
       query: (id) => `/properties/${id}`,
     }),
     getProperties: builder.query({
-      query: ({ page = 1, limit = 9 }) =>
-        `/properties?page=${page}&limit=${limit}`,
+      query: ({ page = 1, limit = 9, type, category, city, sort }) =>
+        `/properties?page=${page}&limit=${limit}${
+          type !== "" ? `&type=${type}` : ""
+        }${category !== "" ? `&category=${category}` : ""}${
+          city !== "" ? `&city=${city}` : ""
+        }${sort !== "" ? `&sort=${sort}` : ""}`,
     }),
     getTotalPages: builder.query({
-      query: (limit = 9) => `/totalPages?limit=${limit}`,
+      query: ({ limit = 9, type, category, city }) =>
+        `/totalPages?limit=${limit}${type !== "" ? `&type=${type}` : ""}${
+          category !== "" ? `&category=${category}` : ""
+        }${city !== "" ? `&city=${city}` : ""}`,
+    }),
+    getPropertiesFilterOptions: builder.query({
+      query: () => "/propertiesFilterOptions",
     }),
   }),
 });
@@ -21,6 +31,7 @@ export const {
   useGetPropertyQuery,
   useGetPropertiesQuery,
   useGetTotalPagesQuery,
+  useGetPropertiesFilterOptionsQuery,
 } = propertiesApi;
 
 export default propertiesApi;

@@ -2,10 +2,15 @@
 import SectionTitle from '../SectionTitle/SectionTitle';
 import PropertyCard from '../PropertyCard/PropertyCard';
 import { useGetLatestPropertiesQuery } from '../../../Utilities/Redux/features/api/latestPropertiesApi';
+import Loader from '../Loader/Loader';
 
 const LatestProperties = () => {
 
-    const { data: latestProperties } = useGetLatestPropertiesQuery()
+    const { data: latestProperties, isLoading } = useGetLatestPropertiesQuery()
+
+    if (isLoading) {
+        return <Loader />
+    }
 
     return (
         <section className='section'>
