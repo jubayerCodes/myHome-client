@@ -98,3 +98,9 @@ html {
 svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-vubbuv {
   @apply hidden !important;
 }
+
+/* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
+/** {
+  scrollbar-width: thin;
+  scrollbar-color: #C8CEDA #F1F1F1;
+}*/

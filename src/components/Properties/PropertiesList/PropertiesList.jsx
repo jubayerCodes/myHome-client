@@ -13,12 +13,13 @@ const PropertiesList = () => {
     const [category, setCategory] = useState('')
     const [city, setCity] = useState('')
     const [sort, setSort] = useState('')
+    const [limit, setLimit] = useState(6)
 
-    const { data: properties } = useGetPropertiesQuery({ page: currentPage, type: type, category: category, city: city, sort: sort })
+    const { data: properties } = useGetPropertiesQuery({ page: currentPage, type: type, category: category, city: city, sort: sort, limit: limit })
 
     const { data: filterOptions } = useGetPropertiesFilterOptionsQuery()
 
-    const { data: totalPages } = useGetTotalPagesQuery({ type: type, category: category, city: city })
+    const { data: totalPages } = useGetTotalPagesQuery({ type: type, category: category, city: city, limit: limit })
 
     const pages = [...Array(totalPages?.pages).keys()]?.map(page => page + 1)
 
@@ -28,9 +29,9 @@ const PropertiesList = () => {
 
             <div className="my-container">
 
-                <div className="mt-10 bg-white rounded" style={{ boxShadow: '0 10px 31px 0 rgba(7,152,255,.09)' }}>
+                <div className=" bg-white rounded flex justify-between items-center" style={{ boxShadow: '0 10px 31px 0 rgba(7,152,255,.09)' }}>
                     <Box display={'flex'} gap={1} padding={'10px'}>
-                        <FormControl sx={{ minWidth: 80 }}>
+                        <FormControl sx={{ minWidth: 50 }}>
                             <Select
                                 size='small'
                                 value={type}
@@ -54,15 +55,15 @@ const PropertiesList = () => {
                                     fontWeight: '400'
                                 }}
                             >
-                                <MenuItem value="">
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value="">
                                     Types
                                 </MenuItem>
                                 {
-                                    filterOptions?.types?.map((type, idx) => <MenuItem key={idx} value={type}>{type}</MenuItem>)
+                                    filterOptions?.types?.map((type, idx) => <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} key={idx} value={type}>{type}</MenuItem>)
                                 }
                             </Select>
                         </FormControl>
-                        <FormControl sx={{ minWidth: 90 }}>
+                        <FormControl sx={{ minWidth: 50 }}>
                             <Select
                                 size='small'
                                 value={category}
@@ -86,15 +87,15 @@ const PropertiesList = () => {
                                     fontWeight: '400'
                                 }}
                             >
-                                <MenuItem value="">
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value="">
                                     Categories
                                 </MenuItem>
                                 {
-                                    filterOptions?.categories?.map((cat, idx) => <MenuItem key={idx} value={cat}>{cat}</MenuItem>)
+                                    filterOptions?.categories?.map((cat, idx) => <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} key={idx} value={cat}>{cat}</MenuItem>)
                                 }
                             </Select>
                         </FormControl>
-                        <FormControl sx={{ minWidth: 90 }}>
+                        <FormControl sx={{ minWidth: 50 }}>
                             <Select
                                 size='small'
                                 value={city}
@@ -118,15 +119,15 @@ const PropertiesList = () => {
                                     fontWeight: '400'
                                 }}
                             >
-                                <MenuItem value="">
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value="">
                                     Cities
                                 </MenuItem>
                                 {
-                                    filterOptions?.cities?.map((city, idx) => <MenuItem key={idx} value={city}>{city}</MenuItem>)
+                                    filterOptions?.cities?.map((city, idx) => <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} key={idx} value={city}>{city}</MenuItem>)
                                 }
                             </Select>
                         </FormControl>
-                        <FormControl sx={{ minWidth: 90 }}>
+                        <FormControl sx={{ minWidth: 50 }}>
                             <Select
                                 size='small'
                                 value={sort}
@@ -150,17 +151,51 @@ const PropertiesList = () => {
                                     fontWeight: '400'
                                 }}
                             >
-                                <MenuItem value="">
-                                    Default
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value="">
+                                    Title
                                 </MenuItem>
-                                <MenuItem value={'price_high_low'}>Price High to Low</MenuItem>
-                                <MenuItem value={'price_low_high'}>Price Low to High</MenuItem>
-                                <MenuItem value={'newest_first'}>Newest First</MenuItem>
-                                <MenuItem value={'oldest_first'}>Oldest First</MenuItem>
-                                <MenuItem value={'bedrooms_high_low'}>Bedrooms High to Low</MenuItem>
-                                <MenuItem value={'bedrooms_low_high'}>Bedrooms Low to High</MenuItem>
-                                <MenuItem value={'bathrooms_high_low'}>Bathrooms High to Low</MenuItem>
-                                <MenuItem value={'bathrooms_low_high'}>Bathrooms Low to High</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'price_high_low'}>Price High to Low</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'price_low_high'}>Price Low to High</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'newest_first'}>Newest First</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'oldest_first'}>Oldest First</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'bedrooms_high_low'}>Bedrooms High to Low</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'bedrooms_low_high'}>Bedrooms Low to High</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'bathrooms_high_low'}>Bathrooms High to Low</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'bathrooms_low_high'}>Bathrooms Low to High</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box display={'flex'} gap={1} padding={'10px'}>
+                        <FormControl sx={{ minWidth: 50 }}>
+                            <Select
+                                size='small'
+                                value={limit}
+                                onChange={(e) => {
+                                    setLimit(e.target.value)
+                                    setCurrentPage(1)
+                                }}
+                                displayEmpty
+                                inputProps={{ 'aria-label': 'Without label' }}
+                                sx={{
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                        border: 'none',
+                                    },
+                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                        border: 'none',
+                                    },
+                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        border: 'none',
+                                    },
+                                    fontSize: '14px',
+                                    fontWeight: '400'
+                                }}
+                            >
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={6}>
+                                    Properties Per Page
+                                </MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={10}>10</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={15}>15</MenuItem>
+                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={20}>20</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>

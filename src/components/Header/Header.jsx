@@ -148,7 +148,7 @@ const Header = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={`${((scrolled > 100) || (pathname !== '/')) ? 'bg-white' : ''}`}>
+                    <div className={`${((scrolled > 100) || (pathname !== '/')) ? 'bg-white shadow-sm' : ''}`}>
                         <div className={`my-container header-bottom py-5 grid grid-cols-12 justify-between items-center`}>
                             <div className='col-span-3'>
                                 <Link to={'/'} className='hidden xl:block'>

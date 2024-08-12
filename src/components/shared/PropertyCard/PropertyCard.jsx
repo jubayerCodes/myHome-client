@@ -50,7 +50,7 @@ const PropertyCard = ({ property }) => {
             <CardContent sx={{ padding: '16px 16px 0' }}>
                 {/* TODO: Make link dynamic */}
                 <Link href={'#'} display={'flex'} gap={'2px'} alignItems={'center'} gutterBottom underline='none'>
-                    <FaMapMarkerAlt />
+                    <FaMapMarkerAlt color='#5C727D' fontSize={13} />
                     <Typography component={'span'} className='flex justify-start items-center gap-1 text-black' variant='body2'>
                         {address.address}, {address.city}
                     </Typography>

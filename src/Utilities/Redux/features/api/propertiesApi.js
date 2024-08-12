@@ -8,7 +8,7 @@ export const propertiesApi = createApi({
       query: (id) => `/properties/${id}`,
     }),
     getProperties: builder.query({
-      query: ({ page = 1, limit = 9, type, category, city, sort }) =>
+      query: ({ page = 1, limit, type, category, city, sort }) =>
         `/properties?page=${page}&limit=${limit}${
           type !== "" ? `&type=${type}` : ""
         }${category !== "" ? `&category=${category}` : ""}${
@@ -16,7 +16,7 @@ export const propertiesApi = createApi({
         }${sort !== "" ? `&sort=${sort}` : ""}`,
     }),
     getTotalPages: builder.query({
-      query: ({ limit = 9, type, category, city }) =>
+      query: ({ limit, type, category, city }) =>
         `/totalPages?limit=${limit}${type !== "" ? `&type=${type}` : ""}${
           category !== "" ? `&category=${category}` : ""
         }${city !== "" ? `&city=${city}` : ""}`,
