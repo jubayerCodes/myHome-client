@@ -3,14 +3,11 @@ import SectionTitle from '../SectionTitle/SectionTitle';
 import PropertyCard from '../PropertyCard/PropertyCard';
 import { useGetLatestPropertiesQuery } from '../../../Utilities/Redux/features/api/latestPropertiesApi';
 import Loader from '../Loader/Loader';
+import Spinner from '../Spinner/Spinner';
 
 const LatestProperties = () => {
 
     const { data: latestProperties, isLoading } = useGetLatestPropertiesQuery()
-
-    if (isLoading) {
-        return <Loader />
-    }
 
     return (
         <section className='section'>
@@ -23,6 +20,9 @@ const LatestProperties = () => {
                         latestProperties?.map(property => <PropertyCard key={property._id} property={property} />)
                     }
                 </div>
+                {
+                    isLoading && <Spinner />
+                }
             </div>
         </section>
     );

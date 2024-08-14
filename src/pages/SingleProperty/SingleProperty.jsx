@@ -2,8 +2,13 @@ import { useLoaderData } from "react-router-dom";
 import Loader from "../../components/shared/Loader/Loader";
 import Breadcrumb from "../../components/shared/Breadcrumb/Breadcrumb";
 import { Button, Link, Menu, MenuItem, Typography } from "@mui/material";
-import { FaEnvelope, FaFacebook, FaFacebookF, FaHeart, FaMapMarkerAlt, FaPrint, FaShare, FaShareAlt, FaTwitter } from "react-icons/fa";
+import { FaEnvelope, FaFacebook, FaHeart, FaMapMarkerAlt, FaPrint, FaShare, FaShareAlt, FaTwitter } from "react-icons/fa";
 import { useState } from "react";
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 
 const SingleProperty = () => {
@@ -23,6 +28,13 @@ const SingleProperty = () => {
     if (isLoading) {
         return <Loader />
     }
+
+    const pagination = {
+        clickable: true,
+        renderBullet: function (index, className) {
+            return '<span class="' + className + '">' + (index + 1) + '</span>';
+        },
+    };
 
     return (
         <div className="mt-[125px] bg-[var(--secondary-bg)]">
@@ -87,6 +99,23 @@ const SingleProperty = () => {
                         </Button>
                     </div>
                 </div>
+            </div>
+
+            <div className="my-container grid grid-cols-4 justify-between gap-5">
+                <div className="col-span-3 bg-white">
+                    <Swiper
+                        pagination={pagination}
+                        modules={[Pagination]}
+                        className="mySwiper"
+                    >
+                        {
+                            property?.photos?.map((photo, idx) => <SwiperSlide key={idx}>
+                                <img src={photo} alt="" />
+                            </SwiperSlide>)
+                        }
+                    </Swiper>
+                </div>
+                <div></div>
             </div>
         </div>
     );
