@@ -26,7 +26,8 @@
   @apply text-base;
 }
 
-.feature-title {
+.feature-title,
+.plan-title {
   @apply text-sm font-medium;
 }
 
@@ -35,5 +36,14 @@
 }
 
 .features-list {
-  @apply grid grid-cols-3 justify-between gap-2 text-sm font-light capitalize 
+  @apply grid grid-cols-3 justify-between gap-2 text-sm font-light capitalize;
+}
+
+.floor-plans .css-u26vfm-MuiPaper-root-MuiAccordion-root::before {
+  @apply hidden;
+}
+
+.plan:hover .plan-title,
+.plan:hover span {
+  @apply text-[var(--btn-bg)];
 }

@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import Loader from "../../components/shared/Loader/Loader";
 import Breadcrumb from "../../components/shared/Breadcrumb/Breadcrumb";
-import { Button, Link, Menu, MenuItem, Typography } from "@mui/material";
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Button, Link, Menu, MenuItem, Typography } from "@mui/material";
 import { FaBed, FaBlackTie, FaBullseye, FaCar, FaCheckCircle, FaCircle, FaCircleNotch, FaDumbbell, FaEnvelope, FaExpand, FaFacebook, FaHeart, FaMapMarkerAlt, FaPrint, FaRegCalendar, FaShareAlt, FaTv, FaTwitter, FaUtensils } from "react-icons/fa";
 import { useState } from "react";
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
@@ -334,7 +334,7 @@ const SingleProperty = () => {
                                     Other Details
                                 </h4>
                                 <div className="features-container">
-                                <ul className="features-list">
+                                    <ul className="features-list">
                                         {
                                             property?.features?.others?.map((feature, idx) => (
                                                 <li key={idx} className="flex items-center gap-1"><FaBullseye color="#0073e1" fontSize={10} />{feature}</li>
@@ -343,6 +343,53 @@ const SingleProperty = () => {
                                     </ul>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="property-info">
+                        <h3 className="info-title">
+                            Floor Plans
+                        </h3>
+                        <div className="flex flex-col gap-2 floor-plans">
+                            {
+                                property?.floor_plans?.map((plan, idx) => (
+                                    <Accordion key={idx} sx={{ boxShadow: 'none' }} defaultExpanded={idx === 0}>
+                                        <AccordionSummary
+                                            aria-controls="panel1-content"
+                                            id="panel1-header"
+                                            sx={{ background: '#fafcff' }}
+                                        >
+                                            <div className="flex justify-between items-center w-full plan">
+                                                <h4 className="plan-title">{plan?.title}</h4>
+                                                <div className="gap-10 flex items-center">
+                                                    <span className="text-sm font-light">
+                                                        <span className="font-medium">Price: </span>
+                                                        {plan?.price}
+                                                    </span>
+                                                    <span className="text-sm font-light">
+                                                        <span className="font-medium">Baths: </span>
+                                                        {plan?.bathrooms}
+                                                    </span>
+                                                    <span className="text-sm font-light">
+                                                        <span className="font-medium">Rooms: </span>
+                                                        {plan?.rooms}
+                                                    </span>
+                                                    <span className="text-sm font-light">
+                                                        <span className="font-medium">Size: </span>
+                                                        {plan?.size}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <div className="py-5">
+                                                <img className="w-full" src={plan?.photo} alt="" />
+                                                <p className="text-[var(--text-color)] text-sm mt-5">{plan?.description}</p>
+                                            </div>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
