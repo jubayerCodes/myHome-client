@@ -1,0 +1,39 @@
+.property-swiper .swiper-button-prev,
+.swiper-button-next {
+  background: #0000006c;
+  width: 40px;
+  @apply rounded hover:bg-[#000000c7] transition-colors;
+}
+
+.property-swiper .swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 24px;
+}
+
+.property-info {
+  box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
+  @apply bg-white p-8 rounded-md;
+}
+
+.info-title {
+  @apply text-base font-medium pb-5 hover:text-[var(--btn-bg)] transition-colors;
+}
+.info-text {
+  @apply text-sm font-medium;
+}
+
+.info-icon {
+  @apply text-base;
+}
+
+.feature-title {
+  @apply text-sm font-medium;
+}
+
+.feature {
+  @apply flex items-center gap-2 text-sm font-light;
+}
+
+.features-list {
+  @apply grid grid-cols-3 justify-between gap-2 text-sm font-light capitalize 
+}

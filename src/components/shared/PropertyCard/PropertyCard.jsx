@@ -44,7 +44,7 @@ const PropertyCard = ({ property }) => {
                     component="img"
                     alt="green iguana"
                     height="140"
-                    image={'https://main.wpresidence.net/wp-content/uploads/2017/11/3-525x328.webp'}
+                    image={photos[0]}
                 />
             </Link>
             <CardContent sx={{ padding: '16px 16px 0' }}>

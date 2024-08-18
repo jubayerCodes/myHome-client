@@ -11,7 +11,7 @@ button.active {
   @apply bg-[var(--btn-bg)] hover:bg-[var(--header-bg)] text-white hover:text-white;
 }
 
-.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.MuiMenu-paper.MuiMenu-paper.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+.property-list-filter .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.MuiMenu-paper.MuiMenu-paper.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
   min-width: 200px !important;
   max-height: 210px;
 }

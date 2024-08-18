@@ -3,7 +3,7 @@ import { Puff } from 'react-loader-spinner';
 
 const Spinner = () => {
     return (
-        <div className='h-24 w-full flex justify-center items-center'>
+        <div className='py-20 w-full flex justify-center items-center'>
             <Puff
                 visible={true}
                 height="80"

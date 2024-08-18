@@ -2,19 +2,25 @@ import { useLoaderData } from "react-router-dom";
 import Loader from "../../components/shared/Loader/Loader";
 import Breadcrumb from "../../components/shared/Breadcrumb/Breadcrumb";
 import { Button, Link, Menu, MenuItem, Typography } from "@mui/material";
-import { FaEnvelope, FaFacebook, FaHeart, FaMapMarkerAlt, FaPrint, FaShare, FaShareAlt, FaTwitter } from "react-icons/fa";
+import { FaBed, FaBlackTie, FaBullseye, FaCar, FaCheckCircle, FaCircle, FaCircleNotch, FaDumbbell, FaEnvelope, FaExpand, FaFacebook, FaHeart, FaMapMarkerAlt, FaPrint, FaRegCalendar, FaShareAlt, FaTv, FaTwitter, FaUtensils } from "react-icons/fa";
 import { useState } from "react";
-import { Navigation, Pagination } from 'swiper/modules';
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import 'swiper/css/thumbs';
+import './SingleProperty.css'
 import { Swiper, SwiperSlide } from "swiper/react";
+import moment from "moment";
+import { FaDroplet } from "react-icons/fa6";
 
 
 const SingleProperty = () => {
 
-    const { data: property, isLoading } = useLoaderData()
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const { data: property, isLoading } = useLoaderData()
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -29,15 +35,15 @@ const SingleProperty = () => {
         return <Loader />
     }
 
-    const pagination = {
-        clickable: true,
-        renderBullet: function (index, className) {
-            return '<span class="' + className + '">' + (index + 1) + '</span>';
-        },
-    };
+    const updatedDate = moment(property?.updated_on || property?.available_from).format('MMMM DD, YYYY');
+
+
+    const handleSwiper = (swiper) => {
+        setThumbsSwiper(swiper);
+    }
 
     return (
-        <div className="mt-[125px] bg-[var(--secondary-bg)]">
+        <div className="mt-[125px] bg-[var(--secondary-bg)] pb-32">
             <div className="my-container flex justify-between items-end pb-5">
                 <div>
                     <Breadcrumb page={'properties'} subPage={property?.title} />
@@ -101,19 +107,244 @@ const SingleProperty = () => {
                 </div>
             </div>
 
-            <div className="my-container grid grid-cols-4 justify-between gap-5">
-                <div className="col-span-3 bg-white">
-                    <Swiper
-                        pagination={pagination}
-                        modules={[Pagination]}
-                        className="mySwiper"
-                    >
-                        {
-                            property?.photos?.map((photo, idx) => <SwiperSlide key={idx}>
-                                <img src={photo} alt="" />
-                            </SwiperSlide>)
-                        }
-                    </Swiper>
+            <div className="my-container grid grid-cols-11 justify-between gap-5">
+                <div className="col-span-8 property-swiper grid grid-cols-1 gap-8">
+                    <div>
+                        <Swiper
+                            style={{
+                                '--swiper-navigation-color': '#fff',
+                                '--swiper-pagination-color': '#fff',
+                                alignItems: 'stretch'
+                            }}
+                            spaceBetween={10}
+                            loop={true}
+                            navigation={true}
+                            thumbs={{ swiper: thumbsSwiper }}
+                            modules={[FreeMode, Navigation, Thumbs]}
+                            className="mySwiper2"
+                        >
+                            {
+                                property?.photos?.map((photo, idx) => <SwiperSlide key={idx}>
+                                    <img src={photo} alt="" className="rounded w-full h-[445px]" />
+                                </SwiperSlide>)
+                            }
+                        </Swiper>
+                        <div className="pt-2">
+                            <Swiper
+                                onClick={handleSwiper}
+                                spaceBetween={10}
+                                slidesPerView={5}
+                                freeMode={true}
+                                watchSlidesProgress={true}
+                                modules={[FreeMode, Navigation, Thumbs]}
+                                className="mySwiper"
+                            >
+                                {
+                                    property?.photos?.map((photo, idx) => <SwiperSlide key={idx}>
+                                        <img src={photo} alt="" className="rounded h-full cursor-pointer hover:opacity-60 transition-opacity" />
+                                    </SwiperSlide>)
+                                }
+                            </Swiper>
+                        </div>
+                    </div>
+                    <div className="property-info">
+                        <h3 className="info-title">
+                            Overview
+                        </h3>
+                        <div className="flex justify-between items-center">
+                            <div className="flex flex-col items-start gap-1">
+                                <span className="info-text">Updated On:</span>
+                                <span className="info-text">{updatedDate}</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                                <FaBed className="info-icon" />
+                                <span className="info-text">{property?.bedrooms} Bedrooms</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                                <FaDroplet className="info-icon" />
+                                <span className="info-text">{property?.bathrooms} Bathrooms</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                                <FaCar className="info-icon" />
+                                <span className="info-text">{property?.garages} Garages</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                                <FaExpand className="info-icon" />
+                                <span className="info-text">{property?.property_size} ft<sup>2</sup></span>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                                <FaRegCalendar className="info-icon" />
+                                <span className="info-text">Year Built: {property?.built_year}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="property-info">
+                        <h3 className="info-title">
+                            Description
+                        </h3>
+                        <p className="text-[var(--text-color)] text-sm">
+                            {property?.description}
+                        </p>
+                    </div>
+
+                    {/* //TODO: complete documents part */}
+
+                    {/* <div className="property-info">
+                        <h3 className="info-title">
+                            Documents
+                        </h3>
+                        <p className="text-[var(--text-color)] text-sm">
+                            {property?.description}
+                        </p>
+                    </div> */}
+
+                    <div className="property-info">
+                        <h3 className="info-title">
+                            Address
+                        </h3>
+                        <div className="grid grid-cols-3 justify-between gap-2">
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Address: </span>
+                                {property?.address?.address}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">City: </span>
+                                {property?.address?.city}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Zip Code: </span>
+                                {property?.address?.zip_code}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Country: </span>
+                                {property?.address?.country}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Latitude: </span>
+                                {property?.address?.latitude}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Longitude: </span>
+                                {property?.address?.longitude}
+                            </span>
+
+                            {/* //TODO: make a map using latitute and longitude */}
+                        </div>
+                    </div>
+                    <div className="property-info">
+                        <h3 className="info-title">
+                            Details
+                        </h3>
+                        <div className="grid grid-cols-3 justify-between gap-2">
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Price: </span>
+                                $ {property?.price.toLocaleString()}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Property Size: </span>
+                                {property?.property_size} ft<sup>2</sup>
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Rooms: </span>
+                                {property?.bedrooms}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Bedrooms: </span>
+                                {property?.bedrooms}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Bathrooms: </span>
+                                {property?.bathrooms}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Garages: </span>
+                                {property?.garages}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Garage Size: </span>
+                                {property?.garage_size} Cars
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Year Built: </span>
+                                {property?.built_year}
+                            </span>
+                            <span className="text-sm font-light">
+                                <span className="font-medium">Available from: </span>
+                                {moment(property?.available_from).format('DD MMM, YYYY')}
+                            </span>
+                            <span className="text-sm font-light capitalize">
+                                <span className="font-medium">Structure type: </span>
+                                {property?.structure_type}
+                            </span>
+                            <span className="text-sm font-light capitalize">
+                                <span className="font-medium">Floors: </span>
+                                {property?.floors}
+                            </span>
+                        </div>
+                    </div>
+                    <div className="property-info">
+                        <h3 className="info-title">
+                            Features
+                        </h3>
+                        <div className="flex flex-col items-stretch gap-8">
+                            <div>
+                                <h4 className="feature-title pb-3">
+                                    Interior Details
+                                </h4>
+                                <div className="features-container">
+                                    <ul className="features-list">
+                                        {
+                                            property?.features?.interior?.map((feature, idx) => (
+                                                <li key={idx} className="flex items-center gap-1"><FaBullseye color="#0073e1" fontSize={10} />{feature}</li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 className="feature-title pb-3">
+                                    Outdoor Details
+                                </h4>
+                                <div className="features-container">
+                                    <ul className="features-list">
+                                        {
+                                            property?.features?.outdoor?.map((feature, idx) => (
+                                                <li key={idx} className="flex items-center gap-1"><FaBullseye color="#0073e1" fontSize={10} />{feature}</li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 className="feature-title pb-3">
+                                    Utilities
+                                </h4>
+                                <div className="features-container">
+                                    <ul className="features-list">
+                                        {
+                                            property?.features?.utilities?.map((feature, idx) => (
+                                                <li key={idx} className="flex items-center gap-1"><FaBullseye color="#0073e1" fontSize={10} />{feature}</li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 className="feature-title pb-3">
+                                    Other Details
+                                </h4>
+                                <div className="features-container">
+                                <ul className="features-list">
+                                        {
+                                            property?.features?.others?.map((feature, idx) => (
+                                                <li key={idx} className="flex items-center gap-1"><FaBullseye color="#0073e1" fontSize={10} />{feature}</li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div></div>
             </div>

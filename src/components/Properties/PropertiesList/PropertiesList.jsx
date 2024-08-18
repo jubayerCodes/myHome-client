@@ -29,7 +29,7 @@ const PropertiesList = () => {
 
             <div className="my-container">
 
-                <div className=" bg-white rounded flex justify-between items-center" style={{ boxShadow: '0 10px 31px 0 rgba(7,152,255,.09)' }}>
+                <div className=" bg-white rounded flex justify-between items-center property-list-filter" style={{ boxShadow: '0 10px 31px 0 rgba(7,152,255,.09)' }}>
                     <Box display={'flex'} gap={1} padding={'10px'}>
                         <FormControl sx={{ minWidth: 50 }}>
                             <Select
