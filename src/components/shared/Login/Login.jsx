@@ -43,6 +43,8 @@ const Login = () => {
     const handleRegister = (data) => {
         const { displayName, email, password, confirmPassword, role } = data
 
+        // TODO: make it dynamic
+
         const photoURL = 'https://lh3.googleusercontent.com/a/ACg8ocLPSsZuxUqO3--d5pVaacfSoJPJbOGNEP-QSeiCEI1iLMigR64=s96-c'
 
         const user = {

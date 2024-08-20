@@ -23,9 +23,12 @@ const theme = createTheme({
     buttonBg: {
       main: "#0073e1",
     },
+    text: {
+      main: "#5c727d",
+    },
   },
   typography: {
-    fontFamily: ["Inter", "Roboto"].join(",")
+    fontFamily: ["Inter", "Roboto"].join(","),
   },
 });
 

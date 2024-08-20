@@ -47,3 +47,13 @@
 .plan:hover span {
   @apply text-[var(--btn-bg)];
 }
+
+.property-info .agent-link {
+  color: #5c727db3;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.property-info .agent-link:hover {
+  color: #0073e1;
+}

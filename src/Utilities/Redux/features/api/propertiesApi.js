@@ -15,6 +15,10 @@ export const propertiesApi = createApi({
           city !== "" ? `&city=${city}` : ""
         }${sort !== "" ? `&sort=${sort}` : ""}`,
     }),
+    getSimilarProperties: builder.query({
+      query: ({ type, category }) =>
+        `/similarProperties?type=${type}&category=${category}`,
+    }),
     getTotalPages: builder.query({
       query: ({ limit, type, category, city }) =>
         `/totalPages?limit=${limit}${type !== "" ? `&type=${type}` : ""}${
@@ -32,6 +36,7 @@ export const {
   useGetPropertiesQuery,
   useGetTotalPagesQuery,
   useGetPropertiesFilterOptionsQuery,
+  useGetSimilarPropertiesQuery,
 } = propertiesApi;
 
 export default propertiesApi;

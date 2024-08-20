@@ -12,7 +12,7 @@ export const usersApi = createApi({
       }),
     }),
   }),
-});
+}); 
 
 export const { usePostUserMutation } = usersApi;
 

@@ -1,8 +1,8 @@
 import { useLoaderData } from "react-router-dom";
 import Loader from "../../components/shared/Loader/Loader";
 import Breadcrumb from "../../components/shared/Breadcrumb/Breadcrumb";
-import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Button, Link, Menu, MenuItem, Typography } from "@mui/material";
-import { FaBed, FaBlackTie, FaBullseye, FaCar, FaCheckCircle, FaCircle, FaCircleNotch, FaDumbbell, FaEnvelope, FaExpand, FaFacebook, FaHeart, FaMapMarkerAlt, FaPrint, FaRegCalendar, FaShareAlt, FaTv, FaTwitter, FaUtensils } from "react-icons/fa";
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Box, Button, Link, Menu, MenuItem, Typography } from "@mui/material";
+import { FaBed, FaBlackTie, FaBullseye, FaCar, FaCheckCircle, FaCircle, FaCircleNotch, FaDumbbell, FaEnvelope, FaExpand, FaFacebook, FaFacebookF, FaGlobe, FaHeart, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaMobileAlt, FaPhone, FaPinterest, FaPrint, FaRegCalendar, FaShareAlt, FaSkype, FaTv, FaTwitter, FaUtensils, FaVimeo, FaYoutube } from "react-icons/fa";
 import { useState } from "react";
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import 'swiper/css';
@@ -13,6 +13,7 @@ import './SingleProperty.css'
 import { Swiper, SwiperSlide } from "swiper/react";
 import moment from "moment";
 import { FaDroplet } from "react-icons/fa6";
+import SimilarProperties from "../../components/shared/SimilarProperties/SimilarProperties";
 
 
 const SingleProperty = () => {
@@ -40,6 +41,29 @@ const SingleProperty = () => {
 
     const handleSwiper = (swiper) => {
         setThumbsSwiper(swiper);
+    }
+
+
+    const agent = {
+        displayName: 'Lily Bicharm',
+        position: 'Realtor',
+        bio: 'Whether it is working with a first time homebuyer, a luxury home listing or a seasoned investor, Michael prides himself on his unparalleled service with an aptitude for problem solving – something essential for navigating clients through the challenges of today’s real estate market. My focus is always on serving my clients with honesty, integrity and discretion as a dependable and knowledgeable broker committed to exceptional results. I am a licensed real estate broker, an active member in local and national real estate industry organizations, a lover of architecture and an active member to such philanthropic causes.',
+        contact: {
+            facebook: '#',
+            twitter: '#',
+            linkedin: '#',
+            pinterest: '#',
+            instagram: '#',
+            youtube: '#',
+            vimeo: '#',
+            email: 'example@gamil.com',
+            phone: '+880 176-227-8148',
+            mobile: '+880 180-055-5000',
+            whatsApp: '#',
+            skype: 'johnc_demo',
+            website: 'paris.wpresidence.net/'
+        },
+        companyName: 'Keller Williams'
     }
 
     return (
@@ -392,6 +416,54 @@ const SingleProperty = () => {
                             }
                         </div>
                     </div>
+
+                    {/* //TODO: make it all dynamic */}
+                    <div className="property-info">
+                        <div className="grid grid-cols-2 gap-10">
+                            <div className="relative">
+                                <img src="https://main.wpresidence.net/wp-content/uploads/2017/11/person-500x328.webp" alt="" className="rounded" />
+
+                                <div className="flex justify-center gap-5 w-10/12 mx-auto bg-white rounded shadow py-3 -mt-5 absolute left-0 right-0">
+                                    <Link underline="none" className="agent-link" href={agent.contact.facebook}>
+                                        <FaFacebookF />
+                                    </Link>
+                                    <Link underline="none" className="agent-link" href={agent.contact.twitter}>
+                                        <FaTwitter />
+                                    </Link>
+                                    <Link underline="none" className="agent-link" href={agent.contact.linkedin}>
+                                        <FaLinkedin />
+                                    </Link>
+                                    <Link underline="none" className="agent-link" href={agent.contact.pinterest}>
+                                        <FaPinterest />
+                                    </Link>
+                                    <Link underline="none" className="agent-link" href={agent.contact.instagram}>
+                                        <FaInstagram />
+                                    </Link>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <h3 className="text-xl font-medium">{agent?.displayName}</h3>
+                                    <span className="text-[var(--text-color)] text-sm font-light">{agent?.position}</span>
+                                </div>
+                                <div className="text-sm font-light my-4 flex flex-col gap-2">
+                                    <Link color={'text.main'} underline="none" href={`tel: ${agent?.contact?.phone}`} className="flex items-center gap-1 transition-colors hover:text-[var(--btn-bg)]"><FaPhone fontSize={12} className="mr-2" />{agent?.contact?.phone}</Link>
+
+                                    <Link color={'text.main'} underline="none" href={`tel: ${agent?.contact?.phone}`} className="flex items-center gap-1 transition-colors hover:text-[var(--btn-bg)]"><FaMobileAlt fontSize={12} className="mr-2" />{agent?.contact?.mobile}</Link>
+
+                                    <Link color={'text.main'} underline="none" href={`tel: ${agent?.contact?.phone}`} className="flex items-center gap-1 transition-colors hover:text-[var(--btn-bg)]"><FaEnvelope fontSize={12} className="mr-2" />{agent?.contact?.email}</Link>
+
+                                    <Link color={'text.main'} underline="none" href={`tel: ${agent?.contact?.phone}`} className="flex items-center gap-1 transition-colors hover:text-[var(--btn-bg)]"><FaSkype fontSize={12} className="mr-2" />{agent?.contact?.skype}</Link>
+
+                                    <Link color={'text.main'} underline="none" href={`tel: ${agent?.contact?.phone}`} className="flex items-center gap-1 transition-colors hover:text-[var(--btn-bg)]"><FaGlobe fontSize={12} className="mr-2" />{agent?.contact?.website}</Link>
+                                </div>
+                                <span className="text-sm text-[var(--text-color)] font-light">
+                                    <span className="font-medium">Member of:</span> {agent?.companyName}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <SimilarProperties type={property?.listed_in} category={property?.category} />
                 </div>
                 <div></div>
             </div>

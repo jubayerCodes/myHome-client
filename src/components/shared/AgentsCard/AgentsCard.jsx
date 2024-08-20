@@ -7,8 +7,8 @@ const AgentsCard = () => {
 
 
     const agent = {
-        name: 'Lily Bicharm',
-        title: 'Realtor',
+        displayName: 'Lily Bicharm',
+        position: 'Realtor',
         bio: 'Whether it is working with a first time homebuyer, a luxury home listing or a seasoned investor, Michael prides himself on his unparalleled service with an aptitude for problem solving – something essential for navigating clients through the challenges of today’s real estate market. My focus is always on serving my clients with honesty, integrity and discretion as a dependable and knowledgeable broker committed to exceptional results. I am a licensed real estate broker, an active member in local and national real estate industry organizations, a lover of architecture and an active member to such philanthropic causes.',
         contact: {
             facebook: '#',
@@ -36,6 +36,7 @@ const AgentsCard = () => {
                     component="img"
                     alt="agent"
                     height="140"
+                    // TODO: make it dynamic
                     image={'https://main.wpresidence.net/wp-content/uploads/2014/05/person3-500x328.webp'}
                     sx={{ borderRadius: '3px' }}
                 />
@@ -44,11 +45,11 @@ const AgentsCard = () => {
 
                 <Link href={'#'} underline='none' color={'black'} className="agent-name">
                     <Typography variant="h5" component="div" fontSize={22} fontWeight={500}>
-                        {agent?.name}
+                        {agent?.displayName}
                     </Typography>
                 </Link>
                 <Typography className="agent-title" marginBottom={1} variant="h6" component="div" fontSize={14} fontWeight={300} color='main'>
-                    {agent?.title}
+                    {agent?.position}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {agent.bio.split(' ').slice(0, 17).join(' ')}...
