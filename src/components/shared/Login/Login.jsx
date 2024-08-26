@@ -41,7 +41,7 @@ const Login = () => {
     }
 
     const handleRegister = (data) => {
-        const { displayName, email, password, confirmPassword, role } = data
+        const { displayName, email, password, role } = data
 
         // TODO: make it dynamic
 

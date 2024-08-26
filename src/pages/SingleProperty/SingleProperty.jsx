@@ -3,7 +3,7 @@ import Loader from "../../components/shared/Loader/Loader";
 import Breadcrumb from "../../components/shared/Breadcrumb/Breadcrumb";
 import { Accordion, AccordionDetails, AccordionSummary, Button, Link, Menu, MenuItem, Typography } from "@mui/material";
 import { FaBed, FaBullseye, FaCalendarDay, FaCar, FaEnvelope, FaExpand, FaFacebook, FaFacebookF, FaGlobe, FaHeart, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaMobileAlt, FaPhone, FaPhoneAlt, FaPinterest, FaPrint, FaRegCalendar, FaShareAlt, FaSkype, FaTwitter, FaWhatsapp } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import moment from "moment";
 import { FaDroplet } from "react-icons/fa6";
 import SimilarProperties from "../../components/shared/SimilarProperties/SimilarProperties";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { useForm } from "react-hook-form";
 
 
@@ -23,6 +23,7 @@ const SingleProperty = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [scheduleOpen, setScheduleOpen] = useState(false)
+    const [date, setDate] = useState(null)
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
@@ -50,8 +51,23 @@ const SingleProperty = () => {
         setThumbsSwiper(swiper);
     }
 
-    const handleEmail = (data) => {
-        console.log(data);
+    const handleEmail = ({ name, email, phone, message, time }) => {
+
+        const details = { name, email, phone, message }
+
+        if (date) {
+            details.date = date.format('DD/MM/YYYY')
+        }
+
+        if (time !== '') {
+            details.time = time
+        }
+
+        console.log(details);
+
+        reset({ name: '', email: '', phone: '', message: `I'm interested in [${property?.title}]`, time: '' })
+        setDate(null)
+
     }
 
 
@@ -494,11 +510,11 @@ const SingleProperty = () => {
                         </Button>
                         <form onSubmit={handleSubmit(handleEmail)} className="agent-contact-form mt-3">
                             <div className={` flex-col justify-start items-stretch gap-3 transition-all ${scheduleOpen ? 'flex' : 'hidden'}`} >
-                                <DesktopDatePicker
-                                    {...register('date')}
-                                    name="date"
+                                <MobileDatePicker
+                                    onChange={(newDate) => setDate(newDate)}
                                     slots={{ openPickerIcon: FaCalendarDay }}
                                     slotProps={{ textField: { placeholder: 'Day' } }}
+                                    value={date}
                                     sx={{
                                         '& .MuiInputBase-root': {
                                             border: '1px solid #e7e7e7',
@@ -516,7 +532,7 @@ const SingleProperty = () => {
                                         },
                                     }}
                                 />
-                                <select name="time" id="time-field" className="input font-light" style={{ padding: '10px 10px' }}>
+                                <select {...register('time')} name="time" id="time-field" className="input font-light" style={{ padding: '10px 10px' }}>
                                     <option value=''>Time</option>
                                     {
                                         times?.map((time, idx) => <option key={idx} value={time}>{time}</option>)
@@ -524,11 +540,13 @@ const SingleProperty = () => {
                                 </select>
                             </div>
                             <div className="mt-3 grid grid-cols-1 gap-3 items-center justify-between">
-                                <input id="name-field" name="name" type="text" className="input" placeholder="Your Name" />
-                                <input id="email-field" name="email" type="email" className="input" placeholder="Your Email" />
-                                <input id="phone-field" name="phone" type="tel" className="input" placeholder="Your Phone" />
+                                <input id="name-field" name="name" type="text" className="input" placeholder="Your Name" {...register('name', { required: true })} required />
+
+                                <input id="email-field" name="email" type="email" className="input" placeholder="Your Email" {...register('email', { required: true })} required />
+
+                                <input id="phone-field" name="phone" type="tel" className="input" placeholder="Your Phone" {...register('phone', { required: true })} required />
                             </div>
-                            <textarea name="message" id="message-field" defaultValue={`I'm interested in [${property?.title}]`} className="input w-full mt-3" rows={8}></textarea>
+                            <textarea name="message" id="message-field" defaultValue={`I'm interested in [${property?.title}]`} className="input w-full mt-3" rows={8} required {...register('message', { required: true })}></textarea>
 
                             <div className="mt-2 flex flex-col gap-3">
                                 <input type="submit" className="primary-btn" value={'Send Email'} />
