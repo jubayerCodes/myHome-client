@@ -59,7 +59,11 @@ html {
 }
 
 .primary-btn {
-  @apply bg-[#0073e1] hover:bg-black duration-300 text-base py-2 px-5 text-white capitalize font-semibold rounded-sm;
+  @apply bg-[#0073e1] hover:bg-transparent duration-300 text-sm py-2 px-5 text-white capitalize font-semibold rounded cursor-pointer border-[var(--btn-bg)] border hover:text-[var(--btn-bg)];
+}
+
+.secondary-btn{
+  @apply bg-transparent hover:bg-[#0073e1]  duration-300 text-sm py-2 px-5 hover:text-white capitalize font-semibold rounded cursor-pointer border-[var(--btn-bg)] border text-[var(--btn-bg)]
 }
 
 .header-scrolled {

@@ -57,3 +57,8 @@
 .property-info .agent-link:hover {
   color: #0073e1;
 }
+
+.agent-contact-form .input {
+  border: 1px solid #e7e7e7;
+  @apply rounded-[4px] py-[10px] px-[15px] text-[13px] focus-visible:outline-none focus:bg-[#efefef] text-[#5c727d];
+}
