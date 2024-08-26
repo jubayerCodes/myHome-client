@@ -16,8 +16,8 @@ export const propertiesApi = createApi({
         }${sort !== "" ? `&sort=${sort}` : ""}`,
     }),
     getSimilarProperties: builder.query({
-      query: ({ type, category }) =>
-        `/similarProperties?type=${type}&category=${category}`,
+      query: ({ type, category, _id }) =>
+        `/similarProperties?type=${type}&category=${category}&_id=${_id}`,
     }),
     getTotalPages: builder.query({
       query: ({ limit, type, category, city }) =>

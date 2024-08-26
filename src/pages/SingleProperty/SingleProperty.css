@@ -10,7 +10,7 @@
   font-size: 24px;
 }
 
-.property-info {
+.property-info, .sidebar {
   box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
   @apply bg-white p-8 rounded-md;
 }
@@ -62,3 +62,4 @@
   border: 1px solid #e7e7e7;
   @apply rounded-[4px] py-[10px] px-[15px] text-[13px] focus-visible:outline-none focus:bg-[#efefef] text-[#5c727d];
 }
+

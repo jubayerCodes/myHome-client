@@ -4,7 +4,6 @@ import PropertiesByArea from '../../components/Home/PropertiesByArea/PropertiesB
 import Agents from '../../components/shared/Agents/Agents';
 import LatestProperties from '../../components/shared/LatestProperties/Latestproperties';
 import LatestPropertiesForRent from '../../components/shared/LatestPropertiesForRent/LatestPropertiesForRent';
-import Login from '../../components/shared/Login/Login';
 import WhyChooseUs from '../../components/shared/WhyChooseUs/WhyChooseUs';
 
 const Home = () => {
@@ -20,7 +19,6 @@ const Home = () => {
             <LatestProperties />
             <LatestPropertiesForRent />
             <Agents />
-            <Login />
         </>
     );
 };

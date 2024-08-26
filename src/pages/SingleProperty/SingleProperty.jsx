@@ -1,8 +1,8 @@
 import { useLoaderData } from "react-router-dom";
 import Loader from "../../components/shared/Loader/Loader";
 import Breadcrumb from "../../components/shared/Breadcrumb/Breadcrumb";
-import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Box, Button, Link, Menu, MenuItem, Typography } from "@mui/material";
-import { FaBed, FaBlackTie, FaBullseye, FaCalendarDay, FaCar, FaCheckCircle, FaCircle, FaCircleNotch, FaDumbbell, FaEnvelope, FaExpand, FaFacebook, FaFacebookF, FaGlobe, FaHeart, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaMobileAlt, FaPhone, FaPhoneAlt, FaPinterest, FaPrint, FaRegCalendar, FaShareAlt, FaSkype, FaTv, FaTwitter, FaUtensils, FaVimeo, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Link, Menu, MenuItem, Typography } from "@mui/material";
+import { FaBed, FaBullseye, FaCalendarDay, FaCar, FaEnvelope, FaExpand, FaFacebook, FaFacebookF, FaGlobe, FaHeart, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaMobileAlt, FaPhone, FaPhoneAlt, FaPinterest, FaPrint, FaRegCalendar, FaShareAlt, FaSkype, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useState } from "react";
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import 'swiper/css';
@@ -15,6 +15,7 @@ import moment from "moment";
 import { FaDroplet } from "react-icons/fa6";
 import SimilarProperties from "../../components/shared/SimilarProperties/SimilarProperties";
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { useForm } from "react-hook-form";
 
 
 const SingleProperty = () => {
@@ -22,6 +23,8 @@ const SingleProperty = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [scheduleOpen, setScheduleOpen] = useState(false)
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
     const times = ['7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00']
 
@@ -47,6 +50,12 @@ const SingleProperty = () => {
         setThumbsSwiper(swiper);
     }
 
+    const handleEmail = (data) => {
+        console.log(data);
+    }
+
+
+    // TODO: Make it dynamic
 
     const agent = {
         displayName: 'Lily Bicharm',
@@ -427,7 +436,7 @@ const SingleProperty = () => {
                             <div className="relative">
                                 <img src="https://main.wpresidence.net/wp-content/uploads/2017/11/person-500x328.webp" alt="" className="rounded" />
 
-                                <div className="flex justify-center gap-5 w-10/12 mx-auto bg-white rounded shadow py-3 -mt-5 absolute left-0 right-0">
+                                <div className="flex justify-center gap-5 w-10/12 mx-auto bg-white rounded shadow py-3 -mt-11 absolute left-0 right-0">
                                     <Link underline="none" className="agent-link" href={agent.contact.facebook}>
                                         <FaFacebookF />
                                     </Link>
@@ -466,63 +475,74 @@ const SingleProperty = () => {
                                 </span>
                             </div>
                         </div>
-                        <div className="mt-14">
-                            <div className="flex justify-start gap-4 items-start">
-                                <h4 className="info-title">Contact Me</h4>
-                                <Button onClick={() => setScheduleOpen(!scheduleOpen)} size="small" color="white" sx={{ background: '#69c17dd9', padding: '2px 12px', fontSize: '12px', textTransform: 'capitalize', '&:hover': { bgcolor: '#69c109' } }} className='rounded-sm'>
-                                    Schedule a showing?
-                                </Button>
-                            </div>
-                            <div>
-                                <form className="agent-contact-form">
-                                    <div className={`justify-between items-center gap-3 transition-all ${scheduleOpen ? 'flex' : 'hidden'}`} >
-                                        <DesktopDatePicker
-                                            slots={{ openPickerIcon: FaCalendarDay }}
-                                            slotProps={{ textField: { placeholder: 'Day' } }}
-                                            sx={{
-                                                width: '50%',
-                                                '& .MuiInputBase-root': {
-                                                    border: '1px solid #e7e7e7',
-                                                    borderRadius: '4px',
-                                                    fontSize: '13px',
-                                                    '&.Mui-focused': {
-                                                        backgroundColor: '#efefef',
-                                                    },
-                                                },
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    border: 'none',
-                                                },
-                                                '& .MuiInputBase-input': {
-                                                    padding: '10px 15px',
-                                                },
-                                            }}
-                                        />
-                                        <select name="time" id="time-field" className="w-1/2 input">
-                                            <option value=''>Time</option>
-                                            {
-                                                times?.map((time, idx) => <option key={idx} value={time}>{time}</option>)
-                                            }
-                                        </select>
-                                    </div>
-                                    <div className="mt-3 grid grid-cols-3 gap-3 items-center justify-between">
-                                        <input id="name-field" name="name" type="text" className="input" placeholder="Your Name" />
-                                        <input id="email-field" name="email" type="email" className="input" placeholder="Your Email" />
-                                        <input id="phone-field" name="phone" type="tel" className="input" placeholder="Your Phone" />
-                                    </div>
-                                    <textarea name="message" id="message-field" defaultValue={`I'm interested in [${property?.title}]`} className="input w-full mt-3" rows={8}></textarea>
+                    </div>
+                    <SimilarProperties type={property?.listed_in} category={property?.category} id={property?._id} />
+                </div>
 
-                                    <div className="mt-2 flex gap-4">
-                                        <input type="submit" className="primary-btn" value={'Send Email'} />
-                                        <button className="secondary-btn flex justify-start items-center gap-1"><FaPhoneAlt fontSize={12} /> Call {agent?.contact?.mobile}</button>
-                                        <button className="secondary-btn flex justify-start items-center gap-1"><FaWhatsapp fontSize={13} /> WhatsApp</button>
-                                    </div>
-                                </form>
-                            </div>
+                {/* Sidebar */}
+                <aside className="col-span-3 p-8 sticky top-[110px] h-fit sidebar">
+                    <div className="flex items-start justify-start gap-4">
+                        <img src="https://main.wpresidence.net/wp-content/uploads/2017/11/person-500x328.webp" alt="" className="rounded w-[80px]" />
+                        <div>
+                            <h3 className="text-lg font-medium">{agent?.displayName}</h3>
+                            <span className="text-[var(--text-color)] text-sm font-light">{agent?.position}</span>
                         </div>
                     </div>
-                    <SimilarProperties type={property?.listed_in} category={property?.category} />
-                </div>
-                <div></div>
+                    <div className="mt-3">
+                        <Button onClick={() => setScheduleOpen(!scheduleOpen)} size="small" color="white" sx={{ width: '100%', background: '#69c17dd9', padding: '2px 12px', fontSize: '12px', textTransform: 'capitalize', '&:hover': { bgcolor: '#69c109' } }} className='rounded-sm'>
+                            Schedule a showing?
+                        </Button>
+                        <form onSubmit={handleSubmit(handleEmail)} className="agent-contact-form mt-3">
+                            <div className={` flex-col justify-start items-stretch gap-3 transition-all ${scheduleOpen ? 'flex' : 'hidden'}`} >
+                                <DesktopDatePicker
+                                    {...register('date')}
+                                    name="date"
+                                    slots={{ openPickerIcon: FaCalendarDay }}
+                                    slotProps={{ textField: { placeholder: 'Day' } }}
+                                    sx={{
+                                        '& .MuiInputBase-root': {
+                                            border: '1px solid #e7e7e7',
+                                            borderRadius: '4px',
+                                            fontSize: '13px',
+                                            '&.Mui-focused': {
+                                                backgroundColor: '#efefef',
+                                            },
+                                        },
+                                        '& .MuiOutlinedInput-notchedOutline': {
+                                            border: 'none',
+                                        },
+                                        '& .MuiInputBase-input': {
+                                            padding: '10px 15px',
+                                        },
+                                    }}
+                                />
+                                <select name="time" id="time-field" className="input font-light" style={{ padding: '10px 10px' }}>
+                                    <option value=''>Time</option>
+                                    {
+                                        times?.map((time, idx) => <option key={idx} value={time}>{time}</option>)
+                                    }
+                                </select>
+                            </div>
+                            <div className="mt-3 grid grid-cols-1 gap-3 items-center justify-between">
+                                <input id="name-field" name="name" type="text" className="input" placeholder="Your Name" />
+                                <input id="email-field" name="email" type="email" className="input" placeholder="Your Email" />
+                                <input id="phone-field" name="phone" type="tel" className="input" placeholder="Your Phone" />
+                            </div>
+                            <textarea name="message" id="message-field" defaultValue={`I'm interested in [${property?.title}]`} className="input w-full mt-3" rows={8}></textarea>
+
+                            <div className="mt-2 flex flex-col gap-3">
+                                <input type="submit" className="primary-btn" value={'Send Email'} />
+                                <div className="grid grid-cols-2 gap-2">
+
+                                    <button className="secondary-btn flex justify-center items-center gap-1"><FaPhoneAlt fontSize={12} /> Call</button>
+
+                                    <button style={{ paddingLeft: '0', paddingRight: '0' }} className="secondary-btn flex justify-center items-center gap-1"><FaWhatsapp fontSize={13} />WhatsApp</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </aside>
             </div>
         </div>
     );
