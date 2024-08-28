@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import PropertyCard from '../PropertyCard/PropertyCard';
-import PropertyCarousel from '../PropertyCarousel/PropertyCarousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Autoplay, Pagination } from 'swiper/modules';
+import './LatestPropertiesForRent.css'
 
 const LatestPropertiesForRent = () => {
 
@@ -16,16 +20,25 @@ const LatestPropertiesForRent = () => {
     return (
         <section className='section'>
 
-            <div className='my-container'>
+            <div className='w-full xl:w-[1220px] mx-auto px-5'>
                 <SectionTitle description={'These are the latest properties in the Sales category. You can create the list using the “latest listing shortcode” and show items by specific categories.'} heading={'Latest Properties for Rent'} />
 
 
-                <div className="mt-12">
-                    <PropertyCarousel>
+                <div className="mt-12 latestProperties">
+                    <Swiper
+                        slidesPerView={3}
+                        spaceBetween={30}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        modules={[Autoplay, Pagination]}
+                        className="mySwiper"
+                        autoplay={{ delay: 2500, disableOnInteraction: true }}
+                    >
                         {
-                            latestPropertiesForRent?.map(property => <PropertyCard key={property._id} property={property} />)
+                            latestPropertiesForRent?.map((property, idx) => <SwiperSlide key={idx}><PropertyCard key={property._id} property={property} /></SwiperSlide>)
                         }
-                    </PropertyCarousel>
+                    </Swiper>
                 </div>
             </div>
 

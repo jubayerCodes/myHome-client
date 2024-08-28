@@ -63,7 +63,8 @@ const SingleProperty = () => {
             details.time = time
         }
 
-        console.log(details);
+
+        // TODO: add email feature
 
         reset({ name: '', email: '', phone: '', message: `I'm interested in [${property?.title}]`, time: '' })
         setDate(null)

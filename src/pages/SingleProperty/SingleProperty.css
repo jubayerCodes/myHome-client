@@ -1,16 +1,17 @@
 .property-swiper .swiper-button-prev,
-.swiper-button-next {
+.property-swiper .swiper-button-next {
   background: #0000006c;
   width: 40px;
   @apply rounded hover:bg-[#000000c7] transition-colors;
 }
 
 .property-swiper .swiper-button-prev:after,
-.swiper-button-next:after {
+.property-swiper .swiper-button-next:after {
   font-size: 24px;
 }
 
-.property-info, .sidebar {
+.property-info,
+.sidebar {
   box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
   @apply bg-white p-8 rounded-md;
 }
@@ -62,4 +63,3 @@
   border: 1px solid #e7e7e7;
   @apply rounded-[4px] py-[10px] px-[15px] text-[13px] focus-visible:outline-none focus:bg-[#efefef] text-[#5c727d];
 }
-

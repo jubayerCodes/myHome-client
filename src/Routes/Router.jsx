@@ -5,6 +5,7 @@ import Properties from "../pages/Properties/Properties";
 import SingleProperty from "../pages/SingleProperty/SingleProperty";
 import propertiesApi from "../Utilities/Redux/features/api/propertiesApi";
 import { store } from "../Utilities/Redux/store";
+import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 
 const Router = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ const Router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />
+        element: <Home />,
       },
       {
         path: '/properties',
@@ -25,6 +26,16 @@ const Router = createBrowserRouter([
         loader: ({ params }) => store.dispatch(propertiesApi.endpoints.getProperty.initiate(params.id))
       }
     ]
+  },
+  {
+    path: '/dashboard',
+    element: <DashboardLayout />,
+    // children: [
+    //   {
+    //     path: '/',
+
+    //   }
+    // ]
   }
 ]);
 
