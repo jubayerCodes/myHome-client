@@ -6,6 +6,11 @@ import SingleProperty from "../pages/SingleProperty/SingleProperty";
 import propertiesApi from "../Utilities/Redux/features/api/propertiesApi";
 import { store } from "../Utilities/Redux/store";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
+import UserProfile from "../components/Dashboard/User/UserProfile/UserProfile";
+import Overview from "../components/Dashboard/shared/Overview/Overview";
+import UserInvoices from "../components/Dashboard/User/UserInvoices/UserInvoices";
+import Inbox from "../components/Dashboard/shared/Inbox/Inbox";
+import DashboardFavorites from "../components/Dashboard/shared/DashboardFavorites/DashboardFavorites";
 
 const Router = createBrowserRouter([
   {
@@ -30,12 +35,28 @@ const Router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <DashboardLayout />,
-    // children: [
-    //   {
-    //     path: '/',
-
-    //   }
-    // ]
+    children: [
+      {
+        path: 'overview',
+        element: <Overview />
+      },
+      {
+        path: 'user-profile',
+        element: <UserProfile />
+      },
+      {
+        path: 'user-invoices',
+        element: <UserInvoices />
+      },
+      {
+        path: 'inbox',
+        element: <Inbox />
+      },
+      {
+        path: 'favorites',
+        element: <DashboardFavorites />
+      }
+    ]
   }
 ]);
 

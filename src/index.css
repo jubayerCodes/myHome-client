@@ -51,7 +51,7 @@ html {
 }
 
 .header-li {
-  @apply px-3 py-1 hover:bg-[var(--btn-bg)] hover:text-white rounded-sm duration-200;
+  @apply font-medium text-[15px] px-[15px] py-[7px] hover:bg-[var(--btn-bg)] hover:text-white rounded-[4px] duration-200;
 }
 
 .active-link {
