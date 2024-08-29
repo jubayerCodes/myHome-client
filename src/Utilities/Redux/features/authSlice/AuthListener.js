@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { auth, clearUser, setError, setUser } from "./authSlice";
+import { auth, clearUser, setError, setRole, setUser } from "./authSlice";
 
 const AuthListener = () => {
   const dispatch = useDispatch();
@@ -9,6 +9,8 @@ const AuthListener = () => {
     const unsubscribe = auth.onAuthStateChanged(
       (currentUser) => {
         if (currentUser) {
+          dispatch(setRole(currentUser?.email));
+
           dispatch(
             setUser({
               uid: currentUser?.uid,
@@ -17,7 +19,6 @@ const AuthListener = () => {
               photoURL: currentUser?.photoURL,
             })
           );
-          
         } else {
           dispatch(clearUser());
         }

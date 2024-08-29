@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout";
 import Home from "../pages/Home/Home";
 import Properties from "../pages/Properties/Properties";
@@ -11,6 +11,8 @@ import Overview from "../components/Dashboard/shared/Overview/Overview";
 import UserInvoices from "../components/Dashboard/User/UserInvoices/UserInvoices";
 import Inbox from "../components/Dashboard/shared/Inbox/Inbox";
 import DashboardFavorites from "../components/Dashboard/shared/DashboardFavorites/DashboardFavorites";
+import UserRoute from "./UserRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -37,24 +39,28 @@ const Router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
+        path: '/dashboard',
+        element: <Navigate to={'overview'} />
+      },
+      {
         path: 'overview',
-        element: <Overview />
+        element: <PrivateRoute><Overview /></PrivateRoute>
       },
       {
         path: 'user-profile',
-        element: <UserProfile />
+        element: <UserRoute><UserProfile /></UserRoute>
       },
       {
         path: 'user-invoices',
-        element: <UserInvoices />
+        element: <PrivateRoute><UserInvoices /></PrivateRoute>
       },
       {
         path: 'inbox',
-        element: <Inbox />
+        element: <PrivateRoute><Inbox /></PrivateRoute>
       },
       {
         path: 'favorites',
-        element: <DashboardFavorites />
+        element: <PrivateRoute><DashboardFavorites /></PrivateRoute>
       }
     ]
   }

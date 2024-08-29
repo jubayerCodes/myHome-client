@@ -10,9 +10,8 @@ import {
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { closeModal } from "../modalSlice/modalSlice";
-import usersApi from "../api/usersApi";
+import usersApi, { useGetRoleQuery } from "../api/usersApi";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
 const googleProvider = new GoogleAuthProvider();
 export const auth = getAuth(app);
 
@@ -139,10 +138,26 @@ export const logOut = createAsyncThunk(
   }
 );
 
+export const setRole = createAsyncThunk(
+  "auth/setRole",
+  async (email, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await dispatch(
+        usersApi.endpoints.getRole.initiate(email)
+      );
+
+      return data?.role;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   user: null,
   status: "idle",
   error: null,
+  role: null,
 };
 
 export const authSlice = createSlice({
@@ -155,6 +170,7 @@ export const authSlice = createSlice({
     },
     clearUser: (state, action) => {
       state.user = null;
+      state.role = null;
       state.status = "unAuthenticated";
     },
     setError: (state, action) => {
@@ -166,7 +182,7 @@ export const authSlice = createSlice({
     builder
       .addCase(signInWithGoogle.fulfilled, (state, action) => {
         state.user = { ...action.payload };
-        state.status = "idle";
+        state.status = "authenticated";
 
         Swal.fire({
           title: "Yay!",
@@ -193,7 +209,7 @@ export const authSlice = createSlice({
       })
       .addCase(registerWithEmailAndPassword.fulfilled, (state, action) => {
         state.user = { ...action.payload };
-        state.status = "idle";
+        state.status = "authenticated";
 
         Swal.fire({
           title: "Yay!",
@@ -227,7 +243,7 @@ export const authSlice = createSlice({
       })
       .addCase(loginWithEmailAndPassword.fulfilled, (state, action) => {
         state.user = { ...action.payload };
-        state.status = "idle";
+        state.status = "authenticated";
 
         Swal.fire({
           title: "Yay!",
@@ -242,6 +258,18 @@ export const authSlice = createSlice({
       .addCase(loginWithEmailAndPassword.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      .addCase(setRole.fulfilled, (state, action) => {
+        state.role = action.payload;
+        state.status = "authenticated";
+      })
+      .addCase(setRole.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(setRole.rejected, (state, action) => {
+        state.user = null;
+        state.status = "failed";
+        state.role = null;
       });
   },
 });

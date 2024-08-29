@@ -37,6 +37,8 @@ const DashboardLayout = () => {
         }
     };
 
+    // TODO: different list for different role
+
     const drawer = (
         <div>
             <Toolbar >
@@ -104,11 +106,6 @@ const DashboardLayout = () => {
             </List>
         </div>
     );
-
-
-    useEffect(() => {
-        navigate('overview')
-    }, [navigate])
 
     return (
         <>

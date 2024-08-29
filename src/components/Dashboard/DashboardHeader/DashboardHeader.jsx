@@ -131,7 +131,7 @@ const DashboardHeader = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='bg-white shadow-sm'>
+                    <div className='bg-white shadow'>
                         <div className={`px-10 header-bottom py-5 grid grid-cols-12 justify-between items-center`}>
                             <div className='col-span-3'>
                                 <Link to={'/'} className='hidden xl:block'>
