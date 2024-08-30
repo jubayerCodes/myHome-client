@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../Utilities/Redux/features/modalSlice/modalSlice';
 import { useForm } from 'react-hook-form';
 import { loginWithEmailAndPassword, registerWithEmailAndPassword } from '../../../Utilities/Redux/features/authSlice/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -22,6 +23,7 @@ const Login = () => {
     const open = useSelector((state) => state.modal.open)
 
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     const [isRegister, setIsRegister] = useState(false)
 
@@ -56,6 +58,10 @@ const Login = () => {
         }
 
         dispatch(registerWithEmailAndPassword(user))
+            .then(() => {
+                console.log('hehe');
+                navigate("/dashboard");
+            });
 
         reset()
     }
@@ -64,6 +70,10 @@ const Login = () => {
         const userCredentials = { ...data }
 
         dispatch(loginWithEmailAndPassword(userCredentials))
+            .then(() => {
+
+                navigate("/dashboard");
+            });
 
         resetLogin()
     }
@@ -113,7 +123,6 @@ const Login = () => {
                                         {errors.password && <span className='form-warning'>{errors.password.message}</span>}
 
                                         <input required {...register('confirmPassword', {
-                                            required: "Confirm Password is required",
                                             validate: value =>
                                                 value === password || "Passwords do not match"
                                         })} placeholder='Retype Password' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="password" name="confirmPassword" id="confirm-password-field" />

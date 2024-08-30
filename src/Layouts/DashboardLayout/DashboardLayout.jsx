@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -10,17 +10,20 @@ import Toolbar from '@mui/material/Toolbar';
 import { FaChartBar, FaPrint, FaRegCaretSquareRight, FaRegEnvelope, FaRegHeart, FaRegUser } from 'react-icons/fa';
 import DashboardHeader from '../../components/Dashboard/DashboardHeader/DashboardHeader';
 import './DashboardLayout.css'
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import DashboardActiveLnk from '../../components/Dashboard/DashboardActiveLink/DashboardActiveLnk';
+import { useSelector } from 'react-redux';
+import Loader from '../../components/shared/Loader/Loader';
+import { HiOutlineHome, HiOutlinePlus } from 'react-icons/hi';
 
 const drawerWidth = 300
 
 const DashboardLayout = () => {
 
-    const navigate = useNavigate()
+    const { role } = useSelector(state => state.auth)
 
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [isClosing, setIsClosing] = React.useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
 
     const handleDrawerClose = () => {
         setIsClosing(true);
@@ -56,14 +59,53 @@ const DashboardLayout = () => {
                     </DashboardActiveLnk>
                 </ListItem>
 
-                <ListItem sx={{ paddingX: '20px' }} disablePadding>
-                    <DashboardActiveLnk href={'user-profile'}>
-                        <ListItemIcon sx={{ minWidth: '30px' }}>
-                            <FaRegUser />
-                        </ListItemIcon>
-                        <ListItemText primary={'My Profile'} />
-                    </DashboardActiveLnk>
-                </ListItem>
+                {
+                    role === 'user' && (
+                        <>
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'user-profile'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                        <FaRegUser />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'My Profile'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
+                        </>
+                    )
+                }
+
+                {
+                    role === 'agent' && (
+                        <>
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'agent-profile'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                        <FaRegUser />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'My Profile'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
+
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'my-properties'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                        <HiOutlineHome />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'My Properties List'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
+
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'add-property'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                        <HiOutlinePlus />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Add New Property'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
+                        </>
+                    )
+                }
 
                 <ListItem sx={{ paddingX: '20px' }} disablePadding>
                     <DashboardActiveLnk href={'favorites'}>
@@ -74,14 +116,31 @@ const DashboardLayout = () => {
                     </DashboardActiveLnk>
                 </ListItem>
 
-                <ListItem sx={{ paddingX: '20px' }} disablePadding>
-                    <DashboardActiveLnk href={'user-invoices'}>
-                        <ListItemIcon sx={{ minWidth: '30px' }}>
-                            <FaPrint />
-                        </ListItemIcon>
-                        <ListItemText primary={'my invoices'} />
-                    </DashboardActiveLnk>
-                </ListItem>
+                {
+                    role === 'user' && <>
+                        <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                            <DashboardActiveLnk href={'user-invoices'}>
+                                <ListItemIcon sx={{ minWidth: '30px' }}>
+                                    <FaPrint />
+                                </ListItemIcon>
+                                <ListItemText primary={'my invoices'} />
+                            </DashboardActiveLnk>
+                        </ListItem>
+                    </>
+                }
+
+                {
+                    role === 'agent' && <>
+                        <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                            <DashboardActiveLnk href={'agent-invoices'}>
+                                <ListItemIcon sx={{ minWidth: '30px' }}>
+                                    <FaPrint />
+                                </ListItemIcon>
+                                <ListItemText primary={'my invoices'} />
+                            </DashboardActiveLnk>
+                        </ListItem>
+                    </>
+                }
 
                 <ListItem sx={{ paddingX: '20px' }} disablePadding>
                     <DashboardActiveLnk href={'inbox'}>

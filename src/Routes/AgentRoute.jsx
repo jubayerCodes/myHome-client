@@ -1,21 +1,22 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import Loader from '../components/shared/Loader/Loader';
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ children }) => {
-
-    const { user, status, role } = useSelector(state => state.auth)
+const AgentRoute = ({ children }) => {
+    const { role, status } = useSelector(state => state.auth)
 
     if ((role === null) && ((status === 'pending') || (status === 'idle') || (status === 'authenticated'))) {
         return <Loader />
     }
 
-    if (user && role) {
-        return children
+    if ((role === 'agent')) {
+        return <>
+            {children}
+        </>
     }
 
     return <Navigate to={'/'} />
 };
 
-export default PrivateRoute;
+export default AgentRoute;

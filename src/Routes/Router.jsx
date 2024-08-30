@@ -13,6 +13,11 @@ import Inbox from "../components/Dashboard/shared/Inbox/Inbox";
 import DashboardFavorites from "../components/Dashboard/shared/DashboardFavorites/DashboardFavorites";
 import UserRoute from "./UserRoute";
 import PrivateRoute from "./PrivateRoute";
+import AgentRoute from "./AgentRoute";
+import AgentProfile from "../components/Dashboard/Agent/AgentProfile/AgentProfile";
+import MyProperties from "../components/Dashboard/Agent/MyProperties/MyProperties";
+import AddProperty from "../components/Dashboard/Agent/AddProperty/AddProperty";
+import AgentInvoices from "../components/Dashboard/Agent/AgentInvoices/AgentInvoices";
 
 const Router = createBrowserRouter([
   {
@@ -36,11 +41,11 @@ const Router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <DashboardLayout />,
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     children: [
       {
         path: '/dashboard',
-        element: <Navigate to={'overview'} />
+        element: <PrivateRoute><Navigate to={'overview'} /></PrivateRoute>
       },
       {
         path: 'overview',
@@ -51,8 +56,24 @@ const Router = createBrowserRouter([
         element: <UserRoute><UserProfile /></UserRoute>
       },
       {
+        path: 'agent-profile',
+        element: <AgentRoute><AgentProfile /></AgentRoute>
+      },
+      {
+        path: 'my-properties',
+        element: <AgentRoute><MyProperties /></AgentRoute>
+      },
+      {
+        path: 'add-property',
+        element: <AgentRoute><AddProperty /></AgentRoute>
+      },
+      {
+        path: 'agent-invoices',
+        element: <AgentRoute><AgentInvoices /></AgentRoute>
+      },
+      {
         path: 'user-invoices',
-        element: <PrivateRoute><UserInvoices /></PrivateRoute>
+        element: <UserRoute><UserInvoices /></UserRoute>
       },
       {
         path: 'inbox',

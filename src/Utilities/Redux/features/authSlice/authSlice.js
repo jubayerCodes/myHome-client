@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { closeModal } from "../modalSlice/modalSlice";
-import usersApi, { useGetRoleQuery } from "../api/usersApi";
+import usersApi from "../api/usersApi";
 import Swal from "sweetalert2";
 const googleProvider = new GoogleAuthProvider();
 export const auth = getAuth(app);
@@ -183,13 +183,7 @@ export const authSlice = createSlice({
       .addCase(signInWithGoogle.fulfilled, (state, action) => {
         state.user = { ...action.payload };
         state.status = "authenticated";
-
-        Swal.fire({
-          title: "Yay!",
-          text: "Signed In successfully!",
-          icon: "success",
-          confirmButtonText: "Cool",
-        });
+        state.role = action.payload.role;
       })
       .addCase(signInWithGoogle.pending, (state) => {
         state.status = "pending";
@@ -210,13 +204,7 @@ export const authSlice = createSlice({
       .addCase(registerWithEmailAndPassword.fulfilled, (state, action) => {
         state.user = { ...action.payload };
         state.status = "authenticated";
-
-        Swal.fire({
-          title: "Yay!",
-          text: "Registered successfully!",
-          icon: "success",
-          confirmButtonText: "Cool",
-        });
+        state.role = action?.payload?.role;
       })
       .addCase(registerWithEmailAndPassword.pending, (state) => {
         state.status = "pending";
@@ -244,13 +232,7 @@ export const authSlice = createSlice({
       .addCase(loginWithEmailAndPassword.fulfilled, (state, action) => {
         state.user = { ...action.payload };
         state.status = "authenticated";
-
-        Swal.fire({
-          title: "Yay!",
-          text: "Signed In successfully!",
-          icon: "success",
-          confirmButtonText: "Cool",
-        });
+        state.role = action?.payload?.role;
       })
       .addCase(loginWithEmailAndPassword.pending, (state) => {
         state.status = "pending";
