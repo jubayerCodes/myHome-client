@@ -1,8 +1,7 @@
-
-.footer-latest-properties img{
-@apply w-[100px] h-14 transition-all
+.footer-latest-properties img {
+  @apply min-w-[85px] w-[85px] h-14 transition-all;
 }
 
-.footer-latest-properties > div:hover img{
-    @apply brightness-90
+.footer-latest-properties > div:hover img {
+  @apply brightness-90;
 }

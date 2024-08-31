@@ -55,7 +55,7 @@ export const signInWithGoogle = createAsyncThunk(
 export const registerWithEmailAndPassword = createAsyncThunk(
   "auth/registerWithEmailAndPassword",
   async (
-    { displayName, email, password, role, photoURL },
+    { displayName, email, password, role },
     { rejectWithValue, dispatch }
   ) => {
     try {
@@ -69,14 +69,12 @@ export const registerWithEmailAndPassword = createAsyncThunk(
 
       updateProfile(user, {
         displayName,
-        photoURL,
       });
 
       const payload = {
         uid: user?.uid,
         displayName: displayName,
         email: user?.email,
-        photoURL: photoURL,
         role: role,
       };
 

@@ -3,7 +3,7 @@ import Loader from "../../components/shared/Loader/Loader";
 import Breadcrumb from "../../components/shared/Breadcrumb/Breadcrumb";
 import { Accordion, AccordionDetails, AccordionSummary, Button, Link, Menu, MenuItem, Typography } from "@mui/material";
 import { FaBed, FaBullseye, FaCalendarDay, FaCar, FaEnvelope, FaExpand, FaFacebook, FaFacebookF, FaGlobe, FaHeart, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaMobileAlt, FaPhone, FaPhoneAlt, FaPinterest, FaPrint, FaRegCalendar, FaShareAlt, FaSkype, FaTwitter, FaWhatsapp } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';

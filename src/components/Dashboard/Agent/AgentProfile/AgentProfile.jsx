@@ -160,7 +160,12 @@ const AgentProfile = () => {
                 <div className='col-span-3 sticky top-40'>
                     <div className='dashboard-sidebar'>
                         <h4 className="info-title">Photo</h4>
-                        <img src={userImg} alt="" className='w-full rounded-lg' />
+                        {
+                            user?.photoURL ?
+                                <img src={user?.photoURL} alt={'profile picture'} className='w-full rounded-lg' />
+                                :
+                                <img src={userImg} alt={user?.photoURL} className='w-full rounded-lg' />
+                        }
 
                         <button className="header-btn w-full mt-8" style={{ padding: '15px 20px', borderRadius: '7px' }}>Update Profile Picture</button>
                         <span className='text-gray-400 text-xs pt-1'>*Minimum 500px x 500px </span>

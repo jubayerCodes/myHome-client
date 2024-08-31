@@ -2,16 +2,15 @@
 import { Link } from '@mui/material';
 import { FaFacebookF, FaGoogle, FaLaptop, FaLinkedinIn, FaMapMarkerAlt, FaPhone, FaRegEnvelope, FaTwitter } from 'react-icons/fa';
 import './Footer.css'
+import { useGetPropertiesFilterOptionsQuery } from '../../Utilities/Redux/features/api/propertiesApi';
+import { useGetLatestPropertiesQuery } from '../../Utilities/Redux/features/api/latestPropertiesApi';
 
 const Footer = () => {
 
-    // const { properties } = useProperties()
+    const { data } = useGetPropertiesFilterOptionsQuery()
+    const { data: latestProperties } = useGetLatestPropertiesQuery()
 
-    // const { latestProperties } = useLatestProperties()
-
-    // const categories = Array.from(new Set(properties?.map((property) => property.category)));
-
-    // console.log(categories);
+    const categories = data?.categories
 
     return (
         <footer className='bg-[#001a33] py-24'>
@@ -63,49 +62,14 @@ const Footer = () => {
                     <div>
                         <h3 className='text-white font-semibold'>Categories</h3>
                         <div className='mt-5'>
-                            <ul className='text-white flex flex-col gap-3' >
+                            <ul className='text-white flex flex-col gap-2' >
                                 {
-                                    // categories?.map((cat, idx) => <li key={idx}>
-                                    //     {/* TODO: make links dynamic */}
-                                    //     <Link href={'/'} className='capitalize hover:text-[#0073e1]'>
-                                    //         {cat}
-                                    //     </Link>
-                                    // </li>)
+                                    categories?.map((cat, idx) => <li key={idx}>
+                                        <Link color={'#bbb'} fontSize={'14px'} underline='none' href={`/properties/${cat}`} className='capitalize hover:text-[#0073e1]'>
+                                            {cat}
+                                        </Link>
+                                    </li>)
                                 }
-
-                                <li>
-                                    <Link color={'#bbb'} fontSize={'14px'} underline='none' href={'/'} className='capitalize hover:text-[#0073e1]'>
-                                        Apartments (17)
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link color={'#bbb'} fontSize={'14px'} underline='none' href={'/'} className='capitalize hover:text-[#0073e1]'>
-                                        Apartments (17)
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link color={'#bbb'} fontSize={'14px'} underline='none' href={'/'} className='capitalize hover:text-[#0073e1]'>
-                                        Apartments (17)
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link color={'#bbb'} fontSize={'14px'} underline='none' href={'/'} className='capitalize hover:text-[#0073e1]'>
-                                        Apartments (17)
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link color={'#bbb'} fontSize={'14px'} underline='none' href={'/'} className='capitalize hover:text-[#0073e1]'>
-                                        Apartments (17)
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link color={'#bbb'} fontSize={'14px'} underline='none' href={'/'} className='capitalize hover:text-[#0073e1]'>
-                                        Apartments (17)
-                                    </Link>
-                                </li>
-
-
-
                             </ul>
                         </div>
                     </div>
@@ -113,75 +77,26 @@ const Footer = () => {
                         <h3 className='text-white font-semibold'>Latest Properties</h3>
                         <div className='footer-latest-properties flex flex-col gap-2 mt-5'>
                             {
-                                // latestProperties.slice(0, 3).map(property => (
-                                //     <div key={property._id} className='flex justify-start gap-3'>
-                                //         <div>
-
-                                //             <Link href={'/'}>
-                                //                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                                //                 <img src={property.photos[0]} alt='' className='w-[102px] h-[68px] rounded-md' />
-                                //             </Link>
-                                //         </div>
-                                //         <div>
-                                //             <Link href={'/'}>
-                                //                 <h3 className='text-white text-lg'>{property.title}</h3>
-                                //             </Link>
-                                //             <h6 className='text-white mt-2'>$ {property.price.toLocaleString()}</h6>
-                                //         </div>
-                                //     </div>
-                                // ))
+                                latestProperties?.slice(0, 3)?.map((property) => (
+                                    <div className='flex justify-start items-center gap-3' key={property?._id}>
+                                        <div>
+                                            <Link href={'/'}>
+                                                <img src={property?.photos[0]} alt={property?.title} className='rounded-md' />
+                                            </Link>
+                                        </div>
+                                        <div>
+                                            <Link underline='none' href={`/properties/${property?._id}`}>
+                                                <h3 className='text-sm text-[#bbbbbb] hover:text-[#0073e1] transition-all font-semibold'>
+                                                    {property?.title}
+                                                </h3>
+                                            </Link>
+                                            <h6 className='text-white mt-2 text-xs font-semibold'>
+                                                $ {property?.price}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                ))
                             }
-
-
-
-                            <div className='flex justify-start items-center gap-3'>
-                                <div>
-
-                                    <Link href={'/'}>
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src={'https://main.wpresidence.net/wp-content/uploads/2017/01/9-105x70.webp'} alt='' className='rounded-md' />
-                                    </Link>
-                                </div>
-                                <div>
-                                    <Link underline='none' href={'/'}>
-                                        <h3 className='text-sm text-[#bbbbbb] hover:text-[#0073e1] transition-all font-semibold'>Luxury House in Greenville</h3>
-                                    </Link>
-                                    <h6 className='text-white mt-2 text-xs font-semibold'>$ 999 / Month</h6>
-                                </div>
-                            </div>
-
-                            <div className='flex justify-start items-center gap-3'>
-                                <div>
-
-                                    <Link href={'/'}>
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src={'https://main.wpresidence.net/wp-content/uploads/2017/01/9-105x70.webp'} alt='' className='rounded-md' />
-                                    </Link>
-                                </div>
-                                <div>
-                                    <Link underline='none' href={'/'}>
-                                        <h3 className='text-sm text-[#bbbbbb] hover:text-[#0073e1] transition-all font-semibold'>Luxury House in Greenville</h3>
-                                    </Link>
-                                    <h6 className='text-white mt-2 text-xs font-semibold'>$ 999 / Month</h6>
-                                </div>
-                            </div>
-
-                            <div className='flex justify-start items-center gap-3'>
-                                <div>
-
-                                    <Link href={'/'}>
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src={'https://main.wpresidence.net/wp-content/uploads/2017/01/9-105x70.webp'} alt='' className='rounded-md' />
-                                    </Link>
-                                </div>
-                                <div>
-                                    <Link underline='none' href={'/'}>
-                                        <h3 className='text-sm text-[#bbbbbb] hover:text-[#0073e1] transition-all font-semibold'>Luxury House in Greenville</h3>
-                                    </Link>
-                                    <h6 className='text-white mt-2 text-xs font-semibold'>$ 999 / Month</h6>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>

@@ -6,22 +6,23 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Toolbar from '@mui/material/Toolbar';
 import { FaChartBar, FaPrint, FaRegCaretSquareRight, FaRegEnvelope, FaRegHeart, FaRegUser } from 'react-icons/fa';
 import DashboardHeader from '../../components/Dashboard/DashboardHeader/DashboardHeader';
 import './DashboardLayout.css'
 import { Outlet } from 'react-router-dom';
 import DashboardActiveLnk from '../../components/Dashboard/DashboardActiveLink/DashboardActiveLnk';
-import { useSelector } from 'react-redux';
-import Loader from '../../components/shared/Loader/Loader';
+import { useDispatch, useSelector } from 'react-redux';
 import { HiOutlineHome, HiOutlinePlus } from 'react-icons/hi';
-import { Typography } from '@mui/material';
+import userImg from '../../assets/images/default_user.png'
+import { Button } from '@mui/material';
+import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
 
 const drawerWidth = 260
 
 const DashboardLayout = () => {
 
     const { role, user } = useSelector(state => state.auth)
+    const dispatch = useDispatch()
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -44,7 +45,12 @@ const DashboardLayout = () => {
     const drawer = (
         <div>
             <Box component={'div'} sx={{ marginTop: '150px' }} display={'flex'} flexDirection={'column'} alignItems={'center'}>
-                <img src={user?.photoURL} alt={user?.displayName} className='rounded-full w-[50px]' />
+                {
+                    user?.photoURL ?
+                        <img src={user?.photoURL} alt={user?.displayName} className='rounded-full w-[50px]' />
+                        :
+                        <img src={userImg} alt={user?.displayName} className='rounded-full w-[50px]' />
+                }
                 <h6 className='text-[var(--text-color)] font-semibold mt-2'>{user?.displayName}</h6>
             </Box>
             <List sx={{ paddingTop: '30px', justifyContent: 'start' }}>
@@ -150,15 +156,13 @@ const DashboardLayout = () => {
                     </DashboardActiveLnk>
                 </ListItem>
 
-                {/* //TODO: it should be a logout button */}
-
                 <ListItem sx={{ paddingX: '20px' }} disablePadding>
-                    <DashboardActiveLnk href={'logout'}>
+                    <Button className='menu-item text-start' onClick={() => dispatch(logOut())}>
                         <ListItemIcon sx={{ minWidth: '30px' }}>
                             <FaRegCaretSquareRight />
                         </ListItemIcon>
                         <ListItemText primary={'logout'} />
-                    </DashboardActiveLnk>
+                    </Button>
                 </ListItem>
 
             </List>

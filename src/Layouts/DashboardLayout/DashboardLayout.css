@@ -1,16 +1,19 @@
 .dashboard .menu-item {
-  @apply flex justify-start items-center text-[#808191] w-full px-4 py-3 hover:text-[var(--btn-bg)] rounded-lg transition-colors capitalize;
+  @apply flex justify-start items-center text-[#808191] w-full px-4 py-3 hover:text-[var(--btn-bg)] rounded-lg transition-colors capitalize text-start
 }
 
 .dashboard .menu-item:hover .MuiListItemIcon-root {
   @apply text-[var(--btn-bg)];
 }
+.dashboard .active:hover .MuiListItemIcon-root {
+  @apply text-white;
+}
 
-.dashboard .menu-item.active {
+.dashboard .active .menu-item {
   @apply bg-[var(--btn-bg)] text-white;
 }
 
-.dashboard .menu-item.active .MuiListItemIcon-root {
+.dashboard .active .MuiListItemIcon-root {
   @apply text-white;
 }
 

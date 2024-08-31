@@ -15,17 +15,8 @@ const DashboardHeader = () => {
     const { user } = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
-    const [leftDrawer, setLeftDrawer] = useState(false)
-    const [rightDrawer, setRightDrawer] = useState(false)
-
     const [scrolled, setScrolled] = useState(0)
 
-    const { pathname } = useLocation()
-
-
-    // TODO: Make dynamic user
-
-    const userType = 'admin'
 
     useEffect(() => {
 
@@ -38,12 +29,14 @@ const DashboardHeader = () => {
         })
     }, [])
 
+    // TODO: Use it
+
     const toggleLeftDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
 
-        setLeftDrawer(open);
+        // setLeftDrawer(open);
     };
 
     const toggleRightDrawer = (open) => (event) => {
@@ -51,7 +44,7 @@ const DashboardHeader = () => {
             return;
         }
 
-        setRightDrawer(open);
+        // setRightDrawer(open);
     };
 
 
