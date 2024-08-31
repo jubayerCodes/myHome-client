@@ -108,6 +108,10 @@ export const loginWithEmailAndPassword = createAsyncThunk(
       const result = await signInWithEmailAndPassword(auth, email, password);
       const user = result?.user;
 
+      const {
+        data: { role },
+      } = await dispatch(usersApi.endpoints.getRole.initiate(user?.email));
+
       dispatch(closeModal());
 
       return {
@@ -115,7 +119,7 @@ export const loginWithEmailAndPassword = createAsyncThunk(
         displayName: user?.displayName,
         email: user?.email,
         photoURL: user?.photoURL,
-        role: "user", // TODO: fetch role from server
+        role: role,
       };
     } catch (error) {
       return rejectWithValue(error.message);

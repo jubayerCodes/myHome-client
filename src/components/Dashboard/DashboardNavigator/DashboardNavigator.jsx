@@ -8,9 +8,13 @@ const DashboardNavigator = () => {
 
     if (role === 'user') {
 
+        console.log(role);
+
         return <Navigate to={'/dashboard/user-profile'} />
 
     } else if (role === 'agent') {
+
+        console.log(role);
 
         return <Navigate to={'/dashboard/agent-profile'} />
     }
