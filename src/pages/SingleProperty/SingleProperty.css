@@ -10,56 +10,58 @@
   font-size: 24px;
 }
 
-.property-info,
-.sidebar {
+.single-property .property-info,
+.single-property .sidebar {
   box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
   @apply bg-white p-8 rounded-md;
 }
 
-.info-title {
+.single-property .info-title {
   @apply text-base font-medium pb-5 hover:text-[var(--btn-bg)] transition-colors;
 }
-.info-text {
+.single-property .info-text {
   @apply text-sm font-medium;
 }
 
-.info-icon {
+.single-property .info-icon {
   @apply text-base;
 }
 
-.feature-title,
-.plan-title {
+.single-property .feature-title,
+.single-property .plan-title {
   @apply text-sm font-medium;
 }
 
-.feature {
+.single-property .feature {
   @apply flex items-center gap-2 text-sm font-light;
 }
 
-.features-list {
+.single-property .features-list {
   @apply grid grid-cols-3 justify-between gap-2 text-sm font-light capitalize;
 }
 
-.floor-plans .css-u26vfm-MuiPaper-root-MuiAccordion-root::before {
+.single-property
+  .floor-plans
+  .css-u26vfm-MuiPaper-root-MuiAccordion-root::before {
   @apply hidden;
 }
 
-.plan:hover .plan-title,
-.plan:hover span {
+.single-property .plan:hover .plan-title,
+.single-property .plan:hover span {
   @apply text-[var(--btn-bg)];
 }
 
-.property-info .agent-link {
+.single-property .property-info .agent-link {
   color: #5c727db3;
   font-size: 15px;
   transition: all 0.3s ease;
 }
 
-.property-info .agent-link:hover {
+.single-property .property-info .agent-link:hover {
   color: #0073e1;
 }
 
-.agent-contact-form .input {
-  border: 1px solid #e7e7e7;
-  @apply rounded-[4px] py-[10px] px-[15px] text-[13px] focus-visible:outline-none focus:bg-[#efefef] text-[#5c727d];
+.single-property .agent-contact-form .input {
+  border: 1px solid var(--input-bg);
+  @apply rounded-[4px] py-[10px] px-[15px] text-[13px] focus-visible:outline-none focus:bg-[var(--input-bg)] text-[#5c727d];
 }

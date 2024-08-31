@@ -59,7 +59,6 @@ const Login = () => {
 
         dispatch(registerWithEmailAndPassword(user))
             .then(() => {
-                console.log('hehe');
                 navigate("/dashboard");
             });
 
@@ -71,7 +70,6 @@ const Login = () => {
 
         dispatch(loginWithEmailAndPassword(userCredentials))
             .then(() => {
-
                 navigate("/dashboard");
             });
 

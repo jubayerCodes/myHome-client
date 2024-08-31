@@ -1,5 +1,5 @@
 .dashboard .menu-item {
-  @apply flex justify-start items-center text-[#808191] w-full px-4 py-3 hover:text-[var(--btn-bg)] rounded-lg transition-colors capitalize
+  @apply flex justify-start items-center text-[#808191] w-full px-4 py-3 hover:text-[var(--btn-bg)] rounded-lg transition-colors capitalize;
 }
 
 .dashboard .menu-item:hover .MuiListItemIcon-root {
@@ -7,13 +7,58 @@
 }
 
 .dashboard .menu-item.active {
-  @apply bg-[var(--btn-bg)] text-white
+  @apply bg-[var(--btn-bg)] text-white;
 }
 
-.dashboard .menu-item.active .MuiListItemIcon-root{
-    @apply text-white
+.dashboard .menu-item.active .MuiListItemIcon-root {
+  @apply text-white;
 }
 
-.dashboard .css-twlv9e-MuiTypography-root{
-    @apply text-sm font-medium
+.dashboard .css-twlv9e-MuiTypography-root {
+  @apply text-sm font-medium;
+}
+
+.dashboard .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+  overflow-y: visible;
+}
+
+.dashboard-container {
+  @apply bg-[var(--secondary-bg)] min-h-[100vh] -mt-[125px];
+}
+
+.dashboard .page-title {
+  @apply text-4xl font-bold mb-10;
+}
+
+.dashboard-section {
+  @apply w-[1400px];
+}
+
+.dashboard-info, .dashboard-sidebar {
+  box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
+  @apply bg-white p-8 rounded-3xl;
+}
+
+.dashboard .info-title {
+  @apply text-base font-medium pb-5;
+}
+
+.dashboard .form-container {
+  @apply grid grid-cols-2 gap-8 justify-between items-start;
+}
+
+.dashboard .form-field {
+  @apply flex flex-col gap-2;
+}
+
+.dashboard .form-label {
+  @apply text-xs font-medium text-[var(--label-color)];
+}
+
+.dashboard .form-input {
+  @apply w-full bg-[var(--input-bg)] py-4 px-3 text-sm rounded-md focus:outline-[var(--btn-bg)] focus:bg-white;
+}
+
+.dashboard .agent-form {
+  @apply flex flex-col items-stretch gap-10;
 }

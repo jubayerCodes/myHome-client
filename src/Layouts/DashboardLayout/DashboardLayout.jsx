@@ -15,12 +15,13 @@ import DashboardActiveLnk from '../../components/Dashboard/DashboardActiveLink/D
 import { useSelector } from 'react-redux';
 import Loader from '../../components/shared/Loader/Loader';
 import { HiOutlineHome, HiOutlinePlus } from 'react-icons/hi';
+import { Typography } from '@mui/material';
 
-const drawerWidth = 300
+const drawerWidth = 260
 
 const DashboardLayout = () => {
 
-    const { role } = useSelector(state => state.auth)
+    const { role, user } = useSelector(state => state.auth)
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -40,24 +41,13 @@ const DashboardLayout = () => {
         }
     };
 
-    // TODO: different list for different role
-
     const drawer = (
         <div>
-            <Toolbar >
-
-            </Toolbar>
-            <Divider />
-            <List sx={{ paddingTop: '80px', justifyContent: 'start' }}>
-
-                <ListItem sx={{ paddingX: '20px' }} disablePadding>
-                    <DashboardActiveLnk href={'overview'}>
-                        <ListItemIcon sx={{ minWidth: '30px' }}>
-                            <FaChartBar />
-                        </ListItemIcon>
-                        <ListItemText primary={'overview'} />
-                    </DashboardActiveLnk>
-                </ListItem>
+            <Box component={'div'} sx={{ marginTop: '150px' }} display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                <img src={user?.photoURL} alt={user?.displayName} className='rounded-full w-[50px]' />
+                <h6 className='text-[var(--text-color)] font-semibold mt-2'>{user?.displayName}</h6>
+            </Box>
+            <List sx={{ paddingTop: '30px', justifyContent: 'start' }}>
 
                 {
                     role === 'user' && (
@@ -83,6 +73,15 @@ const DashboardLayout = () => {
                                         <FaRegUser />
                                     </ListItemIcon>
                                     <ListItemText primary={'My Profile'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
+
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'overview'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                        <FaChartBar />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'overview'} />
                                 </DashboardActiveLnk>
                             </ListItem>
 
@@ -208,7 +207,8 @@ const DashboardLayout = () => {
                 </Box>
                 <Box
                     component="main"
-                    sx={{ flexGrow: 1, p: 5, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+                    sx={{ flexGrow: 1, p: '165px 40px 140px', width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+                    className='dashboard-container'
                 >
                     <Outlet />
                 </Box>

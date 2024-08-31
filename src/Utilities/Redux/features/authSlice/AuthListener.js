@@ -14,7 +14,7 @@ const AuthListener = () => {
           dispatch(
             setUser({
               uid: currentUser?.uid,
-              name: currentUser?.displayName,
+              displayName: currentUser?.displayName,
               email: currentUser?.email,
               photoURL: currentUser?.photoURL,
             })

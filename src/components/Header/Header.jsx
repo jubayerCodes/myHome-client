@@ -11,7 +11,7 @@ import { openModal } from '../../Utilities/Redux/features/modalSlice/modalSlice'
 import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
 
 const Header = () => {
-    const { user } = useSelector(state => state.auth)
+    const { user, role } = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
     const [leftDrawer, setLeftDrawer] = useState(false)
@@ -20,11 +20,6 @@ const Header = () => {
     const [scrolled, setScrolled] = useState(0)
 
     const { pathname } = useLocation()
-
-
-    // TODO: Make dynamic user
-
-    const userType = 'admin'
 
     useEffect(() => {
 
@@ -82,13 +77,11 @@ const Header = () => {
                 </ActiveLink>
             </li>
 
-            {
-                userType === 'admin' && <li>
-                    <ActiveLink to={'/dashboard'}>
-                        Dashboard
-                    </ActiveLink>
-                </li>
-            }
+            <li>
+                <ActiveLink to={'/dashboard'}>
+                    Dashboard
+                </ActiveLink>
+            </li>
         </>
     )
 

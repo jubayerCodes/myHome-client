@@ -97,7 +97,7 @@ const SingleProperty = () => {
     }
 
     return (
-        <div className="mt-[125px] bg-[var(--secondary-bg)] pb-32">
+        <div className="mt-[125px] bg-[var(--secondary-bg)] pb-32 single-property">
             <div className="my-container flex justify-between items-end pb-5">
                 <div>
                     <Breadcrumb page={'properties'} subPage={property?.title} />

@@ -18,6 +18,7 @@ import AgentProfile from "../components/Dashboard/Agent/AgentProfile/AgentProfil
 import MyProperties from "../components/Dashboard/Agent/MyProperties/MyProperties";
 import AddProperty from "../components/Dashboard/Agent/AddProperty/AddProperty";
 import AgentInvoices from "../components/Dashboard/Agent/AgentInvoices/AgentInvoices";
+import DashboardNavigator from "../components/Dashboard/DashboardNavigator/DashboardNavigator";
 
 const Router = createBrowserRouter([
   {
@@ -45,11 +46,11 @@ const Router = createBrowserRouter([
     children: [
       {
         path: '/dashboard',
-        element: <PrivateRoute><Navigate to={'overview'} /></PrivateRoute>
+        element: <PrivateRoute><DashboardNavigator /></PrivateRoute>
       },
       {
         path: 'overview',
-        element: <PrivateRoute><Overview /></PrivateRoute>
+        element: <AgentRoute><Overview /></AgentRoute>
       },
       {
         path: 'user-profile',

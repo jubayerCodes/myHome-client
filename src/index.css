@@ -10,6 +10,8 @@
   --secondary-bg: #fafcff;
   --text-color: #5c727d;
   --header-bg: #001a33;
+  --label-color: #808191;
+  --input-bg: #ebf2f7;
 }
 
 @media (prefers-color-scheme: dark) {
