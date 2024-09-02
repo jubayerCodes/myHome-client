@@ -43,10 +43,11 @@ const Login = () => {
     }
 
     const handleRegister = (data) => {
-        const { displayName, email, password, role } = data
+        const { firstName, lastName, email, password, role } = data
 
         const user = {
-            displayName,
+            firstName,
+            lastName,
             email,
             password,
             role,
@@ -103,7 +104,10 @@ const Login = () => {
                                 </div>
                                 <div className={`${isRegister ? '' : 'hidden'}`}>
                                     <form onSubmit={handleSubmit(handleRegister)} className={`flex-col items-stretch justify-between `}>
-                                        <input required {...register('displayName', { required: true })} placeholder='Username' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="text" name="displayName" id="username-field" />
+                                        <input required {...register('firstName', { required: true })} placeholder='First Name' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="text" name="firstName" id="firstName-field" />
+
+                                        <input required {...register('lastName', { required: true })} placeholder='Last Name' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="text" name="lastName" id="lastName-field" />
+
                                         <input required {...register('email', { required: true })} placeholder='Email' className='w-full mb-5 border focus:outline-none p-2 text-sm' type="email" name="email" id="register-email-field" />
                                         <input required {...register('password', {
                                             required: true,

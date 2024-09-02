@@ -10,6 +10,9 @@ import { store } from './Utilities/Redux/store'
 import AuthListener from './Utilities/Redux/features/authSlice/AuthListener'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -19,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <AuthListener />
+        <ToastContainer />
         <ThemeProvider theme={theme}>
           <RouterProvider router={Router}></RouterProvider>
         </ThemeProvider>

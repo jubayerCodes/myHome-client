@@ -12,6 +12,10 @@
   --header-bg: #001a33;
   --label-color: #808191;
   --input-bg: #ebf2f7;
+  --toastify-color-light: #0073e1 !important;
+  --toastify-icon-color-success: #fff !important;
+  --toastify-text-color-light: #fff !important;
+  --toastify-color-progress-success: #fff !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,6 +28,11 @@
 
 html {
   font-family: "Inter", sans-serif;
+}
+
+.Toastify__close-button--light {
+  color: #fff !important;
+  opacity: 0.7 !important;
 }
 
 /* body {

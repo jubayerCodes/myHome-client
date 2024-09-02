@@ -9,6 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../Utilities/Redux/features/modalSlice/modalSlice';
 import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
+import userImgRound from '../../assets/images/default-user_1.png'
 
 const Header = () => {
     const { user, role } = useSelector(state => state.auth)
@@ -162,12 +163,11 @@ const Header = () => {
 
                                 <Stack spacing={2} direction="row" alignItems='center'>
                                     {
-                                        user?.photoURL ?
-                                            <>
+                                        user ?
+                                            user?.photoURL ?
                                                 <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
-
-                                                <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`w-[30px] h-[30px] xl:hidden  cursor-pointer rounded-full `} />
-                                            </>
+                                                :
+                                                <img onClick={() => dispatch(logOut())} src={userImgRound} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
                                             :
                                             <>
                                                 <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] hidden xl:block xl:text-[40px] cursor-pointer ${((scrolled > 100) || (pathname !== '/')) ? 'text-[#0073e1]' : 'text-white'}`} />

@@ -14,6 +14,7 @@ import DashboardActiveLnk from '../../components/Dashboard/DashboardActiveLink/D
 import { useDispatch, useSelector } from 'react-redux';
 import { HiOutlineHome, HiOutlinePlus } from 'react-icons/hi';
 import userImg from '../../assets/images/default_user.png'
+import userImgRound from '../../assets/images/default-user_1.png'
 import { Button } from '@mui/material';
 import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
 
@@ -47,9 +48,9 @@ const DashboardLayout = () => {
             <Box component={'div'} sx={{ marginTop: '150px' }} display={'flex'} flexDirection={'column'} alignItems={'center'}>
                 {
                     user?.photoURL ?
-                        <img src={user?.photoURL} alt={user?.displayName} className='rounded-full w-[50px]' />
+                        <img src={user?.photoURL} alt={user?.displayName} className='rounded-full w-[50px] h-[50px]' />
                         :
-                        <img src={userImg} alt={user?.displayName} className='rounded-full w-[50px]' />
+                        <img src={userImgRound} alt={user?.displayName} className='rounded-full w-[50px] h-[50px]' />
                 }
                 <h6 className='text-[var(--text-color)] font-semibold mt-2'>{user?.displayName}</h6>
             </Box>

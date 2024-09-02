@@ -55,7 +55,7 @@ export const signInWithGoogle = createAsyncThunk(
 export const registerWithEmailAndPassword = createAsyncThunk(
   "auth/registerWithEmailAndPassword",
   async (
-    { displayName, email, password, role },
+    { firstName, lastName, email, password, role },
     { rejectWithValue, dispatch }
   ) => {
     try {
@@ -68,12 +68,14 @@ export const registerWithEmailAndPassword = createAsyncThunk(
       const user = result.user;
 
       updateProfile(user, {
-        displayName,
+        displayName: `${firstName} ${lastName}`,
       });
 
       const payload = {
         uid: user?.uid,
-        displayName: displayName,
+        firstName: firstName,
+        lastName: lastName,
+        displayName: `${firstName} ${lastName}`,
         email: user?.email,
         role: role,
       };
@@ -104,19 +106,27 @@ export const loginWithEmailAndPassword = createAsyncThunk(
   async ({ email, password }, { rejectWithValue, dispatch }) => {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
-      const user = result?.user;
+      const firebaseUser = result?.user;
 
       const {
         data: { role },
-      } = await dispatch(usersApi.endpoints.getRole.initiate(user?.email));
+      } = await dispatch(
+        usersApi.endpoints.getRole.initiate(firebaseUser?.email)
+      );
+
+      const { data: user } = await dispatch(
+        usersApi.endpoints.getUser.initiate(firebaseUser?.email)
+      );
 
       dispatch(closeModal());
 
       return {
-        uid: user?.uid,
-        displayName: user?.displayName,
-        email: user?.email,
-        photoURL: user?.photoURL,
+        uid: firebaseUser?.uid,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        displayName: firebaseUser?.displayName,
+        email: firebaseUser?.email,
+        photoURL: firebaseUser?.photoURL,
         role: role,
       };
     } catch (error) {

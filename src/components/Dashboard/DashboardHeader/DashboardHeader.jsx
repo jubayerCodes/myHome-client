@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ActiveLink from '../../ActiveLink/ActiveLink';
 import { logOut } from '../../../Utilities/Redux/features/authSlice/authSlice';
 import { openModal } from '../../../Utilities/Redux/features/modalSlice/modalSlice';
+import userImgRound from '../../../assets/images/default-user_1.png'
 
 const DashboardHeader = () => {
 
@@ -147,7 +148,7 @@ const DashboardHeader = () => {
                                         user?.photoURL ?
                                             <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
                                             :
-                                            <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] hidden xl:block xl:text-[40px] cursor-pointer text-[#0073e1]`} />
+                                            <img onClick={() => dispatch(logOut())} src={userImgRound} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
                                     }
                                     <FaBars />
                                 </Stack>

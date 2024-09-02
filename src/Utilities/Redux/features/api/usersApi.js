@@ -14,9 +14,13 @@ export const usersApi = createApi({
     getRole: builder.query({
       query: (email) => `/role?email=${email}`,
     }),
+    getUser: builder.query({
+      query: (email) => `/user?email=${email}`,
+    }),
   }),
 });
 
-export const { usePostUserMutation, useGetRoleQuery } = usersApi;
+export const { usePostUserMutation, useGetRoleQuery, useGetUserQuery } =
+  usersApi;
 
 export default usersApi;
