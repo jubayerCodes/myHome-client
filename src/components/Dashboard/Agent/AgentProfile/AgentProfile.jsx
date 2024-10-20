@@ -57,7 +57,6 @@ const AgentProfile = () => {
         const agent = {
             firstName,
             lastName,
-            email,
             contact: {
                 phone,
                 mobile,
@@ -118,7 +117,7 @@ const AgentProfile = () => {
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="email">Email</label>
-                                    <input type="email" id='email' className='form-input' name='email' {...register('email', { required: true })} required />
+                                    <input type="email" id='email' className='form-input' name='email' {...register('email', { required: true, disabled: true })} required />
                                 </div>
 
                                 <div className='form-field'>
@@ -241,6 +240,9 @@ const AgentProfile = () => {
                 </div>
                 <div className='col-span-3 sticky top-40'>
                     <div className='dashboard-sidebar'>
+
+
+                        {/* //TODO: implement update photo feature */}
                         <h4 className="info-title">Photo</h4>
                         {
                             user?.photoURL ?

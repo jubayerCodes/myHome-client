@@ -19,6 +19,8 @@ const PropertiesList = () => {
 
     const { data: filterOptions } = useGetPropertiesFilterOptionsQuery()
 
+    console.log(filterOptions);
+
     const { data: totalPages } = useGetTotalPagesQuery({ type: type, category: category, city: city, limit: limit })
 
     const pages = [...Array(totalPages?.pages).keys()]?.map(page => page + 1)
