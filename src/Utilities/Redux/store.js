@@ -7,6 +7,7 @@ import propertiesApi from "./features/api/propertiesApi";
 import usersApi from "./features/api/usersApi";
 import featuredPropertiesApi from "./features/api/featuredPropertiesApi";
 import agentsApi from "./features/api/agentsApi";
+import featuredCitiesApi from "./features/api/featuredCitiesApi";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     [usersApi.reducerPath]: usersApi.reducer,
     [featuredPropertiesApi.reducerPath]: featuredPropertiesApi.reducer,
     [agentsApi.reducerPath]: agentsApi.reducer,
+    [featuredCitiesApi.reducerPath]: featuredCitiesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -26,5 +28,6 @@ export const store = configureStore({
       .concat(propertiesApi.middleware)
       .concat(usersApi.middleware)
       .concat(featuredPropertiesApi.middleware)
-      .concat(agentsApi.middleware),
+      .concat(agentsApi.middleware)
+      .concat(featuredCitiesApi.middleware),
 });

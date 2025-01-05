@@ -4,7 +4,6 @@ import PropertyCard from '../../shared/PropertyCard/PropertyCard';
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import './PropertiesList.css'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import Loader from '../../shared/Loader/Loader';
 
 const PropertiesList = () => {
 
