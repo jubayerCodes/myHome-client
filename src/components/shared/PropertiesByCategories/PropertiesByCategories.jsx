@@ -2,6 +2,12 @@ import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 
 const PropertiesByCategories = ({ secondaryBg }) => {
+
+    // const categories = [
+    //     {
+    //         name: 
+    //     }
+    // ]
     return (
         <section className={`section ${secondaryBg ? 'bg-[var(--secondary-bg)]' : ''}`}>
             <div className="my-container">

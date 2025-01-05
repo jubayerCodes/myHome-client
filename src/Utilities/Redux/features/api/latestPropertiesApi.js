@@ -7,9 +7,13 @@ export const latestPropertiesApi = createApi({
     getLatestProperties: builder.query({
       query: () => "/latestProperties",
     }),
+    getLatestRents: builder.query({
+      query: () => "/latestRents",
+    }),
   }),
 });
 
-export const { useGetLatestPropertiesQuery } = latestPropertiesApi;
+export const { useGetLatestPropertiesQuery, useGetLatestRentsQuery } =
+  latestPropertiesApi;
 
 export default latestPropertiesApi;
