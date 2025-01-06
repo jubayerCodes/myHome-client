@@ -3,25 +3,8 @@ import './AgentsCard.css'
 import { FaEnvelope, FaFacebookF, FaInstagram, FaLinkedin, FaPhoneAlt, FaPinterest, FaTwitter, FaVimeo, FaYoutube } from "react-icons/fa";
 
 
-const AgentsCard = () => {
+const AgentsCard = ({ agent }) => {
 
-
-    const agent = {
-        displayName: 'Lily Bicharm',
-        position: 'Realtor',
-        bio: 'Whether it is working with a first time homebuyer, a luxury home listing or a seasoned investor, Michael prides himself on his unparalleled service with an aptitude for problem solving – something essential for navigating clients through the challenges of today’s real estate market. My focus is always on serving my clients with honesty, integrity and discretion as a dependable and knowledgeable broker committed to exceptional results. I am a licensed real estate broker, an active member in local and national real estate industry organizations, a lover of architecture and an active member to such philanthropic causes.',
-        contact: {
-            facebook: '#',
-            twitter: '#',
-            linkedin: '#',
-            pinterest: '#',
-            instagram: '#',
-            youtube: '#',
-            vimeo: '#',
-            email: '#',
-            phone: '#',
-        }
-    }
 
     const cardStyle = {
         boxShadow: 'rgba(7, 152, 255, 0.09) 0px 3px 5px',
@@ -37,7 +20,7 @@ const AgentsCard = () => {
                     alt="agent"
                     height="140"
                     // TODO: make it dynamic
-                    image={'https://main.wpresidence.net/wp-content/uploads/2014/05/person3-500x328.webp'}
+                    image={agent?.photo}
                     sx={{ borderRadius: '3px' }}
                 />
             </Link>
@@ -52,39 +35,39 @@ const AgentsCard = () => {
                     {agent?.position}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {agent.bio.split(' ').slice(0, 17).join(' ')}...
+                    {agent?.bio?.split(' ').slice(0, 17).join(' ')}...
                 </Typography>
 
                 <Box display={'flex'} justifyContent={'space-between'}>
                     <Box display={'flex'} marginTop={3} gap={2}>
-                        <Link underline="none" className="agent-link" href={agent.contact.facebook}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.facebook}>
                             <FaFacebookF />
                         </Link>
-                        <Link underline="none" className="agent-link" href={agent.contact.twitter}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.twitter}>
                             <FaTwitter />
                         </Link>
-                        <Link underline="none" className="agent-link" href={agent.contact.linkedin}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.linkedin}>
                             <FaLinkedin />
                         </Link>
-                        <Link underline="none" className="agent-link" href={agent.contact.pinterest}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.pinterest}>
                             <FaPinterest />
                         </Link>
-                        <Link underline="none" className="agent-link" href={agent.contact.instagram}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.instagram}>
                             <FaInstagram />
                         </Link>
-                        <Link underline="none" className="agent-link" href={agent.contact.youtube}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.youtube}>
                             <FaYoutube />
                         </Link>
-                        <Link underline="none" className="agent-link" href={agent.contact.vimeo}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.vimeo}>
                             <FaVimeo />
                         </Link>
                     </Box>
 
                     <Box display={'flex'} marginTop={3} gap={2}>
-                        <Link underline="none" className="agent-link" href={agent.contact.email}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.email}>
                             <FaEnvelope />
                         </Link>
-                        <Link underline="none" className="agent-link" href={agent.contact.phone}>
+                        <Link underline="none" className="agent-link" href={agent?.contact?.phone}>
                             <FaPhoneAlt />
                         </Link>
                     </Box>

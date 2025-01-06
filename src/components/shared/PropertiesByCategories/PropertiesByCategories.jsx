@@ -2,10 +2,11 @@ import React from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import { useGetFeaturedCategoriesQuery } from '../../../Utilities/Redux/features/api/featuredPropertiesApi';
 import CategoryCard from '../CategoryCard/CategoryCard';
+import Spinner from '../Spinner/Spinner';
 
 const PropertiesByCategories = ({ secondaryBg }) => {
 
-    const { data: categories } = useGetFeaturedCategoriesQuery()
+    const { data: categories, isLoading } = useGetFeaturedCategoriesQuery()
 
     return (
         <section className={`section ${secondaryBg ? 'bg-[var(--secondary-bg)]' : ''}`}>
@@ -17,6 +18,10 @@ const PropertiesByCategories = ({ secondaryBg }) => {
                         categories?.map(category => <CategoryCard key={category?._id} category={category} />)
                     }
                 </div>
+
+                {
+                    isLoading && <Spinner />
+                }
             </div>
         </section>
     );

@@ -6,6 +6,7 @@ const Testimonials = ({ secondaryBg }) => {
 
     const testimonials = [
         {
+            _id: 1,
             name: "Dana Gilmore",
             title: "Developer",
             review: "I reviewed and purchased a number of different WordPress Themes before settling on Wp Residence.",
@@ -13,6 +14,7 @@ const Testimonials = ({ secondaryBg }) => {
             rating: 4.5
         },
         {
+            _id: 2,
             name: "Jessica Fowley",
             title: "Developer",
             review: "We hired the WP Estate team as our buyer agent because they are the perfect team for real estate projects.",
@@ -20,6 +22,7 @@ const Testimonials = ({ secondaryBg }) => {
             rating: 4.5
         },
         {
+            _id: 3,
             name: "Virginia Wolf",
             title: "Developer",
             review: "The WP Estate team did an outstanding job helping me buy and create my first real estate website.",
@@ -27,6 +30,7 @@ const Testimonials = ({ secondaryBg }) => {
             rating: 4.5
         },
         {
+            _id: 4,
             name: "Sara Loreley",
             title: "Developer",
             review: "I reviewed and purchased a number of different WordPress Themes before settling on Wp Residence.",
@@ -34,6 +38,7 @@ const Testimonials = ({ secondaryBg }) => {
             rating: 4.5
         },
         {
+            _id: 5,
             name: "Lisa Simpson",
             title: "Developer",
             review: "We hired the WP Estate team as our buyer agent because they are the perfect team for real estate projects.",
@@ -41,6 +46,7 @@ const Testimonials = ({ secondaryBg }) => {
             rating: 4.5
         },
         {
+            _id: 6,
             name: "Susan Barkley",
             title: "Developer",
             review: "The WP Estate team did an outstanding job helping me buy and create my first real estate website.",
@@ -56,7 +62,7 @@ const Testimonials = ({ secondaryBg }) => {
 
                 <div className='grid grid-cols-3 gap-8 mt-10'>
                     {
-                        testimonials?.map(testimonial => <TestimonialCard testimonial={testimonial} />)
+                        testimonials?.map(testimonial => <TestimonialCard key={testimonial?._id} testimonial={testimonial} />)
                     }
                 </div>
             </div>

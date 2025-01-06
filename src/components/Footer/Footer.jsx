@@ -65,7 +65,7 @@ const Footer = () => {
                             <ul className='text-white flex flex-col gap-2' >
                                 {
                                     categories?.map((cat, idx) => <li key={idx}>
-                                        <Link color={'#bbb'} fontSize={'14px'} underline='none' href={`/properties/${cat}`} className='capitalize hover:text-[#0073e1]'>
+                                        <Link color={'#bbb'} fontSize={'14px'} underline='none' href={`/properties?category=${cat}`} className='capitalize hover:text-[#0073e1]'>
                                             {cat}
                                         </Link>
                                     </li>)
@@ -101,7 +101,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <span className='text-[#bbbbbb] mt-16 block'>
-                    Copyright Jubayer Hossain. All Rights Reserved.
+                    Design & Developed By <Link fontWeight={'bold'} color={'text'} underline='none' href='https://jubayer-hossain-53fbf.web.app/' className=' hover:no-underline'>Jubayer Hossain</Link>. All Rights Reserved.
                 </span>
             </div>
         </footer>
