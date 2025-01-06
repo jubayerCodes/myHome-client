@@ -1,10 +1,10 @@
 import React from 'react';
 import { useGetFeaturedPropertiesQuery } from '../../../Utilities/Redux/features/api/featuredPropertiesApi';
-import './FeaturedHero.css'
+import './FeaturedProperty.css'
 import { Link } from '@mui/material';
-import Loader from '../../shared/Loader/Loader';
+import Loader from '../Loader/Loader';
 
-const FeaturedHero = () => {
+const FeaturedProperty = () => {
 
     const { data, isLoading } = useGetFeaturedPropertiesQuery(true)
 
@@ -71,4 +71,4 @@ const FeaturedHero = () => {
     );
 };
 
-export default FeaturedHero;
+export default FeaturedProperty;

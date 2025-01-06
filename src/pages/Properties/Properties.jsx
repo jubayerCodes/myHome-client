@@ -1,5 +1,5 @@
 import React from 'react';
-import FeaturedHero from '../../components/Properties/FeaturedHero/FeaturedHero';
+import FeaturedProperty from '../../components/shared/FeaturedProperty/FeaturedProperty';
 import PropertiesList from '../../components/Properties/PropertiesList/PropertiesList';
 import { useSearchParams } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ const Properties = () => {
 
     return (
         <>
-            <FeaturedHero />
+            <FeaturedProperty />
             <PropertiesList city={city} type={type} category={category} />
         </>
     );

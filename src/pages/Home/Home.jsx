@@ -2,7 +2,7 @@
 import Banner from '../../components/Home/Banner/Banner';
 import PropertiesByArea from '../../components/Home/PropertiesByArea/PropertiesByArea';
 import Agents from '../../components/shared/Agents/Agents';
-import FeaturedProperties from '../../components/shared/FeaturedProperties/FeaturedProperties';
+import FeaturedProperty from '../../components/shared/FeaturedProperty/FeaturedProperty';
 import LatestProperties from '../../components/shared/LatestProperties/Latestproperties';
 import LatestPropertiesForRent from '../../components/shared/LatestPropertiesForRent/LatestPropertiesForRent';
 import PropertiesByCategories from '../../components/shared/PropertiesByCategories/PropertiesByCategories';
@@ -22,7 +22,7 @@ const Home = () => {
             <LatestProperties />
             <PropertiesByCategories secondaryBg={true} />
             <LatestPropertiesForRent />
-            <FeaturedProperties secondaryBg={true} />
+            <FeaturedProperty />
             <Agents />
             <Testimonials secondaryBg={true} />
         </>
