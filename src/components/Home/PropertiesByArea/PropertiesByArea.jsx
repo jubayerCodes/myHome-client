@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionTitle from '../../shared/SectionTitle/SectionTitle';
-import Cities from '../../shared/CIties/Cities';
 import { useGetFeaturedCitiesQuery } from '../../../Utilities/Redux/features/api/featuredCitiesApi';
+import CityCard from '../../shared/CityCard/CityCard';
 
 const PropertiesByArea = () => {
 
@@ -14,7 +14,7 @@ const PropertiesByArea = () => {
 
                 <div className='grid grid-cols-4 mt-10 gap-8'>
 
-                    {cities?.map((city, idx) => <Cities key={idx} city={city} />)}
+                    {cities?.map((city, idx) => <CityCard key={idx} city={city} />)}
                 </div>
             </div>
 

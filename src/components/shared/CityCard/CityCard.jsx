@@ -1,12 +1,13 @@
 import { Link } from '@mui/material';
 import React from 'react';
 
-const Cities = ({ city }) => {
+const CityCard = ({ city }) => {
     return (
         <div className='flex items-center justify-start gap-4'>
             <div>
-                {/* // TODO: make it dynamic */}
-                <img src='https://main.wpresidence.net/wp-content/uploads/2023/12/jersey_city.webp' className='h-[75px] w-[100px] rounded-md' />
+                <Link href={`/properties?city=${city?.name}`}>
+                    <img src={city?.photo} className='h-[75px] w-[100px] rounded-md' />
+                </Link>
             </div>
             <div>
                 <Link color={'black.main'} fontWeight={'bold'} underline='none' href={`/properties?city=${city?.name}`} className='text-base transition-colors hover:text-[var(--btn-bg)]'>
@@ -18,4 +19,4 @@ const Cities = ({ city }) => {
     );
 };
 
-export default Cities;
+export default CityCard;
