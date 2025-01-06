@@ -22,7 +22,7 @@ const LatestProperties = () => {
                             latestProperties?.map(property => <PropertyCard key={property._id} property={property} />)
                         }
                     </div>
-                    <Link href='/properties'>
+                    <Link className={`${isLoading && 'hidden'}`} href='/properties'>
                         <button className='primary-btn'>More Properties</button>
                     </Link>
                 </div>

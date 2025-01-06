@@ -8,15 +8,16 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import './LatestPropertiesForRent.css'
 import { useGetLatestRentsQuery } from '../../../Utilities/Redux/features/api/latestPropertiesApi';
 import { Link } from '@mui/material';
+import Spinner from '../Spinner/Spinner';
 
 const LatestPropertiesForRent = () => {
 
-    const { data: latestPropertiesForRent } = useGetLatestRentsQuery()
+    const { data: latestPropertiesForRent, isLoading } = useGetLatestRentsQuery()
 
     return (
         <section className='section'>
 
-            <div className='w-full xl:w-[1220px] mx-auto px-5'>
+            <div className='my-container'>
                 <SectionTitle description={'These are the latest properties in the Sales category. You can create the list using the “latest listing shortcode” and show items by specific categories.'} heading={'Latest Properties for Rent'} />
 
 
@@ -27,10 +28,13 @@ const LatestPropertiesForRent = () => {
                         }
                     </div>
 
-                    <Link href='/properties?type=rent'>
+                    <Link className={`${isLoading && 'hidden'}`} href='/properties?type=rent'>
                         <button className='primary-btn'>More Rents</button>
                     </Link>
                 </div>
+                {
+                    isLoading && <Spinner />
+                }
             </div>
 
         </section>

@@ -9,11 +9,12 @@ const Properties = () => {
 
     const city = params?.get('city')
     const type = params?.get('type')
+    const category = params?.get('category')
 
     return (
         <>
             <FeaturedHero />
-            <PropertiesList city={city} type={type} />
+            <PropertiesList city={city} type={type} category={category} />
         </>
     );
 };

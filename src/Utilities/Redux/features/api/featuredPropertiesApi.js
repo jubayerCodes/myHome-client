@@ -7,9 +7,12 @@ export const featuredPropertiesApi = createApi({
     getFeaturedProperties: builder.query({
       query: () => "/featuredProperties",
     }),
+    getFeaturedCategories: builder.query({
+      query: () => "/featuredCategories",
+    }),
   }),
 });
 
-export const { useGetFeaturedPropertiesQuery } = featuredPropertiesApi;
+export const { useGetFeaturedPropertiesQuery, useGetFeaturedCategoriesQuery } = featuredPropertiesApi;
 
 export default featuredPropertiesApi;

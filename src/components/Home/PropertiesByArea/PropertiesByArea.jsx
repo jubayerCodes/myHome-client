@@ -2,10 +2,11 @@ import React from 'react';
 import SectionTitle from '../../shared/SectionTitle/SectionTitle';
 import { useGetFeaturedCitiesQuery } from '../../../Utilities/Redux/features/api/featuredCitiesApi';
 import CityCard from '../../shared/CityCard/CityCard';
+import Spinner from '../../shared/Spinner/Spinner';
 
 const PropertiesByArea = () => {
 
-    const { data: cities } = useGetFeaturedCitiesQuery()
+    const { data: cities, isLoading } = useGetFeaturedCitiesQuery()
 
     return (
         <section className='section'>
@@ -17,6 +18,10 @@ const PropertiesByArea = () => {
                     {cities?.map((city, idx) => <CityCard key={idx} city={city} />)}
                 </div>
             </div>
+
+            {
+                isLoading && <Spinner />
+            }
 
         </section>
     );

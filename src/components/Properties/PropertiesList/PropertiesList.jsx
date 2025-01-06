@@ -9,7 +9,7 @@ const PropertiesList = (props) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const [type, setType] = useState(() => props?.type || '');
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState(() => props?.category || '')
     const [city, setCity] = useState(() => props?.city || '')
     const [sort, setSort] = useState(() => "newest_first")
     const [limit, setLimit] = useState(6)
