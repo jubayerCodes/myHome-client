@@ -90,7 +90,7 @@ html {
 }
 
 .section {
-  @apply py-20 xl:py-28;
+  @apply py-12 xl:py-28;
 }
 
 .secondary-bg {

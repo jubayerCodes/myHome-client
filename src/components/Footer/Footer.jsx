@@ -13,9 +13,9 @@ const Footer = () => {
     const categories = data?.categories
 
     return (
-        <footer className='bg-[#001a33] py-24'>
+        <footer className='bg-[#001a33] py-12 xl:py-24'>
             <div className="my-container">
-                <div className='grid grid-cols-4 justify-between items-start gap-12'>
+                <div className='grid grid-cols-2 xl:grid-cols-4 justify-between items-start gap-8 xl:gap-10'>
                     <div className='col-span-2'>
                         <h3 className='text-white font-semibold'>Contact us</h3>
                         <div className='flex flex-col gap-3 mt-5'>
@@ -100,7 +100,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <span className='text-[#bbbbbb] mt-16 block'>
+                <span className='text-[#bbbbbb] mt-10 block text-center xl:text-start'>
                     Design & Developed By <Link fontWeight={'bold'} color={'text'} underline='none' href='https://jubayer-hossain-53fbf.web.app/' className=' hover:no-underline'>Jubayer Hossain</Link>. All Rights Reserved.
                 </span>
             </div>
