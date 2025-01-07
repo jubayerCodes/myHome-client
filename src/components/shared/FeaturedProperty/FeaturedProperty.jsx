@@ -15,20 +15,20 @@ const FeaturedProperty = () => {
     }
 
     return (
-        <section className='flex w-full mt-[125px] gap-[1px] items-stretch'>
-            <div className='w-1/2 relative'>
-                <div className="featured-img h-full">
+        <section className='featured-property grid grid-cols-2 xl:grid-cols-4 w-full gap-[1px]'>
+            <div className='col-span-2 relative'>
+                <div className="featured-img h-[250px] xl:h-full">
                     <img src={property?.photos[0]} alt="" className='w-full h-full' />
                     <div className="overlay"></div>
                 </div>
                 <div className="featured-info">
                     <div>
-                        <span className='text-[var(--btn-bg)] text-base mb-4 block'>$ {property?.price.toLocaleString()}</span>
+                        <span className='text-[var(--btn-bg)] text-base mb-2 xl:mb-4 block'>$ {property?.price.toLocaleString()}</span>
                         <Link href={`/properties/${property?._id}`} fontSize={30} fontWeight={'medium'} color={'black.main'} lineHeight={1.2} underline='none' className='hover:text-[var(--btn-bg)] transition-colors'>
-                            <h3>{property?.title}</h3>
+                            <h3 className='text-2xl xl:text-3xl'>{property?.title}</h3>
                         </Link>
                     </div>
-                    <div className='mt-2 flex justify-start gap-3 mb-3'>
+                    <div className='mt-2 flex justify-start gap-3 mb-2 xl:mb-3'>
                         <span className='text-base font-semibold'>
                             {property?.bedrooms} BD
                         </span>
@@ -49,7 +49,7 @@ const FeaturedProperty = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-1/2 grid grid-cols-2 gap-[1px]'>
+            <div className='hidden col-span-2 xl:grid grid-cols-2 gap-[1px]'>
                 <div className="featured-img">
                     <img src={property?.photos[1]} alt="" className='w-full' />
                     <div className="overlay"></div>

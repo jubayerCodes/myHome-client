@@ -12,7 +12,7 @@ const Properties = () => {
     const category = params?.get('category')
 
     return (
-        <>
+    <>
             <FeaturedProperty />
             <PropertiesList city={city} type={type} category={category} />
         </>

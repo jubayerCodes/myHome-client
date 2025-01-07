@@ -1,9 +1,10 @@
 import { Link } from '@mui/material';
 import React from 'react';
+import './CityCard.css'
 
 const CityCard = ({ city }) => {
     return (
-        <div className='flex items-center justify-start gap-4'>
+        <div className='city-card flex flex-row items-center justify-start gap-4 rounded-md'>
             <div>
                 <Link href={`/properties?city=${city?.name}`}>
                     <img src={city?.photo} className='h-[75px] w-[100px] rounded-md' />

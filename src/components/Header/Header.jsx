@@ -95,7 +95,7 @@ const Header = () => {
 
     return (
         <>
-            <header className={`${scrolled ? 'xl:top-[-42px]' : ''} w-full duration-200 header sticky xl:-mb-[126px] top-0 left-0 bg-[#001a33] z-50 ${(pathname === '/') ? 'xl:bg-transparent' : 'xl:bg-[var(--header-bg)]'}`}>
+            <header className={`${scrolled ? 'xl:top-[-42px]' : ''} w-full duration-200 header sticky top-0 left-0 bg-[#001a33] z-50 ${(pathname === '/') ? 'xl:bg-transparent xl:-mb-[126px]' : 'xl:bg-[var(--header-bg)]'}`}>
                 <div className="header-container">
                     <div className={`border-b border-[#ffffff34]`}>
                         <div className={`my-container header-top hidden xl:flex justify-between items-center `}>

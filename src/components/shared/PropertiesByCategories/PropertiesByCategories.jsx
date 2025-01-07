@@ -13,7 +13,7 @@ const PropertiesByCategories = ({ secondaryBg }) => {
             <div className="my-container">
                 <SectionTitle heading={'Find Your Dream Here'} description={'Highlight the best of your properties by using the List Category shortcode. You can list specific properties categories, types, cities, areas.'} />
 
-                <div className='grid grid-cols-2 justify-between gap-8 mt-10'>
+                <div className='grid grid-cols-1 md:grid-cols-2 justify-between gap-8 mt-10'>
                     {
                         categories?.map(category => <CategoryCard key={category?._id} category={category} />)
                     }

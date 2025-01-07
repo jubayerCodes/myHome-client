@@ -22,7 +22,7 @@ const LatestPropertiesForRent = () => {
 
 
                 <div className='flex flex-col gap-10 items-center'>
-                    <div className="mt-12 latestProperties grid grid-cols-3 gap-8">
+                    <div className="mt-12 latestProperties grid grid-cols-1 xl:grid-cols-3 gap-8">
                         {
                             latestPropertiesForRent?.slice(0, 3)?.map((property) => <PropertyCard key={property._id} property={property} />)
                         }

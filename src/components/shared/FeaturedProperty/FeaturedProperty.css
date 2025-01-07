@@ -12,5 +12,5 @@
 }
 
 .featured-info {
-  @apply absolute bg-white w-[350px] bottom-0 right-[25%] p-8 pb-20;
+  @apply xl:absolute bg-[var(--secondary-bg)] xl:bg-white w-full xl:w-[350px] xl:bottom-0 xl:right-[25%] p-5 xl:p-8 xl:pb-20;
 }
