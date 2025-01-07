@@ -11,9 +11,9 @@ const PropertiesByArea = () => {
     return (
         <section className='section'>
             <div className="my-container">
-                <SectionTitle heading={'Properties By Area'} description={'Highlight the best of your properties by using the List Category shortcode. You can list categories, types, cities, areas and states of your choice.'} />
+                <SectionTitle heading={'Properties By Area'} description={'Explore properties by area to find your dream home in the perfect neighborhood effortlessly.'} />
 
-                <div className='grid grid-cols-1 xl:grid-cols-4 mt-10 gap-8'>
+                <div className='grid grid-cols-1 xl:grid-cols-4 mt-5 xl:mt-10 gap-5 xl:gap-8'>
 
                     {cities?.map((city, idx) => <CityCard key={idx} city={city} />)}
                 </div>

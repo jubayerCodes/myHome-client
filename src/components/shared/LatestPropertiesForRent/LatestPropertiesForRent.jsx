@@ -18,11 +18,11 @@ const LatestPropertiesForRent = () => {
         <section className='section'>
 
             <div className='my-container'>
-                <SectionTitle description={'These are the latest properties in the Sales category. You can create the list using the “latest listing shortcode” and show items by specific categories.'} heading={'Latest Properties for Rent'} />
+                <SectionTitle description={'Discover the latest rental properties: modern, affordable, and perfectly located for your lifestyle needs.'} heading={'Latest Properties for Rent'} />
 
 
-                <div className='flex flex-col gap-10 items-center'>
-                    <div className="mt-12 latestProperties grid grid-cols-1 xl:grid-cols-3 gap-8">
+                <div className='flex flex-col gap-5 xl:gap-10 items-center'>
+                    <div className="latestProperties cards-container">
                         {
                             latestPropertiesForRent?.slice(0, 3)?.map((property) => <PropertyCard key={property._id} property={property} />)
                         }

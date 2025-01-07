@@ -13,11 +13,11 @@ const LatestProperties = () => {
     return (
         <section className='section'>
             <div className="my-container">
-                <SectionTitle description={'These are the latest properties in the Sales category. You can create the list using the “latest listing shortcode” and show items by specific categories.'} heading={'Latest Properties'} />
+                <SectionTitle description={'Discover the newest listings! Explore dream homes and modern properties tailored to your lifestyle.'} heading={'Latest Properties'} />
 
 
-                <div className='flex flex-col items-center gap-10'>
-                    <div className='grid grid-cols-1 xl:grid-cols-3 gap-8 mt-12'>
+                <div className='flex flex-col items-center gap-5 xl:gap-10'>
+                    <div className='cards-container'>
                         {
                             latestProperties?.map(property => <PropertyCard key={property._id} property={property} />)
                         }

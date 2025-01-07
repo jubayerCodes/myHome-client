@@ -58,9 +58,9 @@ const Testimonials = ({ secondaryBg }) => {
     return (
         <section className={`section ${secondaryBg ? 'bg-[var(--secondary-bg)]' : ''}`}>
             <div className="my-container">
-                <SectionTitle heading={'Testimonials'} description={'Publish the best of your client testimonials and let the world know what a great agent or real estate agency you are. Testimonials build trust.'} />
+                <SectionTitle heading={'Testimonials'} description={'Real stories, real trust hear what our happy clients say about finding their dream homes.'} />
 
-                <div className='grid grid-cols-1 xl:grid-cols-3 gap-8 mt-10'>
+                <div className='cards-container'>
                     {
                         testimonials?.map(testimonial => <TestimonialCard key={testimonial?._id} testimonial={testimonial} />)
                     }

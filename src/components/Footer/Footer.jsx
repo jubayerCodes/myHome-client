@@ -15,7 +15,7 @@ const Footer = () => {
     return (
         <footer className='bg-[#001a33] py-12 xl:py-24'>
             <div className="my-container">
-                <div className='grid grid-cols-2 xl:grid-cols-4 justify-between items-start gap-8 xl:gap-10'>
+                <div className='grid grid-cols-2 xl:grid-cols-4 justify-between items-start gap-5 xl:gap-10'>
                     <div className='col-span-2'>
                         <h3 className='text-white font-semibold'>Contact us</h3>
                         <div className='flex flex-col gap-3 mt-5'>
@@ -31,30 +31,30 @@ const Footer = () => {
                             <span className='text-[#bbbbbb] flex justify-start items-start text-sm gap-3'>
                                 <FaLaptop className='mt-1' /> <Link color={"white"} underline='none' href={'/'}>My Home</Link>
                             </span>
-                            <div className='flex gap-3'>
+                            <div className='flex justify-between xl:justify-start xl:gap-3'>
                                 <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaLinkedinIn /></button>
+                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaLinkedinIn /></button>
                                 </Link>
                                 <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaTwitter /></button>
+                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaTwitter /></button>
                                 </Link>
                                 <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaGoogle /></button>
+                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaGoogle /></button>
                                 </Link>
                                 <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaFacebookF /></button>
+                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaFacebookF /></button>
                                 </Link>
                                 <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaLinkedinIn /></button>
+                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaLinkedinIn /></button>
                                 </Link>
                                 <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaTwitter /></button>
+                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaTwitter /></button>
                                 </Link>
                                 <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaGoogle /></button>
+                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaGoogle /></button>
                                 </Link>
                                 <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaFacebookF /></button>
+                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaFacebookF /></button>
                                 </Link>
                             </div>
                         </div>

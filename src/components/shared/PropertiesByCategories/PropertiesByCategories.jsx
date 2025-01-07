@@ -11,9 +11,9 @@ const PropertiesByCategories = ({ secondaryBg }) => {
     return (
         <section className={`section ${secondaryBg ? 'bg-[var(--secondary-bg)]' : ''}`}>
             <div className="my-container">
-                <SectionTitle heading={'Find Your Dream Here'} description={'Highlight the best of your properties by using the List Category shortcode. You can list specific properties categories, types, cities, areas.'} />
+                <SectionTitle heading={'Find Your Dream Here'} description={'Explore diverse property categories tailored to your needs. Find your dream space effortlessly today.'} />
 
-                <div className='grid grid-cols-1 md:grid-cols-2 justify-between gap-8 mt-10'>
+                <div className='grid grid-cols-1 md:grid-cols-2 justify-between gap-5 xl:gap-8 mt-5 xl:mt-10'>
                     {
                         categories?.map(category => <CategoryCard key={category?._id} category={category} />)
                     }

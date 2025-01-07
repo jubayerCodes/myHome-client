@@ -7,9 +7,9 @@ const WhyChooseUs = () => {
     return (
         <section className='section bg-[var(--secondary-bg)]' >
             <div className="my-container">
-                <SectionTitle heading={'Why Choose Us'} description={'Utilizing his exceptional experience and knowledge of the luxury waterfront markets, Roland serves an extensive and elite worldwide client base.'} />
+                <SectionTitle heading={'Why Choose Us'} description={'Trusted experts offering personalized service, seamless transactions, and your dream property delivered with excellence.'} />
 
-                <div className="grid grid-cols-1 xl:grid-cols-4 mt-10">
+                <div className="grid grid-cols-1 xl:grid-cols-4 mt-5 xl:mt-10">
                     <div className='p-5 xl:p-[35px] card'>
                         <img src="/images/house.png" alt="" className='h-[42px] w-[42px]' />
                         <h4 className='text-[18px] font-semibold mt-4'>Sell your home</h4>

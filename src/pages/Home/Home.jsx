@@ -14,8 +14,8 @@ const Home = () => {
     return (
         <>
             <Banner
-                title={"Find Your Dream Home"}
-                desc={"We are recognized for exceeding client expectations and delivering great results through dedication, ease of process, and extraordinary services to our worldwide clients."}
+                title={"Where Dreams Find Home"}
+                desc={"Find your dream home today with expert guidance, unbeatable deals, and personalized real estate solutions."}
             />
             <PropertiesByArea />
             <WhyChooseUs />

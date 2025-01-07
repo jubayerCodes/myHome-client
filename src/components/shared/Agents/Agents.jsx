@@ -66,10 +66,10 @@ const Agents = () => {
         <section className='section'>
 
             <div className='my-container'>
-                <SectionTitle description={'These are the latest properties in the Sales category. You can create the list using the “latest listing shortcode” and show items by specific categories.'} heading={'Real Estate Agents'} />
+                <SectionTitle description={'Expert real estate agents connecting you to dream homes with unmatched market insights and dedication.'} heading={'Real Estate Agents'} />
 
 
-                <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mt-12">
+                <div className="cards-container">
                     {
                         agents.map((agent) => <AgentsCard key={agent?._id} agent={agent} />)
                     }
