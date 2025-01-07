@@ -18,7 +18,7 @@ const Footer = () => {
                 <div className='grid grid-cols-2 xl:grid-cols-4 justify-between items-start gap-5 xl:gap-10'>
                     <div className='col-span-2'>
                         <h3 className='text-white font-semibold'>Contact us</h3>
-                        <div className='flex flex-col gap-3 mt-5'>
+                        <div className='flex flex-col gap-3 mt-3 xl:mt-5'>
                             <span className='text-[#bbbbbb] flex justify-start items-start text-sm gap-3 leading-8'>
                                 <FaMapMarkerAlt style={{ fontSize: '16px' }} className='mt-2' /> 3755 Commercial St SE Salem, Corner with Sunny Boulevard, 3755 Commercial OR 97302
                             </span>
@@ -31,7 +31,7 @@ const Footer = () => {
                             <span className='text-[#bbbbbb] flex justify-start items-start text-sm gap-3'>
                                 <FaLaptop className='mt-1' /> <Link color={"white"} underline='none' href={'/'}>My Home</Link>
                             </span>
-                            <div className='flex justify-between xl:justify-start xl:gap-3'>
+                            <div className='flex justify-between xl:justify-start xl:gap-3 mt-2 xl:mt-0'>
                                 <Link href={'/'}>
                                     <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaLinkedinIn /></button>
                                 </Link>
@@ -59,10 +59,10 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div className='col-span-2 xl:col-span-1'>
                         <h3 className='text-white font-semibold'>Categories</h3>
-                        <div className='mt-5'>
-                            <ul className='text-white flex flex-col gap-2' >
+                        <div className='mt-3 xl:mt-5'>
+                            <ul className='text-white grid grid-cols-2 xl:grid-cols-1 xl:gap-2' >
                                 {
                                     categories?.map((cat, idx) => <li key={idx}>
                                         <Link color={'#bbb'} fontSize={'14px'} underline='none' href={`/properties?category=${cat}`} className='capitalize hover:text-[#0073e1]'>
@@ -73,7 +73,7 @@ const Footer = () => {
                             </ul>
                         </div>
                     </div>
-                    <div>
+                    <div className='hidden xl:block'>
                         <h3 className='text-white font-semibold'>Latest Properties</h3>
                         <div className='footer-latest-properties flex flex-col gap-2 mt-5'>
                             {
@@ -101,7 +101,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <span className='text-[#bbbbbb] mt-10 block text-center xl:text-start'>
-                    Design & Developed By <Link fontWeight={'bold'} color={'text'} underline='none' href='https://jubayer-hossain-53fbf.web.app/' className=' hover:no-underline'>Jubayer Hossain</Link>. All Rights Reserved.
+                    Design & Developed By <Link fontWeight={'bold'} color={'text'} underline='none' href='https://jubayer-hossain-53fbf.web.app/' className=' hover:no-underline'>Jubayer Hossain</Link>.
                 </span>
             </div>
         </footer>
