@@ -1,4 +1,5 @@
 
+
 import Banner from '../../components/Home/Banner/Banner';
 import PropertiesByArea from '../../components/Home/PropertiesByArea/PropertiesByArea';
 import Agents from '../../components/shared/Agents/Agents';
@@ -11,6 +12,7 @@ import Testimonials from '../../components/shared/Testimonials/Testimonials';
 import WhyChooseUs from '../../components/shared/WhyChooseUs/WhyChooseUs';
 
 const Home = () => {
+
 
     return (
         <>
