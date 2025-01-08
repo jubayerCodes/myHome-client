@@ -1,0 +1,4 @@
+.contact-form .input {
+  border: 1px solid var(--input-bg);
+  @apply rounded-[4px] py-[10px] px-[15px] text-[13px] focus-visible:outline-none bg-[var(--input-bg)] focus:bg-[var(--input-bg)] text-[#5c727d];
+}
