@@ -61,11 +61,6 @@ const DashboardHeader = () => {
                 </ActiveLink>
             </li>
             <li>
-                <ActiveLink to={'/about'}>
-                    About Us
-                </ActiveLink>
-            </li>
-            <li>
                 <ActiveLink to={'/contact'}>
                     Contact Us
                 </ActiveLink>

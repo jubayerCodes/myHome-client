@@ -5,6 +5,7 @@ import agentsApi, { useGetAgentQuery } from '../../../../Utilities/Redux/feature
 import { useForm } from 'react-hook-form';
 import Loader from '../../../shared/Loader/Loader';
 import { Bounce, toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const AgentProfile = () => {
 
@@ -73,21 +74,33 @@ const AgentProfile = () => {
             companyName,
         }
 
-        dispatch(agentsApi.endpoints.updateAgent.initiate({ email, agent }))
-            .then(res => {
-                if (res?.data?.modifiedCount) {
-                    toast.success('Agent Updated Successfully!', {
-                        position: "top-right",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        transition: Bounce,
-                    });
-                }
-            })
+
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Sign Out!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                dispatch(agentsApi.endpoints.updateAgent.initiate({ email, agent }))
+                    .then(res => {
+                        if (res?.data?.modifiedCount) {
+                            toast.success('Agent Updated Successfully!', {
+                                position: "top-right",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                transition: Bounce,
+                            });
+                        }
+                    })
+            }
+        });
     }
 
 
@@ -232,6 +245,10 @@ const AgentProfile = () => {
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="confirm-password">Confirm Password</label>
                                     <input type="text" id='confirm-password' className='form-input' />
+                                </div>
+
+                                <div className='flex justify-start gap-5 items-start'>
+                                    <input className="header-btn" style={{ padding: '12px 20px', borderRadius: '7px' }} value={'Change Password'} type='submit' />
                                 </div>
 
                             </div>

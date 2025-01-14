@@ -282,7 +282,7 @@ const SingleProperty = () => {
                                 {property?.address?.longitude}
                             </span>
 
-                            {/* //TODO: make a map using latitute and longitude */}
+                            {/* //TODO: make a map using latitude and longitude */}
                         </div>
                     </div>
                     <div className="property-info">
