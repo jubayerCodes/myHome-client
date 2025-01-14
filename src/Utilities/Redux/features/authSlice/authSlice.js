@@ -9,7 +9,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
-import { closeModal } from "../modalSlice/modalSlice";
 import usersApi from "../api/usersApi";
 import Swal from "sweetalert2";
 const googleProvider = new GoogleAuthProvider();
@@ -36,7 +35,6 @@ export const signInWithGoogle = createAsyncThunk(
       );
 
       if (data) {
-        dispatch(closeModal());
         return { ...payload };
       } else {
         signOut(auth);
@@ -44,7 +42,6 @@ export const signInWithGoogle = createAsyncThunk(
         throw new Error("database error");
       }
     } catch (error) {
-      dispatch(closeModal());
       return rejectWithValue(error.message);
     }
   }
@@ -85,14 +82,12 @@ export const registerWithEmailAndPassword = createAsyncThunk(
       );
 
       if (data) {
-        dispatch(closeModal());
 
         return payload;
       } else {
         throw new Error("database error");
       }
     } catch (error) {
-      dispatch(closeModal());
 
       return rejectWithValue(error.message);
     }
@@ -118,8 +113,6 @@ export const loginWithEmailAndPassword = createAsyncThunk(
         usersApi.endpoints.getUser.initiate(firebaseUser?.email)
       );
 
-      dispatch(closeModal());
-
       return {
         uid: firebaseUser?.uid,
         firstName: user?.firstName,
@@ -130,7 +123,14 @@ export const loginWithEmailAndPassword = createAsyncThunk(
         role: role,
       };
     } catch (error) {
-      return rejectWithValue(error.message);
+      if (error.message === "Firebase: Error (auth/invalid-credential).") {
+        return Swal.fire({
+          icon: "error",
+          title: "Oops!! Wrong Password!",
+        }).then(() => {
+          return rejectWithValue(error);
+        });
+      }
     }
   }
 );
@@ -141,9 +141,19 @@ export const logOut = createAsyncThunk(
   "auth/logOutStatus",
   async (args, { rejectWithValue }) => {
     try {
-      const result = await signOut(auth);
-
-      return result;
+      Swal.fire({
+        title: "Are you sure?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Sign Out!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const result = await signOut(auth);
+          return result;
+        }
+      });
     } catch (error) {
       return rejectWithValue(error);
     }

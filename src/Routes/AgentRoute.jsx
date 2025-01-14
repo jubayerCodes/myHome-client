@@ -16,7 +16,7 @@ const AgentRoute = ({ children }) => {
         </>
     }
 
-    return <Navigate to={'/'} />
+    return <Navigate to={'/login'} />
 };
 
 export default AgentRoute;

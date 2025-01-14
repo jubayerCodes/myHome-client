@@ -1,0 +1,7 @@
+.form-warning {
+  @apply text-xs text-red-500 -mt-4 block mb-4;
+}
+
+.login-form {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}

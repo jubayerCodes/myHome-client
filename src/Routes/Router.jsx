@@ -19,6 +19,7 @@ import MyProperties from "../components/Dashboard/Agent/MyProperties/MyPropertie
 import AddProperty from "../components/Dashboard/Agent/AddProperty/AddProperty";
 import AgentInvoices from "../components/Dashboard/Agent/AgentInvoices/AgentInvoices";
 import DashboardNavigator from "../components/Dashboard/DashboardNavigator/DashboardNavigator";
+import Login from "../pages/Login/Login";
 
 const Router = createBrowserRouter([
   {
@@ -34,10 +35,14 @@ const Router = createBrowserRouter([
         element: <Properties />
       },
       {
+        path: '/login',
+        element: <Login />
+      },
+      {
         path: '/properties/:id',
         element: <SingleProperty />,
         loader: ({ params }) => store.dispatch(propertiesApi.endpoints.getProperty.initiate(params.id))
-      }
+      },
     ]
   },
   {

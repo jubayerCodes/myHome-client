@@ -8,7 +8,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ActiveLink from '../../ActiveLink/ActiveLink';
 import { logOut } from '../../../Utilities/Redux/features/authSlice/authSlice';
-import { openModal } from '../../../Utilities/Redux/features/modalSlice/modalSlice';
 import userImgRound from '../../../assets/images/default-user_1.png'
 
 const DashboardHeader = () => {

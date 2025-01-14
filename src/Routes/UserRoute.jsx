@@ -17,7 +17,7 @@ const UserRoute = ({ children }) => {
         </>
     }
 
-    return <Navigate to={'/'} />
+    return <Navigate to={'/login'} />
 };
 
 export default UserRoute;

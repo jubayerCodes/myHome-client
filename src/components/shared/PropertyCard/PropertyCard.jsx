@@ -29,12 +29,12 @@ const PropertyCard = ({ property }) => {
 
             <Box zIndex={10} className={'flex justify-end items-center gap-2 absolute top-2 right-2'}>
                 {
-                    listed_in && <Typography fontSize={14} component={'span'} className='bg-[#0073e1d9] text-white px-[6px] rounded-sm'>
+                    listed_in && <Typography fontSize={14} component={'span'} className='bg-[#0073e1d9] text-white px-[6px] rounded-sm capitalize'>
                         {listed_in}
                     </Typography>
                 }
                 {
-                    status && <Typography fontSize={14} component={'span'} className='bg-[#0073e1d9] text-white px-[6px] rounded-sm'>
+                    status && <Typography fontSize={14} component={'span'} className='bg-[#0073e1d9] text-white px-[6px] rounded-sm capitalize'>
                         {status}
                     </Typography>
                 }
@@ -48,7 +48,7 @@ const PropertyCard = ({ property }) => {
                 />
             </Link>
             <CardContent sx={{ padding: '16px 16px 0' }}>
-                {/* TODO: Make link dynamic */}
+                {/* // TODO: Make link dynamic */}
                 <Link href={'#'} display={'flex'} gap={'2px'} alignItems={'center'} gutterBottom underline='none'>
                     <FaMapMarkerAlt color='#5C727D' fontSize={13} />
                     <Typography component={'span'} className='flex justify-start items-center gap-1 text-black' variant='body2'>

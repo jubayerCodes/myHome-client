@@ -7,7 +7,6 @@ import logo from '../../assets/images/logo-agent-40.png'
 import ActiveLink from '../ActiveLink/ActiveLink';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '../../Utilities/Redux/features/modalSlice/modalSlice';
 import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
 import userImgRound from '../../assets/images/default-user_1.png'
 
@@ -63,11 +62,6 @@ const Header = () => {
                 </ActiveLink>
             </li>
             <li>
-                <ActiveLink to={'/about'}>
-                    About Us
-                </ActiveLink>
-            </li>
-            <li>
                 <ActiveLink to={'/contact'}>
                     Contact Us
                 </ActiveLink>
@@ -77,12 +71,13 @@ const Header = () => {
                     Favorites
                 </ActiveLink>
             </li>
-
-            <li>
-                <ActiveLink to={'/dashboard'}>
-                    Dashboard
-                </ActiveLink>
-            </li>
+            {
+                user && <li>
+                    <ActiveLink to={'/dashboard'}>
+                        Dashboard
+                    </ActiveLink>
+                </li>
+            }
         </>
     )
 
@@ -165,17 +160,20 @@ const Header = () => {
                                     {
                                         user ?
                                             user?.photoURL ?
-                                                <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                                <>
+                                                    <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                                    <button className='header-btn hidden xl:block'>Add Property</button>
+                                                </>
                                                 :
-                                                <img onClick={() => dispatch(logOut())} src={userImgRound} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                                <>
+                                                    <img onClick={() => dispatch(logOut())} src={userImgRound} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                                    <button className='header-btn hidden xl:block'>Add Property</button>
+                                                </>
                                             :
-                                            <>
-                                                <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] hidden xl:block xl:text-[40px] cursor-pointer ${((scrolled > 100) || (pathname !== '/')) ? 'text-[#0073e1]' : 'text-white'}`} />
-
-                                                <FaUserCircle onClick={() => dispatch(openModal())} className={`text-[30px] xl:hidden xl:text-[40px] cursor-pointer ${((scrolled > 100) || (pathname !== '/')) ? 'text-[#0073e1]' : 'text-white'}`} />
-                                            </>
+                                            <Link to={'/login'}>
+                                                <button className='header-btn hidden xl:block'>Get Started</button>
+                                            </Link>
                                     }
-                                    <button className='header-btn hidden xl:block'>Add Property</button>
                                 </Stack>
                             </div>
                         </div>
