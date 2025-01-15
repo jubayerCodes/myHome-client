@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import userImg from '../../../../assets/images/default_user.png'
 import agentsApi, { useGetAgentQuery } from '../../../../Utilities/Redux/features/api/agentsApi';
 import { useForm } from 'react-hook-form';
-import Loader from '../../../shared/Loader/Loader';
 import { Bounce, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
