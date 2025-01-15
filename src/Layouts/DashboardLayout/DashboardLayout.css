@@ -1,5 +1,5 @@
 .dashboard .menu-item {
-  @apply flex justify-start items-center text-[#808191] w-full px-4 py-3 hover:text-[var(--btn-bg)] rounded-lg transition-colors capitalize text-start
+  @apply flex justify-start items-center text-[#808191] w-full px-4 py-3 hover:text-[var(--btn-bg)] rounded-lg transition-colors capitalize text-start;
 }
 
 .dashboard .menu-item:hover .MuiListItemIcon-root {
@@ -37,7 +37,8 @@
   @apply w-[1400px];
 }
 
-.dashboard-info, .dashboard-sidebar {
+.dashboard-info,
+.dashboard-sidebar {
   box-shadow: rgba(7, 152, 255, 0.09) 0px 3px 5px;
   @apply bg-white p-8 rounded-3xl;
 }
@@ -60,6 +61,13 @@
 
 .dashboard .form-input {
   @apply w-full bg-[var(--input-bg)] py-4 px-3 text-sm rounded-md focus:outline-[var(--btn-bg)] focus:bg-white;
+}
+
+.dashboard .form-autocomplete {
+  @apply w-full bg-[var(--input-bg)] text-sm rounded-md focus:outline-[var(--btn-bg)] focus:bg-white;
+  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+    border: none;
+  }
 }
 
 .dashboard .agent-form {

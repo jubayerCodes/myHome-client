@@ -1,15 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { store } from '../../../../Utilities/Redux/store';
+import { Autocomplete, TextField } from '@mui/material';
 
 const AddProperty = () => {
 
     const { register, handleSubmit, reset, formState: { errors }, watch, setValue } = useForm()
 
     const onSubmit = (data) => {
+        console.log('something');
         console.log(data);
     }
+
+    const interiorFeatures = ['Equipped Kitchen', 'Gym', 'Laundry', 'Media Room']
 
     return (
         <section className='dashboard-section'>
@@ -56,6 +58,37 @@ const AddProperty = () => {
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="floors">*Floors</label>
                                     <input type="number" id='floors' className='form-input' name='floors' {...register('floors', { required: true })} required min={1} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='dashboard-info'>
+                            <h4 className='info-title'>Features</h4>
+                            <div className="form-container">
+                                <div className="form-field">
+                                    <label className='form-label' htmlFor="interior">*Interior</label>
+                                    {/* <select name="interior" id="interior" className='form-input' {...register('interior', { required: true })} required multiple>
+                                        <option value="equipped-kitchen">Equipped Kitchen</option>
+                                        <option value="gym">Gym</option>
+                                        <option value="laundry">Laundry</option>
+                                        <option value="media-room">Media Room</option>
+                                    </select> */}
+
+                                    {/* // TODO: make it work */}
+                                    <Autocomplete
+                                        multiple
+                                        id="interior"
+                                        options={interiorFeatures}
+                                        getOptionLabel={(option) => option}
+                                        filterSelectedOptions
+                                        className='form-autocomplete'
+                                        {...register('interior', { required: true })}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                            />
+                                        )}
+                                    />
                                 </div>
                             </div>
                         </div>
