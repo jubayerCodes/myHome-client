@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Autocomplete, TextField } from '@mui/material';
 
 const AddProperty = () => {
 
     const { register, handleSubmit, reset, formState: { errors }, watch, setValue } = useForm()
+    const [interior, setInterior] = useState([])
 
-    const onSubmit = (data) => {
-        console.log('something');
-        console.log(data);
+    const addProperty = (data) => {
+        console.log(data, interior);
     }
 
     const interiorFeatures = ['Equipped Kitchen', 'Gym', 'Laundry', 'Media Room']
@@ -18,7 +18,7 @@ const AddProperty = () => {
             <h2 className='page-title'>Add Property</h2>
             <div className='grid grid-cols-12 items-start gap-8'>
                 <div className='col-span-9'>
-                    <form className='agent-form' onSubmit={handleSubmit(onSubmit)}>
+                    <form className='agent-form' onSubmit={handleSubmit(addProperty)}>
                         <div className='dashboard-info'>
                             <h4 className='info-title'>Property Description</h4>
                             <div className='form-container'>
@@ -74,7 +74,6 @@ const AddProperty = () => {
                                         <option value="media-room">Media Room</option>
                                     </select> */}
 
-                                    {/* // TODO: make it work */}
                                     <Autocomplete
                                         multiple
                                         id="interior"
@@ -82,7 +81,7 @@ const AddProperty = () => {
                                         getOptionLabel={(option) => option}
                                         filterSelectedOptions
                                         className='form-autocomplete'
-                                        {...register('interior', { required: true })}
+                                        onChange={(e, newValue) => setInterior(newValue)}
                                         renderInput={(params) => (
                                             <TextField
                                                 {...params}
@@ -114,7 +113,7 @@ const AddProperty = () => {
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="country">Country</label>
 
-                                    <input type="text" id='country' className='form-input' name='country' {...register('country', { required: true })} required defaultValue={"Bangladesh"} disabled />
+                                    <input type="text" id='country' className='form-input' name='country' {...register('country', { required: true })} required defaultValue={"Bangladesh"} readOnly />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="latitude">*Latitude</label>
@@ -158,7 +157,6 @@ const AddProperty = () => {
                                     <label className='form-label' htmlFor="category">Category</label>
 
                                     <select className='form-input' name="category" id="category" {...register('category', { required: true })} required>
-                                        <option value="">none</option>
                                         <option value="offices">Offices</option>
                                         <option value="land">Land</option>
                                         <option value="apartments">Apartments</option>
@@ -173,7 +171,6 @@ const AddProperty = () => {
                                     <label className='form-label' htmlFor="type">Type</label>
 
                                     <select className='form-input' name="type" id="type" {...register('listed_in', { required: true })} required>
-                                        <option value="">none</option>
                                         <option value="sale">Sale</option>
                                         <option value="rent">Rent</option>
                                     </select>
@@ -208,7 +205,6 @@ const AddProperty = () => {
                             </div>
                         </div> */}
 
-                        {/* //! Temporary */}
                         <div className='flex justify-start gap-5 items-start'>
                             <input className="header-btn" style={{ padding: '12px 20px', borderRadius: '7px' }} value={'Add Property'} type='submit' />
                             <button className="header-btn" style={{ padding: '12px 20px', borderRadius: '7px' }}>Save as Draft</button>
