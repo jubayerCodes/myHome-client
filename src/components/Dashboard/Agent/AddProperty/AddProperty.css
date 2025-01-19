@@ -1,0 +1,38 @@
+.add-property .floor-plans .css-u26vfm-MuiPaper-root-MuiAccordion-root::before {
+  @apply hidden;
+}
+
+.add-property .plan:hover .plan-title,
+.add-property .plan:hover span {
+  @apply text-[var(--btn-bg)];
+}
+
+.modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  min-height: 50%;
+  max-height: 80%;
+  overflow-y: scroll;
+  background-color: white;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.modal-form-container {
+  @apply grid grid-cols-2 gap-8 justify-between items-start;
+}
+
+.modal-form-container .form-field {
+  @apply flex flex-col gap-2;
+}
+
+.modal-form-container .form-label {
+  @apply text-xs font-medium text-[var(--label-color)];
+}
+
+.modal-form-container .form-input {
+  @apply w-full bg-[var(--input-bg)] py-4 px-3 text-sm rounded-md focus:outline-[var(--btn-bg)] focus:bg-white;
+}

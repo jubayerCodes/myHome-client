@@ -417,16 +417,12 @@ const SingleProperty = () => {
                                                 <h4 className="plan-title">{plan?.title}</h4>
                                                 <div className="gap-10 flex items-center">
                                                     <span className="text-sm font-light">
-                                                        <span className="font-medium">Price: </span>
-                                                        {plan?.price}
-                                                    </span>
-                                                    <span className="text-sm font-light">
                                                         <span className="font-medium">Baths: </span>
                                                         {plan?.bathrooms}
                                                     </span>
                                                     <span className="text-sm font-light">
                                                         <span className="font-medium">Rooms: </span>
-                                                        {plan?.rooms}
+                                                        {plan?.bedrooms}
                                                     </span>
                                                     <span className="text-sm font-light">
                                                         <span className="font-medium">Size: </span>
