@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, Box, IconButton, Modal, TextField, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, Box, Button, IconButton, Modal, TextField } from '@mui/material';
 import './AddProperty.css'
-import { FaTrashAlt } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { FaCalendar, FaTrashAlt, FaUpload } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { store } from '../../../../Utilities/Redux/store';
 import imageApi from '../../../../Utilities/Redux/features/api/imageApi';
+import styled from '@emotion/styled';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const AddProperty = () => {
     const { user } = useSelector(store => store.auth)
@@ -20,11 +22,12 @@ const AddProperty = () => {
     const [openFloorsModal, setOpenFloorsModal] = useState(false)
     const [floorPlans, setFloorPlans] = useState([])
     const [floorPhoto, setFloorPhoto] = useState('')
+    const [propertyPhotos, setPropertyPhotos] = useState([])
     const date = new Date()
 
     const addProperty = (data) => {
 
-        const { title, description, price, category, type, property_size, rooms, bedrooms, bathrooms, garages, floors, address, city, zip_code, country, latitude, longitude } = data
+        const { title, description, price, category, type, property_size, rooms, bedrooms, bathrooms, garages, floors, address, city, zip_code, country, latitude, longitude, builtYear } = data
 
 
         const newProperty = {
@@ -35,25 +38,19 @@ const AddProperty = () => {
             category: category,
             listed_in: type,
             status: "pending",
-            photos: [
-                "https://i.ibb.co.com/Ph6BcWb/villa-1900-1110x623.webp",
-                "https://wpresidence.net/wp-content/uploads/2017/11/interior37-800x467.jpg",
-                "https://wpresidence.net/wp-content/uploads/2017/11/interior38-800x467.jpg",
-                "https://wpresidence.net/wp-content/uploads/2017/11/interior36-800x467.jpg",
-                "https://wpresidence.net/wp-content/uploads/2017/11/image3_large-835x467.jpg"
-            ],
+            photos: [...propertyPhotos],
             property_size: parseFloat(property_size),
             featured: false,
             rooms: parseInt(rooms),
             bedrooms: parseInt(bedrooms),
             bathrooms: parseInt(bathrooms),
             garages: parseInt(garages),
-            "built_year": 2010,
+            built_year: builtYear,
             "garage_size": 2,
             "structure_type": "brick",
             floors: parseInt(floors),
             available_from: moment(date).format('YYYY-mm-DD'),
-            floor_plans: floorPlans,
+            floor_plans: [...floorPlans],
             address: {
                 address: address,
                 city: city,
@@ -69,6 +66,8 @@ const AddProperty = () => {
                 utilities: utilities
             },
         }
+
+        console.log(newProperty);
     }
 
     const addFloorPlan = async (data) => {
@@ -106,7 +105,6 @@ const AddProperty = () => {
                         setFloorPlans([...floorPlans, plan])
                         floorReset()
                         setOpenFloorsModal(false)
-                        console.log(plan);
                     }
                 })
         }
@@ -120,6 +118,12 @@ const AddProperty = () => {
 
         newPlans.splice(idx, 1)
         setFloorPlans(newPlans)
+    }
+
+    const deletePropertyPhotos = (idx) => {
+        const newPhotos = [...propertyPhotos]
+        newPhotos.splice(idx, 1)
+        setPropertyPhotos(newPhotos)
     }
 
     const interiorFeatures = ['Equipped Kitchen', 'Gym', 'Laundry', 'Media Room']
@@ -150,6 +154,40 @@ const AddProperty = () => {
         "ventilation",
         "water"
     ]
+
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+    });
+
+    const uploadPropertiesPhoto = async (data) => {
+        const files = [...data]
+
+        const photosPromises = files.map((file) => {
+
+            const photoData = new FormData()
+            photoData.append("image", file)
+
+            return store.dispatch(imageApi.endpoints.postImage.initiate(photoData))
+                .catch(error => console.log(error))
+
+        })
+
+        const responses = await Promise.all(photosPromises)
+
+        const photos = responses.map((response) => response?.data?.data?.display_url);
+
+
+
+        setPropertyPhotos(photos)
+    }
 
     return (
         <section className='dashboard-section add-property'>
@@ -196,6 +234,19 @@ const AddProperty = () => {
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="floors">*Floors</label>
                                     <input type="number" id='floors' className='form-input' name='floors' {...register('floors', { required: true })} required min={1} />
+                                </div>
+                                <div className='form-field'>
+                                    <label className='form-label' htmlFor="builtYear">*Built Year</label>
+
+                                    <input
+                                        type='number'
+                                        id='builtYear'
+                                        className='form-input'
+                                        {...register('builtYear', { required: true })}
+                                        required
+                                        min={1960}
+                                        max={parseInt(moment(date).format('YYYY'))}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -468,13 +519,36 @@ const AddProperty = () => {
                         </div>
                     </Modal>
                 </div>
-                <div className='col-span-3 sticky top-40'>
-                    <div className='dashboard-sidebar'>
-                        {/* //TODO: implement update photo feature */}
+                <div className='col-span-3'>
+                    <div className='dashboard-sidebar overflow-hidden'>
                         <h4 className="info-title">Photos</h4>
 
-                        <button className="header-btn w-full" style={{ padding: '15px 20px', borderRadius: '7px' }}>Upload Photos</button>
-                        <span className='text-red-600 text-xs pt-1'>*16:9 Ratio Expected</span>
+                        {
+                            propertyPhotos?.map((photo, idx) => <div key={idx} className='relative'>
+                                <IconButton onClick={() => deletePropertyPhotos(idx)} size='small' aria-label="delete" style={{ position: 'absolute', color: 'white', top: '10px', right: '10px', backgroundColor: 'black', padding: '10px' }}>
+                                    <FaTrashAlt />
+                                </IconButton>
+                                <img src={photo} alt={''} className='w-full rounded-lg mb-5' />
+                            </div>)
+                        }
+
+                        <Button
+                            component="label"
+                            role={undefined}
+                            variant="contained"
+                            tabIndex={-1}
+                            startIcon={<FaUpload />}
+                            className='w-full header-btn'
+                        >
+                            Upload files
+                            <VisuallyHiddenInput
+                                type="file"
+                                onChange={(event) => uploadPropertiesPhoto(event.target.files)}
+                                multiple
+                                accept=".jpg,.jpeg,.png,.webp"
+                            />
+                        </Button>
+                        <span className='text-red-600 text-xs pt-1 block'>*16:9 Ratio Expected</span>
                     </div>
                 </div>
             </div >

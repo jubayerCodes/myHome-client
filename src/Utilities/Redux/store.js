@@ -29,5 +29,6 @@ export const store = configureStore({
       .concat(usersApi.middleware)
       .concat(featuredPropertiesApi.middleware)
       .concat(agentsApi.middleware)
-      .concat(imageApi.middleware),
+      .concat(imageApi.middleware)
+      .concat(featuredCitiesApi.middleware)
 });
