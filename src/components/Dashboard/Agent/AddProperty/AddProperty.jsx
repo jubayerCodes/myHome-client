@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, Box, Modal, TextField, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, Box, IconButton, Modal, TextField, Typography } from '@mui/material';
 import './AddProperty.css'
+import { FaTrashAlt } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import { store } from '../../../../Utilities/Redux/store';
+import imageApi from '../../../../Utilities/Redux/features/api/imageApi';
 
 const AddProperty = () => {
+    const { user } = useSelector(store => store.auth)
 
     const { register, handleSubmit, reset, formState: { errors }, watch, setValue } = useForm()
     const { register: registerFloor, handleSubmit: handleSubmitFloor, reset: floorReset, formState: { errors: floorErrors }, watch: floorWatch, } = useForm()
@@ -13,27 +19,107 @@ const AddProperty = () => {
     const [utilities, setUtilities] = useState([])
     const [openFloorsModal, setOpenFloorsModal] = useState(false)
     const [floorPlans, setFloorPlans] = useState([])
+    const [floorPhoto, setFloorPhoto] = useState('')
+    const date = new Date()
 
     const addProperty = (data) => {
 
+        const { title, description, price, category, type, property_size, rooms, bedrooms, bathrooms, garages, floors, address, city, zip_code, country, latitude, longitude } = data
+
+
+        const newProperty = {
+            title: title,
+            agent_email: user?.email,
+            description: description,
+            price: parseFloat(price),
+            category: category,
+            listed_in: type,
+            status: "pending",
+            photos: [
+                "https://i.ibb.co.com/Ph6BcWb/villa-1900-1110x623.webp",
+                "https://wpresidence.net/wp-content/uploads/2017/11/interior37-800x467.jpg",
+                "https://wpresidence.net/wp-content/uploads/2017/11/interior38-800x467.jpg",
+                "https://wpresidence.net/wp-content/uploads/2017/11/interior36-800x467.jpg",
+                "https://wpresidence.net/wp-content/uploads/2017/11/image3_large-835x467.jpg"
+            ],
+            property_size: parseFloat(property_size),
+            featured: false,
+            rooms: parseInt(rooms),
+            bedrooms: parseInt(bedrooms),
+            bathrooms: parseInt(bathrooms),
+            garages: parseInt(garages),
+            "built_year": 2010,
+            "garage_size": 2,
+            "structure_type": "brick",
+            floors: parseInt(floors),
+            available_from: moment(date).format('YYYY-mm-DD'),
+            floor_plans: floorPlans,
+            address: {
+                address: address,
+                city: city,
+                zip_code: parseInt(zip_code),
+                country: country,
+                latitude: parseFloat(latitude),
+                longitude: parseFloat(longitude)
+            },
+            features: {
+                interior: interior,
+                outdoor: outdoor,
+                others: others,
+                utilities: utilities
+            },
+        }
     }
 
-    const addFloorPlan = (data) => {
+    const addFloorPlan = async (data) => {
 
-        const { floorTitle, floorPhoto, floorBedrooms, floorBathrooms, floorSize, floorDescription } = data
+        const { floorTitle, floorPhotoFile, floorBedrooms, floorBathrooms, floorSize, floorDescription } = data
 
-        const plan = {
-            title: floorTitle,
-            photo: floorPhoto,
-            bathrooms: floorBathrooms,
-            bedrooms: floorBedrooms,
-            size: floorSize,
-            description: floorDescription
+        const photoFile = floorPhotoFile[0]
+
+        if (!photoFile) {
+            return alert('Upload Photo!')
         }
 
-        setFloorPlans([...floorPlans, plan])
-        floorReset()
-        setOpenFloorsModal(false)
+        const reader = new FileReader();
+
+        reader.onload = async () => {
+            const base64String = reader.result.split(",")[1];
+
+            const photoData = new FormData()
+            photoData.append("image", base64String)
+
+            store.dispatch(imageApi.endpoints.postImage.initiate(photoData))
+                .then(res => {
+                    if (res?.data?.success) {
+                        setFloorPhoto(res?.data?.data?.display_url)
+
+                        const plan = {
+                            title: floorTitle,
+                            photo: floorPhoto,
+                            bathrooms: parseInt(floorBathrooms),
+                            bedrooms: parseInt(floorBedrooms),
+                            size: parseFloat(floorSize),
+                            description: floorDescription
+                        }
+
+                        setFloorPlans([...floorPlans, plan])
+                        floorReset()
+                        setOpenFloorsModal(false)
+                        console.log(plan);
+                    }
+                })
+        }
+
+        reader.readAsDataURL(photoFile);
+    }
+
+    const deleteFloorPlan = (idx) => {
+
+        const newPlans = [...floorPlans]
+
+        newPlans.splice(idx, 1)
+        setFloorPlans(newPlans)
     }
 
     const interiorFeatures = ['Equipped Kitchen', 'Gym', 'Laundry', 'Media Room']
@@ -270,7 +356,7 @@ const AddProperty = () => {
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="type">Type</label>
 
-                                    <select className='form-input' name="type" id="type" {...register('listed_in', { required: true })} required>
+                                    <select className='form-input' name="type" id="type" {...register('type', { required: true })} required>
                                         <option value="sale">Sale</option>
                                         <option value="rent">Rent</option>
                                     </select>
@@ -310,12 +396,15 @@ const AddProperty = () => {
                                                                     <span className="font-medium">Size: </span>
                                                                     {plan?.size}
                                                                 </span>
+                                                                <IconButton onClick={() => deleteFloorPlan(idx)} size='small' aria-label="delete">
+                                                                    <FaTrashAlt />
+                                                                </IconButton>
                                                             </div>
                                                         </div>
                                                     </AccordionSummary>
                                                     <AccordionDetails>
                                                         <div className="py-5">
-                                                            <img className="w-full" src={plan?.photo} alt="" />
+                                                            <img className="w-full" src={floorPhoto} alt="" />
                                                             <p className="text-[var(--text-color)] text-sm mt-5">{plan?.description}</p>
                                                         </div>
                                                     </AccordionDetails>
@@ -351,10 +440,9 @@ const AddProperty = () => {
                                         <input type="text" id='floorTitle' className='form-input' name='floorTitle' {...registerFloor('floorTitle', { required: true })} />
                                     </div>
 
-                                    {/* // TODO: make it file upload */}
                                     <div className='form-field'>
-                                        <label className='form-label' htmlFor="floorPhoto">Photo</label>
-                                        <input type="text" id='floorPhoto' className='form-input' name='floorPhoto' {...registerFloor('floorPhoto', { required: true })} required />
+                                        <label className='form-label' htmlFor="floorPhotoFile">Photo</label>
+                                        <input type="file" id='floorPhotoFile' className='form-input' name='floorPhotoFile' {...registerFloor('floorPhotoFile', { required: true })} required />
                                     </div>
                                     <div className='form-field'>
                                         <label className='form-label' htmlFor="floorBedrooms">Bedrooms</label>
