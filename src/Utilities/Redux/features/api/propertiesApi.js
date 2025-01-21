@@ -8,20 +8,20 @@ export const propertiesApi = createApi({
       query: (id) => `/properties/${id}`,
     }),
     getProperties: builder.query({
-      query: ({ page = 1, limit, type, category, city, sort }) =>
+      query: ({ page = 1, limit, category, city, sort, active }) =>
         `/properties?page=${page}&limit=${limit}${
-          type !== "" ? `&type=${type}` : ""
-        }${category !== "" ? `&category=${category}` : ""}${
-          city !== "" ? `&city=${city}` : ""
-        }${sort !== "" ? `&sort=${sort}` : ""}`,
+          category !== "" ? `&category=${category}` : ""
+        }${city !== "" ? `&city=${city}` : ""}${
+          sort !== "" ? `&sort=${sort}` : ""
+        }${active ? `$active=${active}` : ""}`,
     }),
     getSimilarProperties: builder.query({
       query: ({ type, category, _id }) =>
         `/similarProperties?type=${type}&category=${category}&_id=${_id}`,
     }),
     getTotalPages: builder.query({
-      query: ({ limit, type, category, city }) =>
-        `/totalPages?limit=${limit}${type !== "" ? `&type=${type}` : ""}${
+      query: ({ limit, category, city }) =>
+        `/totalPages?limit=${limit}${
           category !== "" ? `&category=${category}` : ""
         }${city !== "" ? `&city=${city}` : ""}`,
     }),

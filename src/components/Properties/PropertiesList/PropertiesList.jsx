@@ -13,7 +13,7 @@ const PropertiesList = (props) => {
     const [sort, setSort] = useState(() => "newest_first")
     const [limit, setLimit] = useState(6)
 
-    const { data: properties } = useGetPropertiesQuery({ page: currentPage, category: category, city: city, sort: sort, limit: limit })
+    const { data: properties } = useGetPropertiesQuery({ page: currentPage, category: category, city: city, sort: sort, limit: limit, active: true })
 
     const { data: filterOptions } = useGetPropertiesFilterOptionsQuery()
 

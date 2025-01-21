@@ -8,13 +8,12 @@ const Properties = () => {
     const [params] = useSearchParams()
 
     const city = params?.get('city')
-    const type = params?.get('type')
     const category = params?.get('category')
 
     return (
         <>
             <FeaturedProperty />
-            <PropertiesList city={city} type={type} category={category} />
+            <PropertiesList city={city} category={category} />
         </>
     );
 };

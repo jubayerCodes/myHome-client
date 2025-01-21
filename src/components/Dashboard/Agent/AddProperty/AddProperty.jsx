@@ -29,7 +29,7 @@ const AddProperty = () => {
 
     const addProperty = (data) => {
 
-        const { title, description, price, category, type, property_size, rooms, bedrooms, bathrooms, garages, floors, address, city, zip_code, country, latitude, longitude, builtYear, garageSize, structureType } = data
+        const { title, description, price, category, property_size, rooms, bedrooms, bathrooms, garages, floors, address, city, zip_code, country, latitude, longitude, builtYear, garageSize, structureType } = data
 
         if (!propertyPhotos?.length) {
             return alert("Add images first!")
@@ -43,10 +43,10 @@ const AddProperty = () => {
         const newProperty = {
             title: title,
             agent_email: user?.email,
+            agent: user?.displayName,
             description: description,
             price: parseFloat(price),
             category: category,
-            listed_in: type,
             status: "pending",
             photos: [...propertyPhotos],
             property_size: parseFloat(property_size),
@@ -442,15 +442,6 @@ const AddProperty = () => {
                                         <option value="villa">Villa</option>
                                         <option value="industrial">Industrial</option>
                                         <option value="houses">Houses</option>
-                                    </select>
-                                </div>
-
-                                <div className='form-field'>
-                                    <label className='form-label' htmlFor="type">Type</label>
-
-                                    <select className='form-input' name="type" id="type" {...register('type')} required>
-                                        <option value="sale">Sale</option>
-                                        <option value="rent">Rent</option>
                                     </select>
                                 </div>
                             </div>
