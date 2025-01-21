@@ -5,7 +5,7 @@ import './PropertyCard.css'
 
 const PropertyCard = ({ property }) => {
 
-    const { _id, photos, title, price, description, bedrooms, bathrooms, property_size, featured, listed_in, status, address } = property
+    const { _id, photos, title, price, description, bedrooms, bathrooms, property_size, featured, status, address } = property
 
 
     // TODO: Need to make it dynamic
@@ -28,11 +28,6 @@ const PropertyCard = ({ property }) => {
             }
 
             <Box zIndex={10} className={'flex justify-end items-center gap-2 absolute top-2 right-2'}>
-                {
-                    listed_in && <Typography fontSize={14} component={'span'} className='bg-[#0073e1d9] text-white px-[6px] rounded-sm capitalize'>
-                        {listed_in}
-                    </Typography>
-                }
                 {
                     status && <Typography fontSize={14} component={'span'} className='bg-[#0073e1d9] text-white px-[6px] rounded-sm capitalize'>
                         {status}

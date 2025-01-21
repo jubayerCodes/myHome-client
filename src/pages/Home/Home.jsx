@@ -24,7 +24,6 @@ const Home = () => {
             <WhyChooseUs />
             <LatestProperties />
             <PropertiesByCategories secondaryBg={true} />
-            <LatestPropertiesForRent />
             <FeaturedProperty />
             <Agents />
             <Testimonials secondaryBg={true} />

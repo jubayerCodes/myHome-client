@@ -31,6 +31,9 @@ const AdminProfile = () => {
         setValue('position', admin?.position)
         setValue('bio', admin?.bio)
         setValue('companyName', admin?.companyName)
+        setValue('area', admin?.address?.area)
+        setValue('country', admin?.address?.country)
+        setValue('city', admin?.address?.city)
     }, [setValue, admin])
 
 
@@ -48,6 +51,9 @@ const AdminProfile = () => {
             pinterest,
             website,
             bio,
+            area,
+            country,
+            city
         } = data
 
         const admin = {
@@ -63,6 +69,11 @@ const AdminProfile = () => {
                 website,
             },
             bio,
+            address: {
+                area: area,
+                city: city,
+                country: country
+            }
         }
 
 
@@ -184,21 +195,21 @@ const AdminProfile = () => {
                             </div>
                         </div>
                         <div className='dashboard-info'>
-                            <h4 className='info-title'>Admin Location</h4>
+                            <h4 className='info-title'>Admin Address</h4>
                             <div className='form-container'>
 
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="city">City</label>
-                                    <input type="text" id='city' className='form-input' />
+                                    <input type="text" id='city' name='city' className='form-input' {...register("city")} required />
                                 </div>
 
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="country">Country</label>
-                                    <input type="text" id='country' className='form-input' />
+                                    <input type="text" id='country' name='country' className='form-input' {...register("country")} required />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="area">Area</label>
-                                    <input type="text" id='area' className='form-input' />
+                                    <input type="text" id='area' name='area' className='form-input' {...register("area")} required />
                                 </div>
 
                             </div>
