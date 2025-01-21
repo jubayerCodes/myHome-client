@@ -1,37 +1,38 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import userImg from '../../../../assets/images/default_user.png'
-import { useGetAgentQuery, useUpdateAgentMutation } from '../../../../Utilities/Redux/features/api/agentsApi';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import userImg from '../../../../assets/images/default_user.png'
+import { useGetAdminQuery, useUpdateAdminMutation } from '../../../../Utilities/Redux/features/api/adminApi';
 import { Bounce, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
-const AgentProfile = () => {
+const AdminProfile = () => {
 
-    const { user } = useSelector(state => state.auth)
-    const [updateAgent, agentResult] = useUpdateAgentMutation()
+    const { user } = useSelector((store) => store?.auth)
 
-    const { data: agent, refetch } = useGetAgentQuery(user?.email)
+    const { data: admin, refetch } = useGetAdminQuery(user?.email)
+    const [updateAdmin, adminResult] = useUpdateAdminMutation()
 
     const { register, handleSubmit, reset, formState: { errors }, watch, setValue } = useForm()
 
     useEffect(() => {
-        setValue('firstName', agent?.firstName)
-        setValue('lastName', agent?.lastName)
-        setValue('email', agent?.email)
-        setValue('phone', agent?.contact?.phone)
-        setValue('mobile', agent?.contact?.mobile)
-        setValue('skype', agent?.contact?.skype)
-        setValue('facebook', agent?.contact?.facebook)
-        setValue('instagram', agent?.contact?.instagram)
-        setValue('twitter', agent?.contact?.twitter)
-        setValue('linkedin', agent?.contact?.linkedin)
-        setValue('pinterest', agent?.contact?.pinterest)
-        setValue('website', agent?.contact?.website)
-        setValue('position', agent?.position)
-        setValue('bio', agent?.bio)
-        setValue('companyName', agent?.companyName)
-    }, [setValue, agent])
+        setValue('firstName', admin?.firstName)
+        setValue('lastName', admin?.lastName)
+        setValue('email', admin?.email)
+        setValue('phone', admin?.contact?.phone)
+        setValue('mobile', admin?.contact?.mobile)
+        setValue('skype', admin?.contact?.skype)
+        setValue('facebook', admin?.contact?.facebook)
+        setValue('instagram', admin?.contact?.instagram)
+        setValue('twitter', admin?.contact?.twitter)
+        setValue('linkedin', admin?.contact?.linkedin)
+        setValue('pinterest', admin?.contact?.pinterest)
+        setValue('website', admin?.contact?.website)
+        setValue('position', admin?.position)
+        setValue('bio', admin?.bio)
+        setValue('companyName', admin?.companyName)
+    }, [setValue, admin])
+
 
     const onSubmit = (data) => {
 
@@ -46,13 +47,10 @@ const AgentProfile = () => {
             linkedin,
             pinterest,
             website,
-            position,
             bio,
-            companyName,
         } = data
 
-
-        const agent = {
+        const admin = {
             contact: {
                 phone,
                 mobile,
@@ -64,9 +62,7 @@ const AgentProfile = () => {
                 pinterest,
                 website,
             },
-            position,
             bio,
-            companyName,
         }
 
 
@@ -79,10 +75,10 @@ const AgentProfile = () => {
             confirmButtonText: "Yes, Update Profile!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                updateAgent({ email, agent })
+                updateAdmin({ email, admin })
                     .then(res => {
                         if (res?.data?.modifiedCount) {
-                            toast.success('Agent Updated Successfully!', {
+                            toast.success('Admin Updated Successfully!', {
                                 position: "top-right",
                                 autoClose: 2000,
                                 hideProgressBar: false,
@@ -112,13 +108,12 @@ const AgentProfile = () => {
         });
     }
 
-
     return (
         <section className='dashboard-section'>
             <h2 className='page-title'>My Profile</h2>
             <div className='grid grid-cols-12 items-start gap-8'>
                 <div className='col-span-9'>
-                    <form className='agent-form' onSubmit={handleSubmit(onSubmit)}>
+                    <form className='admin-form' onSubmit={handleSubmit(onSubmit)}>
                         <div className='dashboard-info'>
                             <h4 className='info-title'>Contact Information</h4>
                             <div className='form-container'>
@@ -146,14 +141,10 @@ const AgentProfile = () => {
                                     <label className='form-label' htmlFor="mobile">Mobile</label>
                                     <input type="tel" id='mobile' className='form-input' name='mobile' {...register('mobile')} />
                                 </div>
+
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="skype">Skype</label>
                                     <input type="text" id='skype' className='form-input' name='skype' {...register('skype')} />
-                                </div>
-
-                                <div className='form-field'>
-                                    <label className='form-label' htmlFor="company">Company</label>
-                                    <input type="text" id='company' className='form-input' name='companyName' {...register('companyName')} />
                                 </div>
                             </div>
                         </div>
@@ -193,7 +184,7 @@ const AgentProfile = () => {
                             </div>
                         </div>
                         <div className='dashboard-info'>
-                            <h4 className='info-title'>Agent Location</h4>
+                            <h4 className='info-title'>Admin Location</h4>
                             <div className='form-container'>
 
                                 <div className='form-field'>
@@ -208,23 +199,6 @@ const AgentProfile = () => {
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="area">Area</label>
                                     <input type="text" id='area' className='form-input' />
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div className='dashboard-info'>
-                            <h4 className='info-title'>Agent Details</h4>
-                            <div className='flex flex-col items-stretch gap-8 justify-start'>
-
-                                <div className='form-field'>
-                                    <label className='form-label' htmlFor="position">Title/Position</label>
-                                    <input type="text" id='position' className='form-input' name='position' {...register('position')} />
-                                </div>
-
-                                <div className='form-field'>
-                                    <label className='form-label' htmlFor="bio">About Me</label>
-                                    <textarea type="text" id='bio' className='form-input h-[200px]' cols='15' name='bio' {...register('bio')} />
                                 </div>
 
                             </div>
@@ -286,4 +260,4 @@ const AgentProfile = () => {
     );
 };
 
-export default AgentProfile;
+export default AdminProfile;

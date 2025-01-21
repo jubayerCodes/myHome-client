@@ -8,6 +8,7 @@ import featuredPropertiesApi from "./features/api/featuredPropertiesApi";
 import agentsApi from "./features/api/agentsApi";
 import featuredCitiesApi from "./features/api/featuredCitiesApi";
 import imageApi from "./features/api/imageApi";
+import adminApi from "./features/api/adminApi";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     [agentsApi.reducerPath]: agentsApi.reducer,
     [featuredCitiesApi.reducerPath]: featuredCitiesApi.reducer,
     [imageApi.reducerPath]: imageApi.reducer,
+    [adminApi.reducerPath]: adminApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -31,4 +33,5 @@ export const store = configureStore({
       .concat(agentsApi.middleware)
       .concat(imageApi.middleware)
       .concat(featuredCitiesApi.middleware)
+      .concat(adminApi.middleware),
 });

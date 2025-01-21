@@ -13,6 +13,8 @@ const DashboardNavigator = () => {
     } else if (role === 'agent') {
 
         return <Navigate to={'/dashboard/agent-profile'} />
+    } else if (role === 'admin') {
+        return <Navigate to={'/dashboard/admin-profile'} />
     }
 };
 

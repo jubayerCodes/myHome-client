@@ -225,7 +225,7 @@ const AddProperty = () => {
             <h2 className='page-title'>Add Property</h2>
             <div className='grid grid-cols-12 items-start gap-8'>
                 <div className='col-span-9'>
-                    <form className='agent-form' onSubmit={handleSubmit(addProperty)}>
+                    <form className='property-form' onSubmit={handleSubmit(addProperty)}>
                         <div className='dashboard-info'>
                             <h4 className='info-title'>Property Description</h4>
                             <div className='form-container'>

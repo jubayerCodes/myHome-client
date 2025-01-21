@@ -12,7 +12,7 @@ import './DashboardLayout.css'
 import { Outlet } from 'react-router-dom';
 import DashboardActiveLnk from '../../components/Dashboard/DashboardActiveLink/DashboardActiveLnk';
 import { useDispatch, useSelector } from 'react-redux';
-import { HiOutlineHome, HiOutlinePlus } from 'react-icons/hi';
+import { HiOutlineHome, HiOutlinePlus, HiOutlineUsers } from 'react-icons/hi';
 import userImg from '../../assets/images/default_user.png'
 import userImgRound from '../../assets/images/default-user_1.png'
 import { Button } from '@mui/material';
@@ -57,14 +57,30 @@ const DashboardLayout = () => {
             <List sx={{ paddingTop: '30px', justifyContent: 'start' }}>
 
                 {
-                    role === 'user' && (
+                    role === 'admin' && (
                         <>
                             <ListItem sx={{ paddingX: '20px' }} disablePadding>
-                                <DashboardActiveLnk href={'user-profile'}>
+                                <DashboardActiveLnk href={'admin-profile'}>
                                     <ListItemIcon sx={{ minWidth: '30px' }}>
                                         <FaRegUser />
                                     </ListItemIcon>
                                     <ListItemText primary={'My Profile'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'manage-properties'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                    <HiOutlineHome />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Manage Properties'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'manage-users'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                    <HiOutlineUsers />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Manage User'} />
                                 </DashboardActiveLnk>
                             </ListItem>
                         </>
@@ -109,12 +125,28 @@ const DashboardLayout = () => {
                                     <ListItemText primary={'Add New Property'} />
                                 </DashboardActiveLnk>
                             </ListItem>
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'agent-invoices'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                        <FaPrint />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'my invoices'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
                         </>
                     )
                 }
 
                 {
                     role === 'user' && <>
+                        <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                            <DashboardActiveLnk href={'user-profile'}>
+                                <ListItemIcon sx={{ minWidth: '30px' }}>
+                                    <FaRegUser />
+                                </ListItemIcon>
+                                <ListItemText primary={'My Profile'} />
+                            </DashboardActiveLnk>
+                        </ListItem>
                         <ListItem sx={{ paddingX: '20px' }} disablePadding>
                             <DashboardActiveLnk href={'favorites'}>
                                 <ListItemIcon sx={{ minWidth: '30px' }}>
@@ -123,11 +155,6 @@ const DashboardLayout = () => {
                                 <ListItemText primary={'favorites'} />
                             </DashboardActiveLnk>
                         </ListItem>
-                    </>
-                }
-
-                {
-                    role === 'user' && <>
                         <ListItem sx={{ paddingX: '20px' }} disablePadding>
                             <DashboardActiveLnk href={'user-invoices'}>
                                 <ListItemIcon sx={{ minWidth: '30px' }}>
@@ -138,28 +165,6 @@ const DashboardLayout = () => {
                         </ListItem>
                     </>
                 }
-
-                {
-                    role === 'agent' && <>
-                        <ListItem sx={{ paddingX: '20px' }} disablePadding>
-                            <DashboardActiveLnk href={'agent-invoices'}>
-                                <ListItemIcon sx={{ minWidth: '30px' }}>
-                                    <FaPrint />
-                                </ListItemIcon>
-                                <ListItemText primary={'my invoices'} />
-                            </DashboardActiveLnk>
-                        </ListItem>
-                    </>
-                }
-
-                <ListItem sx={{ paddingX: '20px' }} disablePadding>
-                    <DashboardActiveLnk href={'inbox'}>
-                        <ListItemIcon sx={{ minWidth: '30px' }}>
-                            <FaRegEnvelope />
-                        </ListItemIcon>
-                        <ListItemText primary={'inbox'} />
-                    </DashboardActiveLnk>
-                </ListItem>
 
                 <ListItem sx={{ paddingX: '20px' }} disablePadding>
                     <Button className='menu-item text-start' onClick={() => dispatch(logOut())}>

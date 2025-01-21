@@ -70,6 +70,8 @@
   }
 }
 
-.dashboard .agent-form {
+.dashboard .agent-form,
+.dashboard .admin-form,
+.dashboard .property-form {
   @apply flex flex-col items-stretch gap-10;
 }

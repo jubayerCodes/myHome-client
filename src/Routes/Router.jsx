@@ -20,6 +20,10 @@ import AddProperty from "../components/Dashboard/Agent/AddProperty/AddProperty";
 import AgentInvoices from "../components/Dashboard/Agent/AgentInvoices/AgentInvoices";
 import DashboardNavigator from "../components/Dashboard/DashboardNavigator/DashboardNavigator";
 import Login from "../pages/Login/Login";
+import AdminRoute from "./AdminRoute";
+import ManageProperties from "../components/Dashboard/Admin/ManageProperties/ManageProperties";
+import AdminProfile from "../components/Dashboard/Admin/AdminProfile/AdminProfile";
+import ManageUsers from "../components/Dashboard/Admin/ManageUsers/ManageUsers";
 
 const Router = createBrowserRouter([
   {
@@ -54,12 +58,20 @@ const Router = createBrowserRouter([
         element: <PrivateRoute><DashboardNavigator /></PrivateRoute>
       },
       {
-        path: 'overview',
-        element: <AgentRoute><Overview /></AgentRoute>
-      },
-      {
         path: 'user-profile',
         element: <UserRoute><UserProfile /></UserRoute>
+      },
+      {
+        path: 'user-invoices',
+        element: <UserRoute><UserInvoices /></UserRoute>
+      },
+      {
+        path: 'favorites',
+        element: <UserRoute><DashboardFavorites /></UserRoute>
+      },
+      {
+        path: 'overview',
+        element: <AgentRoute><Overview /></AgentRoute>
       },
       {
         path: 'agent-profile',
@@ -78,16 +90,16 @@ const Router = createBrowserRouter([
         element: <AgentRoute><AgentInvoices /></AgentRoute>
       },
       {
-        path: 'user-invoices',
-        element: <UserRoute><UserInvoices /></UserRoute>
+        path: 'admin-profile',
+        element: <AdminRoute><AdminProfile /></AdminRoute>
       },
       {
-        path: 'inbox',
-        element: <PrivateRoute><Inbox /></PrivateRoute>
+        path: 'manage-properties',
+        element: <AdminRoute><ManageProperties /></AdminRoute>
       },
       {
-        path: 'favorites',
-        element: <UserRoute><DashboardFavorites /></UserRoute>
+        path: 'manage-users',
+        element: <AdminRoute><ManageUsers /></AdminRoute>
       }
     ]
   }
