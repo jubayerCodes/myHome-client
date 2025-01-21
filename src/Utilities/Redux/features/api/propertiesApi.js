@@ -28,6 +28,13 @@ export const propertiesApi = createApi({
     getPropertiesFilterOptions: builder.query({
       query: () => "/propertiesFilterOptions",
     }),
+    postProperty: builder.mutation({
+      query: (property) => ({
+        url: "/property",
+        method: "POST",
+        body: property,
+      }),
+    }),
   }),
 });
 
@@ -37,6 +44,7 @@ export const {
   useGetTotalPagesQuery,
   useGetPropertiesFilterOptionsQuery,
   useGetSimilarPropertiesQuery,
+  usePostPropertyMutation,
 } = propertiesApi;
 
 export default propertiesApi;

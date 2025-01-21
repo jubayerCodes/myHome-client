@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Accordion, AccordionDetails, AccordionSummary, Autocomplete, Box, Button, IconButton, Modal, TextField } from '@mui/material';
 import './AddProperty.css'
-import { FaCalendar, FaTrashAlt, FaUpload } from 'react-icons/fa';
+import { FaTrashAlt, FaUpload } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { store } from '../../../../Utilities/Redux/store';
 import imageApi from '../../../../Utilities/Redux/features/api/imageApi';
 import styled from '@emotion/styled';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { usePostPropertyMutation } from '../../../../Utilities/Redux/features/api/propertiesApi';
+import { Bounce, toast } from 'react-toastify';
 
 const AddProperty = () => {
     const { user } = useSelector(store => store.auth)
+    const [postProperty, propertyResult] = usePostPropertyMutation()
 
     const { register, handleSubmit, reset, formState: { errors }, watch, setValue } = useForm()
     const { register: registerFloor, handleSubmit: handleSubmitFloor, reset: floorReset, formState: { errors: floorErrors }, watch: floorWatch, } = useForm()
@@ -27,7 +29,15 @@ const AddProperty = () => {
 
     const addProperty = (data) => {
 
-        const { title, description, price, category, type, property_size, rooms, bedrooms, bathrooms, garages, floors, address, city, zip_code, country, latitude, longitude, builtYear } = data
+        const { title, description, price, category, type, property_size, rooms, bedrooms, bathrooms, garages, floors, address, city, zip_code, country, latitude, longitude, builtYear, garageSize, structureType } = data
+
+        if (!propertyPhotos?.length) {
+            return alert("Add images first!")
+        }
+
+        if (!floorPlans.length) {
+            return alert("Add floor plan first!")
+        }
 
 
         const newProperty = {
@@ -46,10 +56,10 @@ const AddProperty = () => {
             bathrooms: parseInt(bathrooms),
             garages: parseInt(garages),
             built_year: builtYear,
-            "garage_size": 2,
-            "structure_type": "brick",
+            garage_size: garageSize,
+            structure_type: structureType,
             floors: parseInt(floors),
-            available_from: moment(date).format('YYYY-mm-DD'),
+            available_from: moment(date).format('YYYY-MM-DD'),
             floor_plans: [...floorPlans],
             address: {
                 address: address,
@@ -67,7 +77,28 @@ const AddProperty = () => {
             },
         }
 
-        console.log(newProperty);
+        postProperty(newProperty)
+            .then(res => {
+                if (res?.data?.insertedId) {
+                    toast.success('Agent Updated Successfully!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce,
+                    });
+
+                    reset()
+                    setFloorPlans([])
+                    setFloorPhoto('')
+                    setPropertyPhotos([])
+                }
+            })
+            .catch(error => console.log(error))
+
     }
 
     const addFloorPlan = async (data) => {
@@ -95,7 +126,7 @@ const AddProperty = () => {
 
                         const plan = {
                             title: floorTitle,
-                            photo: floorPhoto,
+                            photo: res?.data?.data?.display_url,
                             bathrooms: parseInt(floorBathrooms),
                             bedrooms: parseInt(floorBedrooms),
                             size: parseFloat(floorSize),
@@ -201,39 +232,49 @@ const AddProperty = () => {
 
                                 <div className='form-field col-span-2'>
                                     <label className='form-label' htmlFor="title">*Title</label>
-                                    <input type="text" id='title' className='form-input' name='title' {...register('title', { required: true })} required />
+                                    <input type="text" id='title' className='form-input' name='title' {...register('title')} required />
                                 </div>
 
                                 <div className='form-field col-span-2'>
                                     <label className='form-label' htmlFor="description">*Description</label>
-                                    <textarea type="text" id='description' className='form-input h-[200px]' cols='15' name='description' {...register('description', {
-                                        required: true
-                                    })} required />
+                                    <textarea type="text" id='description' className='form-input h-[200px]' cols='15' name='description' {...register('description')} required />
                                 </div>
 
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="property_size">*Property Size (Square Feet)</label>
-                                    <input type="number" id='property_size' className='form-input' name='property_size' {...register('property_size', { required: true })} required min={300} />
+                                    <input type="number" id='property_size' className='form-input' name='property_size' {...register('property_size')} required min={300} />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="rooms">*Rooms</label>
-                                    <input type="number" id='rooms' className='form-input' name='rooms' {...register('rooms', { required: true })} required min={4} />
+                                    <input type="number" id='rooms' className='form-input' name='rooms' {...register('rooms')} required min={4} />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="bedrooms">*Bedrooms</label>
-                                    <input type="number" id='bedrooms' className='form-input' name='bedrooms' {...register('bedrooms', { required: true })} required min={1} />
+                                    <input type="number" id='bedrooms' className='form-input' name='bedrooms' {...register('bedrooms')} required min={1} />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="bathrooms">*Bathrooms</label>
-                                    <input type="number" id='bathrooms' className='form-input' name='bathrooms' {...register('bathrooms', { required: true })} required min={1} />
+                                    <input type="number" id='bathrooms' className='form-input' name='bathrooms' {...register('bathrooms')} required min={1} />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="garages">*Garages</label>
-                                    <input type="number" id='garages' className='form-input' name='garages' {...register('garages', { required: true })} required min={0} />
+                                    <input type="number" id='garages' className='form-input' name='garages' {...register('garages')} required min={0} />
+                                </div>
+                                <div className='form-field'>
+                                    <label className='form-label' htmlFor="garageSize">*Garage Size</label>
+                                    <input type="number" id='garageSize' className='form-input' name='garageSize' {...register('garageSize')} required min={1} />
+                                </div>
+                                <div className='form-field'>
+                                    <label className='form-label' htmlFor="structureType">*Structure Type</label>
+                                    <select className='form-input' name="structureType" id="structureType" {...register('structureType')} required>
+                                        <option value="brick">Brick</option>
+                                        <option value="wood">Wood</option>
+                                        <option value="concrete">Concrete</option>
+                                    </select>
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="floors">*Floors</label>
-                                    <input type="number" id='floors' className='form-input' name='floors' {...register('floors', { required: true })} required min={1} />
+                                    <input type="number" id='floors' className='form-input' name='floors' {...register('floors')} required min={1} />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="builtYear">*Built Year</label>
@@ -242,7 +283,7 @@ const AddProperty = () => {
                                         type='number'
                                         id='builtYear'
                                         className='form-input'
-                                        {...register('builtYear', { required: true })}
+                                        {...register('builtYear')}
                                         required
                                         min={1960}
                                         max={parseInt(moment(date).format('YYYY'))}
@@ -334,33 +375,33 @@ const AddProperty = () => {
                             <div className='form-container'>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="address">*Address</label>
-                                    <input type="text" id='address' className='form-input' name='address' {...register('address', { required: true })} required />
+                                    <input type="text" id='address' className='form-input' name='address' {...register('address')} required />
                                 </div>
 
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="city">*City</label>
 
-                                    <input type="text" id='city' className='form-input' name='city' {...register('city', { required: true })} required />
+                                    <input type="text" id='city' className='form-input' name='city' {...register('city')} required />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="zip_code">*ZIP Code</label>
 
-                                    <input type="text" id='zip_code' className='form-input' name='zip_code' {...register('zip_code', { required: true })} required />
+                                    <input type="text" id='zip_code' className='form-input' name='zip_code' {...register('zip_code')} required />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="country">Country</label>
 
-                                    <input type="text" id='country' className='form-input' name='country' {...register('country', { required: true })} required defaultValue={"Bangladesh"} readOnly />
+                                    <input type="text" id='country' className='form-input' name='country' {...register('country')} required defaultValue={"Bangladesh"} readOnly />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="latitude">*Latitude</label>
 
-                                    <input type="number" id='latitude' className='form-input' name='latitude' {...register('latitude', { required: true })} required />
+                                    <input type="number" id='latitude' className='form-input' name='latitude' {...register('latitude')} required step={0.1} />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="longitude">*Longitude</label>
 
-                                    <input type="number" id='longitude' className='form-input' name='longitude' {...register('longitude', { required: true })} required />
+                                    <input type="number" id='longitude' className='form-input' name='longitude' {...register('longitude')} required step={0.1} />
                                 </div>
                             </div>
                         </div>
@@ -371,13 +412,13 @@ const AddProperty = () => {
 
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="price">Price in $</label>
-                                    <input type="number" id='price' className='form-input' name='price' {...register('price', { required: true })} required />
+                                    <input type="number" id='price' className='form-input' name='price' {...register('price')} required />
                                 </div>
 
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="period">Price Period</label>
 
-                                    <select className='form-input' name="period" id="period" {...register('period', { required: true })} required>
+                                    <select className='form-input' name="period" id="period" {...register('period')} required>
                                         <option value="once">Once</option>
                                         <option value="monthly">Monthly</option>
                                         <option value="yearly">Yearly</option>
@@ -393,7 +434,7 @@ const AddProperty = () => {
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="category">Category</label>
 
-                                    <select className='form-input' name="category" id="category" {...register('category', { required: true })} required>
+                                    <select className='form-input' name="category" id="category" {...register('category')} required>
                                         <option value="offices">Offices</option>
                                         <option value="land">Land</option>
                                         <option value="apartments">Apartments</option>
@@ -407,7 +448,7 @@ const AddProperty = () => {
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="type">Type</label>
 
-                                    <select className='form-input' name="type" id="type" {...register('type', { required: true })} required>
+                                    <select className='form-input' name="type" id="type" {...register('type')} required>
                                         <option value="sale">Sale</option>
                                         <option value="rent">Rent</option>
                                     </select>

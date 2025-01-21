@@ -113,14 +113,18 @@ const DashboardLayout = () => {
                     )
                 }
 
-                <ListItem sx={{ paddingX: '20px' }} disablePadding>
-                    <DashboardActiveLnk href={'favorites'}>
-                        <ListItemIcon sx={{ minWidth: '30px' }}>
-                            <FaRegHeart />
-                        </ListItemIcon>
-                        <ListItemText primary={'favorites'} />
-                    </DashboardActiveLnk>
-                </ListItem>
+                {
+                    role === 'user' && <>
+                        <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                            <DashboardActiveLnk href={'favorites'}>
+                                <ListItemIcon sx={{ minWidth: '30px' }}>
+                                    <FaRegHeart />
+                                </ListItemIcon>
+                                <ListItemText primary={'favorites'} />
+                            </DashboardActiveLnk>
+                        </ListItem>
+                    </>
+                }
 
                 {
                     role === 'user' && <>

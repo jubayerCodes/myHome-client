@@ -87,7 +87,7 @@ const Router = createBrowserRouter([
       },
       {
         path: 'favorites',
-        element: <PrivateRoute><DashboardFavorites /></PrivateRoute>
+        element: <UserRoute><DashboardFavorites /></UserRoute>
       }
     ]
   }

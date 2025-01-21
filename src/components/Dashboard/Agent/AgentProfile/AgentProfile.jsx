@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import userImg from '../../../../assets/images/default_user.png'
-import agentsApi, { useGetAgentQuery } from '../../../../Utilities/Redux/features/api/agentsApi';
+import agentsApi, { useGetAgentQuery, useUpdateAgentMutation } from '../../../../Utilities/Redux/features/api/agentsApi';
 import { useForm } from 'react-hook-form';
 import { Bounce, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
@@ -10,6 +10,7 @@ const AgentProfile = () => {
 
     const { user } = useSelector(state => state.auth)
     const dispatch = useDispatch()
+    const [updateAgent, agentResult] = useUpdateAgentMutation()
 
     const { data: agent, refetch } = useGetAgentQuery(user?.email)
 
@@ -80,10 +81,10 @@ const AgentProfile = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Sign Out!",
+            confirmButtonText: "Yes, Update Profile!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                dispatch(agentsApi.endpoints.updateAgent.initiate({ email, agent }))
+                updateAgent({ email, agent })
                     .then(res => {
                         if (res?.data?.modifiedCount) {
                             toast.success('Agent Updated Successfully!', {
