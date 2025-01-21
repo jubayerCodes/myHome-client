@@ -23,6 +23,9 @@ const ManageProperties = () => {
         console.log(id);
     }
 
+    const handleInactive = (id) => {
+        console.log(id);
+    }
 
     return (
         <section className='dashboard-section'>
@@ -108,14 +111,21 @@ const ManageProperties = () => {
                                     </TableCell>
                                     <TableCell align="right">{property?.address?.city}</TableCell>
                                     <TableCell align="right">{property?.agent}</TableCell>
-                                    <TableCell align="right">{property?.status}</TableCell>
+                                    <TableCell align="right">{property?.agent_email}</TableCell>
                                     <TableCell align="right">${property?.price.toLocaleString()}</TableCell>
                                     <TableCell sx={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }} align="left">
                                         {
                                             <>
-                                                <button onClick={() => handleActive(property?._id)} className="header-btn">
-                                                    Active
-                                                </button>
+                                                {
+                                                    property?.status === 'active' ?
+                                                        <button onClick={() => handleActive(property?._id)} className="header-btn">
+                                                            Inactive
+                                                        </button>
+                                                        :
+                                                        <button onClick={() => handleInactive(property?._id)} className="header-btn">
+                                                            Active
+                                                        </button>
+                                                }
                                                 <button className="header-btn">
                                                     Delete
                                                 </button>
