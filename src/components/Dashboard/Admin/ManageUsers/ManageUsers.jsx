@@ -1,20 +1,85 @@
-import { Box, IconButton, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Box, Button, IconButton, Menu, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import React, { useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { Link } from 'react-router-dom';
-import { useGetTotalUsersQuery, useGetUsersQuery } from '../../../../Utilities/Redux/features/api/usersApi';
+import { FaRegTrashAlt } from "react-icons/fa";
+import { useGetTotalUsersQuery, useGetUsersQuery, useUpdateUserMutation } from '../../../../Utilities/Redux/features/api/usersApi';
+import { Bounce, toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 const ManageUsers = () => {
 
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [page, setPage] = useState(1);
     const [role, setRole] = useState('')
+    const { user: currentUser } = useSelector(store => store.auth)
 
     const { data: users, refetch } = useGetUsersQuery({ role, page, limit: rowsPerPage }, { refetchOnMountOrArgChange: true })
+
+    const [updateUser, userResult] = useUpdateUserMutation()
 
     const { data: totalUsers } = useGetTotalUsersQuery(role, { refetchOnMountOrArgChange: true })
 
     const totalPages = Math.ceil(totalUsers / rowsPerPage)
+
+    const handleMakeAgent = (email) => {
+        updateUser({ email, user: { role: 'agent' } })
+            .then(res => {
+                if (res?.data?.modifiedCount) {
+                    toast.success('Role Updated Successfully!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce,
+                    });
+
+                    refetch()
+                }
+            })
+    }
+
+    const handleMakeAdmin = (email) => {
+        updateUser({ email, user: { role: 'admin' } })
+            .then(res => {
+                if (res?.data?.modifiedCount) {
+                    toast.success('Role Updated Successfully!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce,
+                    });
+
+                    refetch()
+                }
+            })
+    }
+
+    const handleMakeFraud = (email) => {
+        updateUser({ email, user: { fraud: true } })
+            .then(res => {
+                if (res?.data?.modifiedCount) {
+                    toast.success('Marked as fraud!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce,
+                    });
+
+                    refetch()
+                }
+            })
+    }
 
     return (
         <section className='dashboard-section'>
@@ -138,35 +203,40 @@ const ManageUsers = () => {
                                 <TableRow
                                     key={user?._id}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    className={`${user?.fraud && 'bg-red-300'}`}
                                 >
                                     <TableCell component="th" scope="row">{user?.displayName} </TableCell>
                                     <TableCell align="right">{user?.email}</TableCell>
                                     <TableCell align="right">{user?.role}</TableCell>
-                                    <TableCell sx={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }} align="left">
+                                    <TableCell align="right">
                                         {
-                                            <>
-                                                {
-                                                    user?.role === 'admin' ?
-                                                        <button className="bg-black hover:bg-[var(--header-bg)] duration-300 text-sm py-2 px-5 text-white capitalize font-semibold rounded cursor-pointer">
-                                                            Make Agent
-                                                        </button>
-                                                        :
-                                                        user?.role === 'agent' ? 
-                                                        <button className="bg-black hover:bg-[var(--header-bg)] duration-300 text-sm py-2 px-5 text-white capitalize font-semibold rounded cursor-pointer">
+                                            (user?.email !== currentUser?.email) && (user?.role === 'admin' ?
+                                                <button onClick={() => handleMakeAgent(user?.email)} className="header-btn">
+                                                    Make Agent
+                                                </button>
+                                                :
+                                                user?.role === 'agent' ?
+                                                    <>
+                                                        <button onClick={() => handleMakeAdmin(user?.email)} className="header-btn mr-2">
                                                             Make Admin
                                                         </button>
-                                                        : 
-                                                        <button className="bg-black hover:bg-[var(--header-bg)] duration-300 text-sm py-2 px-5 text-white capitalize font-semibold rounded cursor-pointer">
-                                                            Make Agent
+                                                        <button onClick={() => handleMakeFraud(user?.email)} disabled={user?.fraud} className="header-btn disabled:bg-slate-400 disabled:cursor-default">
+                                                            Mark as Fraud
                                                         </button>
-                                                }
-                                            </>
+                                                    </>
+                                                    :
+                                                    <button onClick={() => handleMakeAgent(user?.email)} className="header-btn">
+                                                        Make Agent
+                                                    </button>)
                                         }
                                     </TableCell>
-                                    <TableCell sx={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }} align="left">
-                                        <button className="bg-red-700 hover:bg-[var(--header-bg)] duration-300 text-sm py-2 px-5 text-white capitalize font-semibold rounded cursor-pointer">
-                                            Delete
-                                        </button>
+                                    <TableCell align="right">
+                                        <IconButton
+                                            id="basic-button"
+                                            disabled={(user?.email === currentUser?.email)}
+                                        >
+                                            <FaRegTrashAlt />
+                                        </IconButton>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -174,7 +244,7 @@ const ManageUsers = () => {
                     </Table>
                 </TableContainer>
             </div>
-        </section>
+        </section >
     );
 };
 
