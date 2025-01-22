@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import userImg from '../../../../assets/images/default_user.png'
-import { useGetAgentQuery, useUpdateAgentMutation } from '../../../../Utilities/Redux/features/api/agentsApi';
 import { useForm } from 'react-hook-form';
 import { Bounce, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { useGetUserQuery, useUpdateUserMutation } from '../../../../Utilities/Redux/features/api/usersApi';
 
 const AgentProfile = () => {
 
     const { user } = useSelector(state => state.auth)
-    const [updateAgent, agentResult] = useUpdateAgentMutation()
+    const [updateAgent, agentResult] = useUpdateUserMutation()
 
-    const { data: agent, refetch } = useGetAgentQuery(user?.email)
+    const { data: agent, refetch } = useGetUserQuery(user?.email)
 
     const { register, handleSubmit, reset, formState: { errors }, watch, setValue } = useForm()
 
@@ -90,7 +90,7 @@ const AgentProfile = () => {
             confirmButtonText: "Yes, Update Profile!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                updateAgent({ email, agent })
+                updateAgent({ email, user: agent })
                     .then(res => {
                         if (res?.data?.modifiedCount) {
                             toast.success('Agent Updated Successfully!', {
@@ -209,16 +209,16 @@ const AgentProfile = () => {
 
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="city">City</label>
-                                    <input type="text" id='city' name='city' className='form-input' {...register("city")} required />
+                                    <input type="text" id='city' name='city' className='form-input' {...register("city")} />
                                 </div>
 
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="country">Country</label>
-                                    <input type="text" id='country' name='country' className='form-input' {...register("country")} required />
+                                    <input type="text" id='country' name='country' className='form-input' {...register("country")} />
                                 </div>
                                 <div className='form-field'>
                                     <label className='form-label' htmlFor="area">Area</label>
-                                    <input type="text" id='area' name='area' className='form-input' {...register("area")} required />
+                                    <input type="text" id='area' name='area' className='form-input' {...register("area")} />
                                 </div>
 
                             </div>
