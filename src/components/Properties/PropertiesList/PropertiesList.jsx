@@ -13,11 +13,11 @@ const PropertiesList = (props) => {
     const [sort, setSort] = useState(() => "newest_first")
     const [limit, setLimit] = useState(6)
 
-    const { data: properties } = useGetPropertiesQuery({ page: currentPage, category: category, city: city, sort: sort, limit: limit, active: true })
+    const { data: properties } = useGetPropertiesQuery({ page: currentPage, category: category, city: city, sort: sort, limit: limit, status: 'active' })
 
     const { data: filterOptions } = useGetPropertiesFilterOptionsQuery()
 
-    const { data: totalPages } = useGetTotalPagesQuery({ category: category, city: city, limit: limit })
+    const { data: totalPages } = useGetTotalPagesQuery({ category: category, city: city, limit: limit, status: 'active' })
 
     const pages = [...Array(totalPages?.pages).keys()]?.map(page => page + 1)
 

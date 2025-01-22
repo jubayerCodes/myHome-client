@@ -1,30 +1,128 @@
 import { Box, FormControl, IconButton, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { useGetPropertiesQuery, useGetTotalPagesQuery } from '../../../../Utilities/Redux/features/api/propertiesApi';
+import { useDeletePropertyMutation, useGetPropertiesQuery, useGetTotalPagesQuery, useUpdatedStatusMutation } from '../../../../Utilities/Redux/features/api/propertiesApi';
 import Loader from '../../../shared/Loader/Loader';
-import { KeyboardArrowLeft, KeyboardArrowRight, Label } from '@mui/icons-material';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { Bounce, toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const ManageProperties = () => {
 
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [page, setPage] = useState(1);
+    const [status, setStatus] = useState('')
 
-    const { data: properties, isLoading } = useGetPropertiesQuery({ page: page, category: '', city: '', sort: 'pending', limit: rowsPerPage })
+    const { data: properties, isLoading, refetch } = useGetPropertiesQuery({ page: page, sort: 'newest_first', limit: rowsPerPage, status }, { refetchOnMountOrArgChange: true })
 
-    const { data: totalPages } = useGetTotalPagesQuery({ limit: rowsPerPage, category: '', city: '' })
+    const { data: totalPages } = useGetTotalPagesQuery({ limit: rowsPerPage, status: status })
+
+    const [updateStatus, statusResult] = useUpdatedStatusMutation()
+    const [deleteProperty, deleteResult] = useDeletePropertyMutation()
 
     if (isLoading) {
         return <Loader />
     }
 
 
-    const handleActive = (id) => {
-        console.log(id);
+    const handleActive = async (id) => {
+        updateStatus({ id, status: 'active' })
+            .then(res => {
+                if (res?.data?.modifiedCount) {
+                    toast.success('Status Updated Successfully!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce,
+                    })
+                    refetch()
+                }
+            })
+            .catch(error => {
+                toast.error('Status Update Failed!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Bounce,
+                })
+
+                console.log(error);
+            })
     }
 
-    const handleInactive = (id) => {
-        console.log(id);
+    const handleReject = async (id) => {
+        updateStatus({ id, status: 'rejected' })
+            .then(res => {
+                if (res?.data?.modifiedCount) {
+                    toast.success('Status Updated Successfully!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce,
+                    })
+                    refetch()
+                }
+            })
+            .catch(error => {
+                toast.error('Status Update Failed!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Bounce,
+                })
+
+                console.log(error);
+            })
+    }
+
+
+    const handleDelete = (id) => {
+        deleteProperty(id)
+            .then(res => {
+                if (res.data.deletedCount) {
+                    toast.success('Property Deleted Successfully!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce,
+                    })
+
+                    refetch()
+                }
+            })
+            .catch(error => {
+                toast.error('Property Delete Failed!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Bounce,
+                })
+
+                console.log(error);
+            })
     }
 
     return (
@@ -34,53 +132,98 @@ const ManageProperties = () => {
             <div>
                 <div className="bg-white rounded flex justify-between items-center property-list-filter mb-10" style={{ boxShadow: '0 10px 31px 0 rgba(7,152,255,.09)' }}>
                     <Box display={'flex'} gap={1} padding={'15px'} justifyContent={'space-between'} width={'100%'}>
-                        <div className='flex items-center'>
-                            <label className='text-sm' htmlFor='limit'>Rows Per Page</label>
-                            <Select
-                                size='small'
-                                id='limit'
-                                value={rowsPerPage}
-                                onChange={(e) => {
-                                    setRowsPerPage(e.target.value)
-                                    setPage(1)
-                                }}
-                                displayEmpty
-                                inputProps={{ 'aria-label': 'Without label' }}
-                                sx={{
-                                    '& .MuiOutlinedInput-notchedOutline': {
-                                        border: 'none',
-                                    },
-                                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                                        border: 'none',
-                                    },
-                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                        border: 'none',
-                                    },
-                                    fontSize: '14px',
-                                    fontWeight: '400',
-                                    textTransform: 'capitalize'
-                                }}
-                            >
+                        <div className='flex justify-between items-center'>
+                            <div className='flex items-center'>
+                                <label className='text-sm' htmlFor='limit'>Rows Per Page</label>
+                                <Select
+                                    size='small'
+                                    id='limit'
+                                    value={rowsPerPage}
+                                    onChange={(e) => {
+                                        setRowsPerPage(e.target.value)
+                                        setPage(1)
+                                        refetch()
+                                    }}
+                                    displayEmpty
+                                    inputProps={{ 'aria-label': 'Without label' }}
+                                    sx={{
+                                        '& .MuiOutlinedInput-notchedOutline': {
+                                            border: 'none',
+                                        },
+                                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                                            border: 'none',
+                                        },
+                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            border: 'none',
+                                        },
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        textTransform: 'capitalize'
+                                    }}
+                                >
 
-                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={5}>
-                                    5
-                                </MenuItem>
-                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={10}>
-                                    10
-                                </MenuItem>
-                                <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={25}>
-                                    25
-                                </MenuItem>
+                                    <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={5}>
+                                        5
+                                    </MenuItem>
+                                    <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={10}>
+                                        10
+                                    </MenuItem>
+                                    <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={25}>
+                                        25
+                                    </MenuItem>
+                                </Select>
+                            </div>
+                            <div className='flex items-center'>
+                                <Select
+                                    size='small'
+                                    id='status'
+                                    value={status}
+                                    onChange={(e) => {
+                                        setStatus(e.target.value)
+                                        setPage(1)
+                                    }}
+                                    displayEmpty
+                                    inputProps={{ 'aria-label': 'Without label' }}
+                                    sx={{
+                                        '& .MuiOutlinedInput-notchedOutline': {
+                                            border: 'none',
+                                        },
+                                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                                            border: 'none',
+                                        },
+                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            border: 'none',
+                                        },
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                        textTransform: 'capitalize'
+                                    }}
+                                >
 
-                            </Select>
+
+                                    <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={''}>
+                                        All
+                                    </MenuItem>
+                                    <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'pending'}>
+                                        Pending
+                                    </MenuItem>
+                                    <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'active'}>
+                                        Active
+                                    </MenuItem>
+                                    <MenuItem sx={{ fontSize: '14px', textTransform: 'capitalize' }} value={'rejected'}>
+                                        Rejected
+                                    </MenuItem>
+
+                                </Select>
+                            </div>
                         </div>
 
                         <div className='flex items-center'>
-                            <label className='text-sm' htmlFor='limit'>{page} of {totalPages?.pages}</label>
-                            <IconButton disabled={page === 1} onClick={() => setPage(page - 1)} aria-label="page">
+                            <label className='text-sm' htmlFor='limit'>Page - {page}</label>
+                            <IconButton disabled={(page === 1)} onClick={() => setPage(page - 1)} aria-label="page">
                                 <IoIosArrowBack />
                             </IconButton>
-                            <IconButton disabled={page === totalPages?.pages} onClick={() => setPage(page + 1)} aria-label="page">
+                            <IconButton disabled={(page === totalPages?.pages) || (totalPages?.pages === 0)} onClick={() => setPage(page + 1)} aria-label="page">
                                 <IoIosArrowForward />
                             </IconButton>
                         </div>
@@ -107,7 +250,9 @@ const ManageProperties = () => {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        {property?.title}
+                                        <Link to={`/properties/${property?._id}`} target='_blank'>
+                                            {property?.title}
+                                        </Link>
                                     </TableCell>
                                     <TableCell align="right">{property?.address?.city}</TableCell>
                                     <TableCell align="right">{property?.agent}</TableCell>
@@ -118,15 +263,15 @@ const ManageProperties = () => {
                                             <>
                                                 {
                                                     property?.status === 'active' ?
-                                                        <button onClick={() => handleActive(property?._id)} className="header-btn">
-                                                            Inactive
+                                                        <button onClick={() => handleReject(property?._id)} className="bg-black hover:bg-[var(--header-bg)] duration-300 text-sm py-2 px-5 text-white capitalize font-semibold rounded cursor-pointer">
+                                                            Reject
                                                         </button>
                                                         :
-                                                        <button onClick={() => handleInactive(property?._id)} className="header-btn">
+                                                        <button onClick={() => handleActive(property?._id)} className="header-btn">
                                                             Active
                                                         </button>
                                                 }
-                                                <button className="header-btn">
+                                                <button onClick={() => handleDelete(property?._id)} className="bg-red-700 hover:bg-[var(--header-bg)] duration-300 text-sm py-2 px-5 text-white capitalize font-semibold rounded cursor-pointer">
                                                     Delete
                                                 </button>
                                             </>
