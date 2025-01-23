@@ -236,10 +236,10 @@ const ManageProperties = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Title</TableCell>
-                                <TableCell align="right">Location</TableCell>
-                                <TableCell align="right">Agent</TableCell>
-                                <TableCell align="right">Agent Email</TableCell>
-                                <TableCell align="right">Price</TableCell>
+                                <TableCell align="left">Location</TableCell>
+                                <TableCell align="left">Agent</TableCell>
+                                <TableCell align="left">Agent Email</TableCell>
+                                <TableCell align="left">Price</TableCell>
                                 <TableCell align="right">Actions</TableCell>
                             </TableRow>
                         </TableHead>
@@ -254,10 +254,10 @@ const ManageProperties = () => {
                                             {property?.title}
                                         </Link>
                                     </TableCell>
-                                    <TableCell align="right">{property?.address?.city}</TableCell>
-                                    <TableCell align="right">{property?.agent}</TableCell>
-                                    <TableCell align="right">{property?.agent_email}</TableCell>
-                                    <TableCell align="right">${property?.price.toLocaleString()}</TableCell>
+                                    <TableCell align="left">{property?.address?.city}</TableCell>
+                                    <TableCell align="left">{property?.agent}</TableCell>
+                                    <TableCell align="left">{property?.agent_email}</TableCell>
+                                    <TableCell align="left">${property?.price.toLocaleString()}</TableCell>
                                     <TableCell sx={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }} align="left">
                                         {
                                             <>

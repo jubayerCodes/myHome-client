@@ -1,10 +1,12 @@
 import { Box, Button, IconButton, Menu, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FaRegTrashAlt } from "react-icons/fa";
-import { useGetTotalUsersQuery, useGetUsersQuery, useUpdateUserMutation } from '../../../../Utilities/Redux/features/api/usersApi';
+import { useGetTotalUsersQuery, useGetUsersQuery, useRemoveUserMutation, useUpdateUserMutation } from '../../../../Utilities/Redux/features/api/usersApi';
 import { Bounce, toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import { deleteUser } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 const ManageUsers = () => {
 
@@ -16,10 +18,12 @@ const ManageUsers = () => {
     const { data: users, refetch } = useGetUsersQuery({ role, page, limit: rowsPerPage }, { refetchOnMountOrArgChange: true })
 
     const [updateUser, userResult] = useUpdateUserMutation()
+    const [removeUser, deleteResult] = useRemoveUserMutation()
 
     const { data: totalUsers } = useGetTotalUsersQuery(role, { refetchOnMountOrArgChange: true })
 
-    const totalPages = Math.ceil(totalUsers / rowsPerPage)
+
+    const totalPages = Math.ceil(totalUsers?.totalUsers / rowsPerPage)
 
     const handleMakeAgent = (email) => {
         updateUser({ email, user: { role: 'agent' } })
@@ -80,6 +84,73 @@ const ManageUsers = () => {
                 }
             })
     }
+
+    // TODO: Make handle delete work
+
+    // const handleDelete = (uid) => {
+
+    //     Swal.fire({
+    //         title: "Are you sure?",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#3085d6",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes, Delete User!",
+    //     }).then(async (result) => {
+    //         if (result.isConfirmed) {
+    //             deleteUser(uid)
+    //                 .then(response => {
+
+
+    //                     removeUser(uid)
+    //                         .then(res => {
+    //                             if (res?.data?.deletedCount) {
+    //                                 toast.success('User Deleted!', {
+    //                                     position: "top-right",
+    //                                     autoClose: 2000,
+    //                                     hideProgressBar: false,
+    //                                     closeOnClick: true,
+    //                                     pauseOnHover: true,
+    //                                     draggable: true,
+    //                                     progress: undefined,
+    //                                     transition: Bounce,
+    //                                 });
+
+    //                                 refetch()
+    //                             }
+    //                         })
+    //                         .catch(error => {
+    //                             toast.error('User Delete Failed!', {
+    //                                 position: "top-right",
+    //                                 autoClose: 2000,
+    //                                 hideProgressBar: false,
+    //                                 closeOnClick: true,
+    //                                 pauseOnHover: true,
+    //                                 draggable: true,
+    //                                 progress: undefined,
+    //                                 transition: Bounce,
+    //                             });
+
+    //                             console.log(error);
+    //                         })
+    //                 })
+    //                 .catch(error => {
+    //                     toast.error('User Delete Failed!', {
+    //                         position: "top-right",
+    //                         autoClose: 2000,
+    //                         hideProgressBar: false,
+    //                         closeOnClick: true,
+    //                         pauseOnHover: true,
+    //                         draggable: true,
+    //                         progress: undefined,
+    //                         transition: Bounce,
+    //                     });
+
+    //                     console.log(error);
+    //                 })
+    //         }
+    //     });
+    // }
 
     return (
         <section className='dashboard-section'>
@@ -179,7 +250,7 @@ const ManageUsers = () => {
                             <IconButton disabled={(page === 1)} onClick={() => setPage(page - 1)} aria-label="page">
                                 <IoIosArrowBack />
                             </IconButton>
-                            <IconButton disabled={(page === totalPages?.pages) || (totalPages?.pages === 0)} onClick={() => setPage(page + 1)} aria-label="page">
+                            <IconButton disabled={(page === totalPages) || (totalPages === 0)} onClick={() => setPage(page + 1)} aria-label="page">
                                 <IoIosArrowForward />
                             </IconButton>
                         </div>
@@ -192,8 +263,8 @@ const ManageUsers = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name</TableCell>
-                                <TableCell align="right">Email</TableCell>
-                                <TableCell align="right">Role</TableCell>
+                                <TableCell align="left">Email</TableCell>
+                                <TableCell align="left">Role</TableCell>
                                 <TableCell align="right">Actions</TableCell>
                                 <TableCell align="right"></TableCell>
                             </TableRow>
@@ -203,11 +274,11 @@ const ManageUsers = () => {
                                 <TableRow
                                     key={user?._id}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    className={`${user?.fraud && 'bg-red-300'}`}
+                                    
                                 >
                                     <TableCell component="th" scope="row">{user?.displayName} </TableCell>
-                                    <TableCell align="right">{user?.email}</TableCell>
-                                    <TableCell align="right">{user?.role}</TableCell>
+                                    <TableCell align="left">{user?.email}</TableCell>
+                                    <TableCell align="left">{user?.role}</TableCell>
                                     <TableCell align="right">
                                         {
                                             (user?.email !== currentUser?.email) && (user?.role === 'admin' ?
@@ -216,16 +287,21 @@ const ManageUsers = () => {
                                                 </button>
                                                 :
                                                 user?.role === 'agent' ?
-                                                    <>
-                                                        <button onClick={() => handleMakeAdmin(user?.email)} className="header-btn mr-2">
-                                                            Make Admin
-                                                        </button>
-                                                        <button onClick={() => handleMakeFraud(user?.email)} disabled={user?.fraud} className="header-btn disabled:bg-slate-400 disabled:cursor-default">
-                                                            Mark as Fraud
-                                                        </button>
-                                                    </>
+                                                    user?.fraud ?
+                                                        <>
+                                                            <span className='text-base text-red-700 font-semibold border-2 border-red-700 rounded-full px-3 py-2'>Fraud</span>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <button onClick={() => handleMakeAdmin(user?.email)} className={`header-btn mr-2`}>
+                                                                Make Admin
+                                                            </button>
+                                                            <button onClick={() => handleMakeFraud(user?.email)} className={`header-btn`}>
+                                                                Mark as Fraud
+                                                            </button>
+                                                        </>
                                                     :
-                                                    <button onClick={() => handleMakeAgent(user?.email)} className="header-btn">
+                                                    <button onClick={() => handleMakeAgent(user?.email)} className={`header-btn`}>
                                                         Make Agent
                                                     </button>)
                                         }

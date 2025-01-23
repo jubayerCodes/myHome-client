@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import app from "../../../firebase/firebase.config";
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -11,6 +12,7 @@ import {
 import { GoogleAuthProvider } from "firebase/auth";
 import usersApi from "../api/usersApi";
 import Swal from "sweetalert2";
+import { Bounce, toast } from "react-toastify";
 const googleProvider = new GoogleAuthProvider();
 export const auth = getAuth(app);
 
@@ -82,13 +84,11 @@ export const registerWithEmailAndPassword = createAsyncThunk(
       );
 
       if (data) {
-
         return payload;
       } else {
         throw new Error("database error");
       }
     } catch (error) {
-
       return rejectWithValue(error.message);
     }
   }

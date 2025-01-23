@@ -24,6 +24,7 @@ import AdminRoute from "./AdminRoute";
 import ManageProperties from "../components/Dashboard/Admin/ManageProperties/ManageProperties";
 import AdminProfile from "../components/Dashboard/Admin/AdminProfile/AdminProfile";
 import ManageUsers from "../components/Dashboard/Admin/ManageUsers/ManageUsers";
+import ManageReviews from "../components/Dashboard/Admin/ManageReviews/ManageReviews";
 
 const Router = createBrowserRouter([
   {
@@ -100,6 +101,10 @@ const Router = createBrowserRouter([
       {
         path: 'manage-users',
         element: <AdminRoute><ManageUsers /></AdminRoute>
+      },
+      {
+        path: 'manage-reviews',
+        element: <AdminRoute><ManageReviews /></AdminRoute>
       }
     ]
   }

@@ -6,9 +6,9 @@ export const usersApi = createApi({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: ({ role, page, limit }) =>
-        `/users?${role && `role=${role}`}
-      ${page && `&page=${page}`}
-      ${limit && `&limit=${limit}`}`,
+        `/users?${role && `role=${role}`}${page && `&page=${page}`}${
+          limit && `&limit=${limit}`
+        }`,
     }),
     postUser: builder.mutation({
       query: (user) => ({
@@ -33,6 +33,12 @@ export const usersApi = createApi({
     getTotalUsers: builder.query({
       query: (role) => `/totalUsers?role=${role}`,
     }),
+    removeUser: builder.mutation({
+      query: (uid) => ({
+        url: `/user/${uid}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -43,6 +49,7 @@ export const {
   useUpdateUserMutation,
   useGetUsersQuery,
   useGetTotalUsersQuery,
+  useRemoveUserMutation
 } = usersApi;
 
 export default usersApi;

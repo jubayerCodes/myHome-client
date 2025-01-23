@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,10 +12,10 @@ import { Outlet } from 'react-router-dom';
 import DashboardActiveLnk from '../../components/Dashboard/DashboardActiveLink/DashboardActiveLnk';
 import { useDispatch, useSelector } from 'react-redux';
 import { HiOutlineHome, HiOutlinePlus, HiOutlineUsers } from 'react-icons/hi';
-import userImg from '../../assets/images/default_user.png'
 import userImgRound from '../../assets/images/default-user_1.png'
 import { Button } from '@mui/material';
 import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
+import { RiFeedbackLine } from 'react-icons/ri';
 
 const drawerWidth = 260
 
@@ -70,7 +69,7 @@ const DashboardLayout = () => {
                             <ListItem sx={{ paddingX: '20px' }} disablePadding>
                                 <DashboardActiveLnk href={'manage-properties'}>
                                     <ListItemIcon sx={{ minWidth: '30px' }}>
-                                    <HiOutlineHome />
+                                        <HiOutlineHome />
                                     </ListItemIcon>
                                     <ListItemText primary={'Manage Properties'} />
                                 </DashboardActiveLnk>
@@ -78,9 +77,17 @@ const DashboardLayout = () => {
                             <ListItem sx={{ paddingX: '20px' }} disablePadding>
                                 <DashboardActiveLnk href={'manage-users'}>
                                     <ListItemIcon sx={{ minWidth: '30px' }}>
-                                    <HiOutlineUsers />
+                                        <HiOutlineUsers />
                                     </ListItemIcon>
                                     <ListItemText primary={'Manage User'} />
+                                </DashboardActiveLnk>
+                            </ListItem>
+                            <ListItem sx={{ paddingX: '20px' }} disablePadding>
+                                <DashboardActiveLnk href={'manage-reviews'}>
+                                    <ListItemIcon sx={{ minWidth: '30px' }}>
+                                        <RiFeedbackLine />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Manage Reviews'} />
                                 </DashboardActiveLnk>
                             </ListItem>
                         </>
