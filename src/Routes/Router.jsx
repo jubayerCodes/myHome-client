@@ -45,7 +45,7 @@ const Router = createBrowserRouter([
       },
       {
         path: '/properties/:id',
-        element: <SingleProperty />,
+        element: <PrivateRoute><SingleProperty /></PrivateRoute>,
         loader: ({ params }) => store.dispatch(propertiesApi.endpoints.getProperty.initiate(params.id))
       },
     ]

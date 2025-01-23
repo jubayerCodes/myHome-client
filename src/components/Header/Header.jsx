@@ -125,9 +125,6 @@ const Header = () => {
                             <div>
                                 <ButtonGroup variant="text" aria-label="text button group" className='header-btn-grp rounded-none'>
                                     <Button className='flex gap-2 justify-between items-center' color='white'>
-                                        <FaHeart /> <span className='capitalize'>Favorites</span>
-                                    </Button>
-                                    <Button className='flex gap-2 justify-between items-center' color='white'>
                                         <FaRegEnvelope /> <span className='lowercase'>contact@gmail.com</span>
                                     </Button>
                                     <Button className='flex gap-2 justify-between items-center' color='white'>

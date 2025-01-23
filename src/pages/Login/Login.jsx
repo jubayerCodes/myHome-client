@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import loginBg from '../../assets/images/couple.jpg'
 import { loginWithEmailAndPassword, registerWithEmailAndPassword } from '../../Utilities/Redux/features/authSlice/authSlice';
 import { Divider } from '@mui/material';
@@ -12,9 +12,10 @@ const Login = () => {
 
     const { register, handleSubmit, formState: { errors }, reset, watch } = useForm()
 
+    const location = useLocation()
+    const from = location?.state?.from?.pathname
+
     const password = watch("password", "");
-
-
 
     const { register: registerLogin, handleSubmit: handleSubmitLogin, formState: { errors: errorsLogin }, reset: resetLogin, watch: watchLogin } = useForm()
 
@@ -36,7 +37,7 @@ const Login = () => {
 
         dispatch(registerWithEmailAndPassword(user))
             .then(() => {
-                navigate("/dashboard");
+                navigate(from || '/dashboard');
             });
 
         reset()
@@ -47,7 +48,7 @@ const Login = () => {
 
         dispatch(loginWithEmailAndPassword(userCredentials))
             .then(() => {
-                navigate("/dashboard");
+                navigate(from || '/dashboard');
             })
 
         resetLogin()

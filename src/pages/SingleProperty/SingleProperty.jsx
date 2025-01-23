@@ -16,6 +16,7 @@ import { FaDroplet } from "react-icons/fa6";
 import SimilarProperties from "../../components/shared/SimilarProperties/SimilarProperties";
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { useForm } from "react-hook-form";
+import { useGetUserQuery } from "../../Utilities/Redux/features/api/usersApi";
 
 
 const SingleProperty = () => {
@@ -25,11 +26,12 @@ const SingleProperty = () => {
     const [scheduleOpen, setScheduleOpen] = useState(false)
     const [date, setDate] = useState(null)
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm()
-
     const times = ['7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00']
 
     const { data: property, isLoading } = useLoaderData()
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
+    const { data: agent, isLoading: agentLoading } = useGetUserQuery(property?.agent_email)
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -40,7 +42,7 @@ const SingleProperty = () => {
         setAnchorEl(null);
     };
 
-    if (isLoading) {
+    if (isLoading || agentLoading) {
         return <Loader />
     }
 
@@ -71,43 +73,18 @@ const SingleProperty = () => {
 
     }
 
-
-    // TODO: Make it dynamic
-
-    const agent = {
-        displayName: 'Lily Bicharm',
-        position: 'Realtor',
-        bio: 'Whether it is working with a first time homebuyer, a luxury home listing or a seasoned investor, Michael prides himself on his unparalleled service with an aptitude for problem solving – something essential for navigating clients through the challenges of today’s real estate market. My focus is always on serving my clients with honesty, integrity and discretion as a dependable and knowledgeable broker committed to exceptional results. I am a licensed real estate broker, an active member in local and national real estate industry organizations, a lover of architecture and an active member to such philanthropic causes.',
-        contact: {
-            facebook: '#',
-            twitter: '#',
-            linkedin: '#',
-            pinterest: '#',
-            instagram: '#',
-            youtube: '#',
-            vimeo: '#',
-            email: 'example@gamil.com',
-            phone: '+880 176-227-8148',
-            mobile: '+880 180-055-5000',
-            whatsApp: '#',
-            skype: 'johnc_demo',
-            website: 'paris.wpresidence.net/'
-        },
-        companyName: 'Keller Williams'
-    }
-
     return (
         <div className="mt-[125px] bg-[var(--secondary-bg)] pb-32 single-property">
             <div className="my-container flex justify-between items-end pb-5">
                 <div>
                     <Breadcrumb page={'properties'} subPage={property?.title} />
                     <div className="flex gap-2 py-2">
-                        <Link underline="none" href={'/'} color={'white.main'} fontSize={13} className='bg-[var(--btn-bg)] px-3 py-[2px] rounded hover:bg-[#1b6fbd] transition-colors capitalize'>
-                            {property?.listed_in}
-                        </Link>
-                        <Link underline="none" href={'/'} color={'white.main'} fontSize={13} className='bg-[var(--btn-bg)] px-3 py-[2px] rounded hover:bg-[#1b6fbd] transition-colors capitalize'>
+                        <Link underline="none" href={'/'} color={'white.main'} fontSize={13} className='bg-[var(--btn-bg)] px-3 py-2 rounded hover:bg-[#1b6fbd] transition-colors capitalize'>
                             {property?.category}
                         </Link>
+                        <button className='text-white bg-[var(--btn-bg)] px-3 py-[2px] rounded hover:bg-[#1b6fbd] transition-colors capitalize'>
+                            Add To Favorites
+                        </button>
                     </div>
                     <h2 className="text-4xl font-semibold py-2">{property?.title}</h2>
                     {/* TODO: Make link dynamic */}
@@ -149,10 +126,6 @@ const SingleProperty = () => {
                                 <FaEnvelope className="mr-2" /> Email
                             </MenuItem>
                         </Menu>
-                        <Button sx={{ padding: '2px 12px', background: '#ffffff', boxShadow: '0 10px 31px 0 rgba(7,152,255,.09)', textTransform: 'capitalize', '&:hover': { background: '#fff' } }} color={'black'} size="small" className='flex items-center hover:text-[var(--btn-bg)] transition-colors'>
-                            <FaHeart fontSize={'12px'} className="mr-1" />
-                            Favorite
-                        </Button>
                         <Button sx={{ padding: '2px 12px', background: '#ffffff', boxShadow: '0 10px 31px 0 rgba(7,152,255,.09)', textTransform: 'capitalize', '&:hover': { background: '#fff' } }} color={'black'} size="small" className='flex items-center hover:text-[var(--btn-bg)] transition-colors'>
                             <FaPrint fontSize={'12px'} className="mr-1" />
                             print
@@ -450,19 +423,19 @@ const SingleProperty = () => {
                                 <img src="https://main.wpresidence.net/wp-content/uploads/2017/11/person-500x328.webp" alt="" className="rounded" />
 
                                 <div className="flex justify-center gap-5 w-10/12 mx-auto bg-white rounded shadow py-3 -mt-11 absolute left-0 right-0">
-                                    <Link underline="none" className="agent-link" href={agent.contact.facebook}>
+                                    <Link underline="none" className="agent-link" href={agent?.contact?.facebook}>
                                         <FaFacebookF />
                                     </Link>
-                                    <Link underline="none" className="agent-link" href={agent.contact.twitter}>
+                                    <Link underline="none" className="agent-link" href={agent?.contact?.twitter}>
                                         <FaTwitter />
                                     </Link>
-                                    <Link underline="none" className="agent-link" href={agent.contact.linkedin}>
+                                    <Link underline="none" className="agent-link" href={agent?.contact?.linkedin}>
                                         <FaLinkedin />
                                     </Link>
-                                    <Link underline="none" className="agent-link" href={agent.contact.pinterest}>
+                                    <Link underline="none" className="agent-link" href={agent?.contact?.pinterest}>
                                         <FaPinterest />
                                     </Link>
-                                    <Link underline="none" className="agent-link" href={agent.contact.instagram}>
+                                    <Link underline="none" className="agent-link" href={agent?.contact?.instagram}>
                                         <FaInstagram />
                                     </Link>
                                 </div>

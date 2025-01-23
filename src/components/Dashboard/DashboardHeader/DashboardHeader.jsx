@@ -1,8 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Drawer, Stack } from '@mui/material';
-import { FaBars, FaFacebookF, FaFoursquare, FaHeart, FaInstagram, FaLinkedinIn, FaPinterestP, FaRegEnvelope, FaTimes, FaTwitter, FaUserCircle, FaVimeoV, FaWhatsapp, FaYoutube } from "react-icons/fa";
-import logoWhite from '../../../assets/images/logo-40-white.png'
+import { FaBars, FaFacebookF, FaFoursquare, FaHeart, FaInstagram, FaLinkedinIn, FaPinterestP, FaRegEnvelope, FaTimes, FaTwitter, FaVimeoV, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import logo from '../../../assets/images/logo-agent-40.png'
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
