@@ -2,18 +2,11 @@
 import { Box, Card, CardActions, CardContent, CardMedia, Divider, Link, Typography } from '@mui/material';
 import { FaHeart, FaMapMarkerAlt } from 'react-icons/fa';
 import './PropertyCard.css'
+import agentImg from '../../../assets/images/default-user_1.png'
 
 const PropertyCard = ({ property }) => {
 
-    const { _id, photos, title, price, description, bedrooms, bathrooms, property_size, featured, status, address } = property
-
-
-    // TODO: Need to make it dynamic
-    const img = 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80'
-
-
-    // TODO: Need to make it dynamic
-    const agent = 'Jubayer'
+    const { _id, photos, title, price, description, bedrooms, bathrooms, property_size, featured, status, address, agent } = property
 
     const cardStyle = {
         boxShadow: 'rgba(7, 152, 255, 0.09) 0px 3px 5px',
@@ -43,13 +36,12 @@ const PropertyCard = ({ property }) => {
                 />
             </Link>
             <CardContent sx={{ padding: '16px 16px 0' }}>
-                {/* // TODO: Make link dynamic */}
-                <Link href={'#'} display={'flex'} gap={'2px'} alignItems={'center'} gutterBottom underline='none'>
+                <div className='flex items-center gap-1 mb-1'>
                     <FaMapMarkerAlt color='#5C727D' fontSize={13} />
                     <Typography component={'span'} className='flex justify-start items-center gap-1 text-black' variant='body2'>
                         {address.address}, {address.city}
                     </Typography>
-                </Link>
+                </div>
                 <Link href={`/properties/${_id}`} underline='none' color={'black'}>
                     <Typography gutterBottom variant="h5" component="div" fontSize={22} fontWeight={500}>
                         {title}
@@ -75,20 +67,21 @@ const PropertyCard = ({ property }) => {
                 <Divider className='pt-4' />
             </CardContent>
             <CardActions style={{ padding: '0px', display: 'block' }}>
-                {/* TODO: MAKE agent pic dynamic */}
                 <Box component={'div'} padding={2} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                     <Link href={'#'} underline='none'>
                         <Box component={'div'} className='flex justify-start items-center gap-2'>
-                            <img src={img} alt='agent' width={30} height={30} className='rounded-full' />
+                            <img src={agentImg} alt='agent' width={30} height={30} className='rounded-full' />
                             <Typography variant='body2' component={'span'} fontSize={14} color={'black.main'} fontWeight={'medium'}>
                                 {agent}
                             </Typography>
                         </Box>
                     </Link>
 
-                    <button className='rounded-sm text-2xl text-[#0073e1]'>
-                        <FaHeart />
-                    </button>
+                    <Link href={`/properties/${_id}`}>
+                        <button className='bg-[#0073e1] hover:bg-[var(--header-bg)] duration-300 text-xs py-2 px-3 text-white capitalize font-semibold cursor-pointer rounded-full'>
+                            View Details
+                        </button>
+                    </Link>
 
                 </Box>
             </CardActions>
