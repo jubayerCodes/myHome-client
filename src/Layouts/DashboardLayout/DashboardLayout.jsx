@@ -16,6 +16,7 @@ import userImgRound from '../../assets/images/default-user_1.png'
 import { Button } from '@mui/material';
 import { logOut } from '../../Utilities/Redux/features/authSlice/authSlice';
 import { RiFeedbackLine } from 'react-icons/ri';
+import Title from '../../components/Title/Title';
 
 const drawerWidth = 260
 
@@ -44,6 +45,7 @@ const DashboardLayout = () => {
 
     const drawer = (
         <div>
+            <Title page={'Dashboard'} />
             <Box component={'div'} sx={{ marginTop: '150px' }} display={'flex'} flexDirection={'column'} alignItems={'center'}>
                 {
                     user?.photoURL ?

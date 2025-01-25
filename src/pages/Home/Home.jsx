@@ -1,5 +1,6 @@
 
 
+import { Helmet } from 'react-helmet';
 import Banner from '../../components/Home/Banner/Banner';
 import PropertiesByArea from '../../components/Home/PropertiesByArea/PropertiesByArea';
 import Agents from '../../components/shared/Agents/Agents';
@@ -16,6 +17,9 @@ const Home = () => {
 
     return (
         <>
+            <Helmet>
+                <title>My Home - Find Your Dream Home</title>
+            </Helmet>
             <Banner
                 title={"Where Dreams Find Home"}
                 desc={"Find your dream home today with expert guidance, unbeatable deals, and personalized real estate solutions."}

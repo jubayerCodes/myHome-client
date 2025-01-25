@@ -7,6 +7,7 @@ import { loginWithEmailAndPassword, registerWithEmailAndPassword } from '../../U
 import { Divider } from '@mui/material';
 import SocialLogin from '../../components/shared/SocialLogin/SocialLogin';
 import './Login.css'
+import Title from '../../components/Title/Title';
 
 const Login = () => {
 
@@ -57,6 +58,7 @@ const Login = () => {
 
     return (
         <section className={`bg-cover bg-center`} style={{ backgroundImage: `url(${loginBg})` }}>
+            <Title page={"Login"} />
             <div className="bg-[#00000098] section px-5">
                 <div className='login-form bg-white mx-auto min-w-[200px] max-w-[600px] rounded-md py-10 xl:py-16'>
                     <h4 className={`text-2xl text-center ${isRegister ? 'hidden' : ''}`}>Sign into your account</h4>

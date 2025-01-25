@@ -1,7 +1,9 @@
 import React from 'react';
 import FeaturedProperty from '../../components/shared/FeaturedProperty/FeaturedProperty';
 import PropertiesList from '../../components/Properties/PropertiesList/PropertiesList';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import Title from '../../components/Title/Title';
 
 const Properties = () => {
 
@@ -12,6 +14,7 @@ const Properties = () => {
 
     return (
         <>
+            <Title page={'Properties'} />
             <FeaturedProperty />
             <PropertiesList city={city} category={category} />
         </>
