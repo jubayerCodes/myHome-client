@@ -9,7 +9,6 @@ import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import UserProfile from "../components/Dashboard/User/UserProfile/UserProfile";
 import Overview from "../components/Dashboard/shared/Overview/Overview";
 import UserInvoices from "../components/Dashboard/User/UserInvoices/UserInvoices";
-import Inbox from "../components/Dashboard/shared/Inbox/Inbox";
 import DashboardFavorites from "../components/Dashboard/shared/DashboardFavorites/DashboardFavorites";
 import UserRoute from "./UserRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -25,6 +24,7 @@ import ManageProperties from "../components/Dashboard/Admin/ManageProperties/Man
 import AdminProfile from "../components/Dashboard/Admin/AdminProfile/AdminProfile";
 import ManageUsers from "../components/Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageReviews from "../components/Dashboard/Admin/ManageReviews/ManageReviews";
+import Contact from "../pages/Contact/Contact";
 
 const Router = createBrowserRouter([
   {
@@ -38,6 +38,10 @@ const Router = createBrowserRouter([
       {
         path: '/properties',
         element: <Properties />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
       },
       {
         path: '/login',
