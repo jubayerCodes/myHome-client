@@ -151,27 +151,53 @@ const Header = () => {
                                     {menu}
                                 </ul>
                             </div>
-                            <div className='col-span-3 flex justify-end items-center gap-0'>
+                            <div className='col-span-3 hidden xl:flex justify-end items-center gap-0'>
 
-                                <Stack spacing={2} direction="row" alignItems='center'>
+                                <div className='flex gap-2 items-center'>
                                     {
                                         user ?
                                             user?.photoURL ?
                                                 <>
-                                                    <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
-                                                    <button className='header-btn hidden xl:block'>Add Property</button>
+                                                    <Link to='/dashboard'>
+                                                        <img src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                                    </Link>
                                                 </>
                                                 :
                                                 <>
-                                                    <img onClick={() => dispatch(logOut())} src={userImgRound} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
-                                                    <button className='header-btn hidden xl:block'>Add Property</button>
+                                                    <Link to={'/dashboard'}>
+                                                        <img src={userImgRound} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                                    </Link>
                                                 </>
                                             :
                                             <Link to={'/login'}>
                                                 <button className='header-btn hidden xl:block'>Get Started</button>
                                             </Link>
                                     }
-                                </Stack>
+                                </div>
+                            </div>
+                            <div className='col-span-3 flex xl:hidden justify-end items-center gap-0'>
+
+                                <div className='flex gap-2 items-center'>
+                                    {
+                                        user ?
+                                            user?.photoURL ?
+                                                <>
+                                                    <Link to='/dashboard'>
+                                                        <img src={user.photoURL} alt='profile pic' className={`rounded-full cursor-pointer w-[40px] h-[40px]`} />
+                                                    </Link>
+                                                </>
+                                                :
+                                                <>
+                                                    <Link to={'/dashboard'}>
+                                                        <img src={userImgRound} alt='profile pic' className={`rounded-full cursor-pointer w-[40px] h-[40px]`} />
+                                                    </Link>
+                                                </>
+                                            :
+                                            <Link to={'/login'}>
+                                                <img src={userImgRound} alt='profile pic' className={`rounded-full cursor-pointer w-[40px] h-[40px]`} />
+                                            </Link>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>

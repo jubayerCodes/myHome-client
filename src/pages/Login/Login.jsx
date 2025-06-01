@@ -111,6 +111,32 @@ const Login = () => {
                             <button onClick={() => setIsRegister(false)} className={`cursor-pointer transition hover:text-[var(--btn-bg)] ${isRegister ? '' : 'hidden'}`}>Back to login</button>
                             <button className={`${isRegister ? 'hidden' : ''} cursor-pointer transition hover:text-[var(--btn-bg)]`}>Forgot Password?</button>
                         </div>
+                        <div className='p-5 mt-10 border rounded-md'>
+                            <h4 className='pb-1'>Credentials</h4>
+                            <hr />
+                            <div className='py-4 border-b'>
+                                <span>
+                                    Admin:
+                                </span>
+                                <br />
+                                <p className='ms-5'>
+                                    email: admin@gmail.com
+                                     <br />
+                                    password: Admin#1112
+                                </p>
+                            </div>
+                            <div className='pt-4'>
+                                <span>
+                                    Agent:
+                                </span>
+                                <br />
+                                <p className='ms-5'>
+                                    email: agent@gmail.com
+                                     <br />
+                                    password: Agent#1112
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

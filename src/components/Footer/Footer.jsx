@@ -44,18 +44,6 @@ const Footer = () => {
                                 <Link href={'/'}>
                                     <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaFacebookF /></button>
                                 </Link>
-                                <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaLinkedinIn /></button>
-                                </Link>
-                                <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaTwitter /></button>
-                                </Link>
-                                <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaGoogle /></button>
-                                </Link>
-                                <Link href={'/'}>
-                                    <button className='text-white bg-[#002547] p-2 xl:p-3 rounded-sm hover:bg-[#0073e1] duration-200'><FaFacebookF /></button>
-                                </Link>
                             </div>
                         </div>
                     </div>

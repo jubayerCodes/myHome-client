@@ -139,11 +139,10 @@ const DashboardHeader = () => {
                                 <Stack spacing={2} direction="row" alignItems='center'>
                                     {
                                         user?.photoURL ?
-                                            <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                            <img onClick={() => dispatch(logOut())} src={user.photoURL} alt='profile pic' className={`rounded-full cursor-pointer w-[40px] h-[40px]`} />
                                             :
-                                            <img onClick={() => dispatch(logOut())} src={userImgRound} alt='profile pic' className={`rounded-full hidden xl:block cursor-pointer w-[40px] h-[40px]`} />
+                                            <img onClick={() => dispatch(logOut())} src={userImgRound} alt='profile pic' className={`rounded-full cursor-pointer w-[40px] h-[40px]`} />
                                     }
-                                    <FaBars />
                                 </Stack>
                             </div>
                         </div>
