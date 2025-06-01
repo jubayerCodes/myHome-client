@@ -23,13 +23,13 @@ const Home = () => {
                 title={"Where Dreams Find Home"}
                 desc={"Find your dream home today with expert guidance, unbeatable deals, and personalized real estate solutions."}
             />
-            <PropertiesByArea />
-            <WhyChooseUs />
             <LatestProperties />
-            <PropertiesByCategories secondaryBg={true} />
             <FeaturedProperty />
+            <PropertiesByArea />
+            <PropertiesByCategories secondaryBg={true} />
             <Agents />
-            <Testimonials secondaryBg={true} />
+            <WhyChooseUs />
+            <Testimonials />
             <ContactSection />
         </>
     );
