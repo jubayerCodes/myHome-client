@@ -7,7 +7,6 @@ import Agents from '../../components/shared/Agents/Agents';
 import ContactSection from '../../components/shared/ContactSection/ContactSection';
 import FeaturedProperty from '../../components/shared/FeaturedProperty/FeaturedProperty';
 import LatestProperties from '../../components/shared/LatestProperties/Latestproperties';
-import LatestPropertiesForRent from '../../components/shared/LatestPropertiesForRent/LatestPropertiesForRent';
 import PropertiesByCategories from '../../components/shared/PropertiesByCategories/PropertiesByCategories';
 import Testimonials from '../../components/shared/Testimonials/Testimonials';
 import WhyChooseUs from '../../components/shared/WhyChooseUs/WhyChooseUs';
